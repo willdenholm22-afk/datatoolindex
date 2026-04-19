@@ -38,12 +38,16 @@ try {
     }
     content = inner.replace(/^---[\s\S]*?---\n/, '');
   } else {
+    // Plain MDX: single frontmatter block, content follows directly
     const lines = raw.split('\n');
-    let fmCount = 0, inFm = false;
+    let inFm = false, pastFm = false;
     const out = [];
     for (const line of lines) {
-      if (line.trim() === '---') { inFm = !inFm; if (!inFm) fmCount++; continue; }
-      if (!inFm && fmCount >= 2 && !line.startsWith('```')) out.push(line);
+      if (line.trim() === '---') {
+        if (!inFm && !pastFm) { inFm = true; continue; }
+        if (inFm) { inFm = false; pastFm = true; continue; }
+      }
+      if (pastFm && !line.startsWith('```')) out.push(line);
     }
     content = out.join('\n');
   }
