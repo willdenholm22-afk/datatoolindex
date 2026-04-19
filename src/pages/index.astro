@@ -1,38 +1,38 @@
 ---
 const tools = [
-  { slug: "fivetran", name: "Fivetran", category: "ETL", tagline: "Managed connectors, zero-maintenance" },
-  { slug: "airbyte", name: "Airbyte", category: "ETL", tagline: "Open-source ETL, self-hosted or cloud" },
-  { slug: "hevo", name: "Hevo Data", category: "ETL", tagline: "No-code ETL for mid-market teams" },
-  { slug: "stitch", name: "Stitch", category: "ETL", tagline: "Lightweight ETL, Talend/Qlik owned" },
-  { slug: "meltano", name: "Meltano", category: "ETL", tagline: "Open-source, Singer-based, engineering-first" },
+  { slug: "fivetran", name: "Fivetran", category: "ETL / ELT", tagline: "Managed connectors, zero-maintenance" },
+  { slug: "airbyte", name: "Airbyte", category: "ETL / ELT", tagline: "Open-source ETL, self-hosted or cloud" },
+  { slug: "hevo", name: "Hevo Data", category: "ETL / ELT", tagline: "No-code ETL for mid-market" },
+  { slug: "stitch", name: "Stitch", category: "ETL / ELT", tagline: "Lightweight ETL, Talend/Qlik owned" },
+  { slug: "meltano", name: "Meltano", category: "ETL / ELT", tagline: "Open-source Singer-based, engineering-first" },
   { slug: "hightouch", name: "Hightouch", category: "Reverse ETL", tagline: "Sync warehouse data to CRMs and tools" },
   { slug: "census", name: "Census", category: "Reverse ETL", tagline: "Reverse ETL alternative to Hightouch" },
   { slug: "rudderstack", name: "RudderStack", category: "CDP", tagline: "Open-source customer data platform" },
   { slug: "segment", name: "Segment", category: "CDP", tagline: "Event tracking and customer data routing" },
   { slug: "dbt", name: "dbt", category: "Transformation", tagline: "SQL transformation layer, Core vs. Cloud" },
   { slug: "coalesce", name: "Coalesce", category: "Transformation", tagline: "Visual dbt alternative for Snowflake" },
-  { slug: "tableau", name: "Tableau", category: "BI", tagline: "$75/Creator/mo — visualization leader" },
-  { slug: "looker", name: "Looker", category: "BI", tagline: "Warehouse-native BI, LookML semantic layer" },
-  { slug: "hex", name: "Hex", category: "BI", tagline: "Collaborative notebook BI for data teams" },
-  { slug: "mode", name: "Mode", category: "BI", tagline: "SQL-first analytics for analysts" },
-  { slug: "sigma", name: "Sigma", category: "BI", tagline: "Spreadsheet UX on the cloud warehouse" },
-  { slug: "power-bi", name: "Power BI", category: "BI", tagline: "$14/user/mo — best for Excel/M-language teams" },
-  { slug: "snowflake", name: "Snowflake", category: "Warehouse", tagline: "Cloud data warehouse, compute pricing" },
-  { slug: "databricks", name: "Databricks", category: "Warehouse", tagline: "Lakehouse platform, DBU-based pricing" },
-  { slug: "bigquery", name: "BigQuery", category: "Warehouse", tagline: "Google serverless warehouse, on-demand pricing" },
+  { slug: "tableau", name: "Tableau", category: "Business Intelligence", tagline: "$75/Creator/mo — visualization leader" },
+  { slug: "looker", name: "Looker", category: "Business Intelligence", tagline: "Warehouse-native BI, LookML semantic layer" },
+  { slug: "hex", name: "Hex", category: "Business Intelligence", tagline: "Collaborative notebook BI for data teams" },
+  { slug: "mode", name: "Mode", category: "Business Intelligence", tagline: "SQL-first analytics for analysts" },
+  { slug: "sigma", name: "Sigma", category: "Business Intelligence", tagline: "Spreadsheet UX on the cloud warehouse" },
+  { slug: "power-bi", name: "Power BI", category: "Business Intelligence", tagline: "$14/user/mo — best for Excel/M-language teams" },
+  { slug: "snowflake", name: "Snowflake", category: "Data Warehouse", tagline: "Cloud data warehouse, compute pricing" },
+  { slug: "databricks", name: "Databricks", category: "Data Warehouse", tagline: "Lakehouse platform, DBU-based pricing" },
+  { slug: "bigquery", name: "BigQuery", category: "Data Warehouse", tagline: "Google serverless warehouse, on-demand pricing" },
   { slug: "airflow", name: "Apache Airflow", category: "Orchestration", tagline: "Open-source orchestration, MWAA/Astronomer" },
   { slug: "prefect", name: "Prefect", category: "Orchestration", tagline: "Modern Python-native workflow orchestration" },
-  { slug: "dagster", name: "Dagster", category: "Orchestration", tagline: "Asset-oriented orchestration, software-defined assets" },
+  { slug: "dagster", name: "Dagster", category: "Orchestration", tagline: "Asset-oriented, software-defined assets" },
   { slug: "alteryx", name: "Alteryx", category: "Data Prep", tagline: "No-code data prep, Designer Cloud pricing" },
-  { slug: "pricefx", name: "Pricefx", category: "Pricing", tagline: "B2B pricing software, variance analysis, ERP connectors" },
-  { slug: "pros", name: "PROS", category: "Pricing", tagline: "AI price optimization for enterprise manufacturers" },
-  { slug: "vendavo", name: "Vendavo", category: "Pricing", tagline: "Deal approval workflow and margin analytics" },
-  { slug: "zilliant", name: "Zilliant", category: "Pricing", tagline: "Pricing for high-SKU industrial distributors" },
+  { slug: "pricefx", name: "Pricefx", category: "Pricing Software", tagline: "B2B pricing variance analysis, ERP connectors" },
+  { slug: "pros", name: "PROS", category: "Pricing Software", tagline: "AI price optimization for enterprise" },
+  { slug: "vendavo", name: "Vendavo", category: "Pricing Software", tagline: "Deal approval workflow and margin analytics" },
+  { slug: "zilliant", name: "Zilliant", category: "Pricing Software", tagline: "High-SKU industrial distributor pricing" },
   { slug: "salesforce-cpq", name: "Salesforce CPQ", category: "CPQ", tagline: "Configure-price-quote for Salesforce orgs" },
-  { slug: "clickup", name: "ClickUp", category: "Project Mgmt", tagline: "Work OS with generous free tier" },
-  { slug: "monday", name: "Monday.com", category: "Project Mgmt", tagline: "Work management for B2B teams" },
+  { slug: "clickup", name: "ClickUp", category: "Productivity", tagline: "Work OS with generous free tier" },
+  { slug: "monday", name: "Monday.com", category: "Productivity", tagline: "Work management for B2B teams" },
   { slug: "pipedrive", name: "Pipedrive", category: "CRM", tagline: "Pipeline-focused CRM for sales teams" },
-  { slug: "webflow", name: "Webflow", category: "Web", tagline: "No-code website builder for marketing teams" },
+  { slug: "webflow", name: "Webflow", category: "Web", tagline: "No-code website builder for marketing" },
 ];
 
 const useCases = [
@@ -62,29 +62,222 @@ const categories = [...new Set(tools.map(t => t.category))];
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DataToolIndex — Expert B2B Data Tool Comparisons</title>
-  <meta name="description" content="Practitioner-grade reviews of ETL, BI, pricing, and warehouse tools. Written by a B2B analyst who uses these in production. Verified pricing, honest verdicts." />
+  <meta name="description" content="Practitioner-grade reviews of ETL, BI, pricing software, and data warehouses. Written by a B2B industrial pricing analyst who uses these tools in production. Verified pricing, honest verdicts." />
+  <link rel="canonical" href="https://datatoolindex.com/" />
   <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="DataToolIndex — Expert B2B Data Tool Comparisons" />
+  <meta property="og:description" content="Practitioner-grade reviews of ETL, BI, pricing software, and data warehouses. Written by a B2B analyst who uses these in production." />
+  <meta property="og:url" content="https://datatoolindex.com/" />
+  <meta property="og:site_name" content="DataToolIndex" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="DataToolIndex — Expert B2B Data Tool Comparisons" />
+  <meta name="twitter:description" content="Practitioner-grade reviews of ETL, BI, pricing software, and data warehouses." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, sans-serif; max-width: 960px; margin: 0 auto; padding: 24px 20px; line-height: 1.6; color: #1a1a1a; }
-    header { border-bottom: 2px solid #111; padding-bottom: 20px; margin-bottom: 40px; }
-    header h1 { margin: 0 0 8px; font-size: 28px; letter-spacing: -0.5px; }
-    header p { margin: 0; color: #555; font-size: 15px; }
-    h2 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #888; border-bottom: 1px solid #eee; padding-bottom: 6px; margin: 36px 0 14px; }
-    .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
-    .tool-card { border: 1px solid #e5e5e5; border-radius: 6px; padding: 12px 14px; text-decoration: none; color: inherit; display: block; transition: border-color 0.15s; }
-    .tool-card:hover { border-color: #111; }
-    .tool-card .name { font-weight: 600; font-size: 15px; }
-    .tool-card .cat { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #888; margin-bottom: 2px; }
-    .tool-card .tagline { font-size: 13px; color: #555; margin-top: 3px; }
-    .use-case-list { list-style: none; padding: 0; margin: 0; }
-    .use-case-list li { border-bottom: 1px solid #f0f0f0; }
-    .use-case-list li:last-child { border-bottom: none; }
-    .use-case-list a { display: block; padding: 10px 0; text-decoration: none; color: #0066cc; font-size: 15px; }
-    .use-case-list a:hover { color: #004499; }
-    footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid #eee; font-size: 13px; color: #888; }
-    footer a { color: #888; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAFAF9;
+      --bg-alt: #F3F1ED;
+      --border: #E0DBD3;
+      --text: #1A1917;
+      --text-2: #6B6760;
+      --text-3: #9C9790;
+      --green: #1B5E3B;
+      --green-bg: #EEF7F2;
+      --green-border: #86C9A4;
+      --mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    }
+
+    html { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* ── Site header ── */
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .site-logo { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-decoration: none; color: var(--text); }
+    .site-logo span { color: var(--green); }
+    .site-nav { display: flex; gap: 20px; }
+    .site-nav a { font-size: 13px; color: var(--text-2); text-decoration: none; }
+    .site-nav a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 56px 24px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-2);
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-3);
+    }
+    .hero-stat strong { color: var(--text); font-weight: 500; }
+
+    /* ── Main layout ── */
+    .main { max-width: 960px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ── Section headers ── */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin: 48px 0 16px;
+    }
+    .section-title {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .section-divider { flex: 1; height: 1px; background: var(--border); }
+
+    /* ── Use case list ── */
+    .use-case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .use-case-item {
+      background: var(--bg);
+      padding: 0;
+    }
+    .use-case-item a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 16px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.4;
+      transition: background 0.1s;
+    }
+    .use-case-item a:hover { background: var(--green-bg); color: var(--green); }
+    .use-case-item a::after {
+      content: '→';
+      color: var(--text-3);
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-left: 12px;
+      transition: color 0.1s;
+    }
+    .use-case-item a:hover::after { color: var(--green); }
+
+    /* ── Tool grid ── */
+    .tool-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 8px;
+    }
+    .tool-card {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      background: var(--bg);
+    }
+    .tool-card:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px var(--green-bg);
+    }
+    .tool-cat {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .tool-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .tool-tagline {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.4;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      padding: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .footer-inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
+    .footer-about { font-size: 13px; color: var(--text-2); max-width: 440px; line-height: 1.6; }
+    .footer-about strong { color: var(--text); }
+    .footer-links { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+    .footer-links a { color: var(--text-2); text-decoration: none; }
+    .footer-links a:hover { color: var(--green); }
+    .footer-disclosure { margin-top: 20px; font-size: 12px; color: var(--text-3); }
+
+    @media (max-width: 640px) {
+      .hero { padding: 36px 20px 36px; }
+      .hero h1 { font-size: 1.75rem; }
+      .main { padding: 0 20px 60px; }
+      .site-nav { display: none; }
+      .footer-inner { flex-direction: column; }
+    }
   </style>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -101,38 +294,70 @@ const categories = [...new Set(tools.map(t => t.category))];
   </script>
 </head>
 <body>
-  <header>
-    <h1>DataToolIndex</h1>
-    <p>Practitioner reviews of B2B data tools — ETL, BI, pricing software, warehouses, and orchestration. Written by Will Denholm, pricing analyst. Pricing verified against vendor sources.</p>
+  <header class="site-header">
+    <a href="/" class="site-logo">Data<span>Tool</span>Index</a>
+    <nav class="site-nav">
+      <a href="/methodology/">Methodology</a>
+      <a href="/llms.txt">llms.txt</a>
+    </nav>
   </header>
 
-  <section>
-    <h2>Use-Case Comparisons</h2>
-    <ul class="use-case-list">
+  <div class="hero">
+    <div class="hero-eyebrow">B2B Data Tool Reviews</div>
+    <h1>The analyst's guide to B2B data tools</h1>
+    <p class="hero-sub">Practitioner reviews of ETL, BI, pricing software, and warehouses — written by a pricing analyst who uses these in production. Verified pricing. Honest verdicts. No sponsored placements.</p>
+    <div class="hero-meta">
+      <span class="hero-stat"><strong>33</strong> tool reviews</span>
+      <span class="hero-stat"><strong>15</strong> use-case comparisons</span>
+      <span class="hero-stat"><strong>7+</strong> yrs production experience</span>
+      <span class="hero-stat">Updated <strong>Apr 2026</strong></span>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="section-header">
+      <span class="section-title">Use-Case Comparisons</span>
+      <div class="section-divider"></div>
+    </div>
+    <div class="use-case-grid">
       {useCases.map(uc => (
-        <li><a href={`/use-cases/${uc.slug}/`}>{uc.title}</a></li>
+        <div class="use-case-item">
+          <a href={`/use-cases/${uc.slug}/`}>{uc.title}</a>
+        </div>
       ))}
-    </ul>
-  </section>
+    </div>
 
-  {categories.map(cat => (
-    <section>
-      <h2>{cat}</h2>
-      <div class="tool-grid">
-        {tools.filter(t => t.category === cat).map(tool => (
-          <a href={`/tools/${tool.slug}/`} class="tool-card">
-            <div class="cat">{tool.category}</div>
-            <div class="name">{tool.name}</div>
-            <div class="tagline">{tool.tagline}</div>
-          </a>
-        ))}
+    {categories.map(cat => (
+      <div>
+        <div class="section-header">
+          <span class="section-title">{cat}</span>
+          <div class="section-divider"></div>
+        </div>
+        <div class="tool-grid">
+          {tools.filter(t => t.category === cat).map(tool => (
+            <a href={`/tools/${tool.slug}/`} class="tool-card">
+              <div class="tool-cat">{tool.category}</div>
+              <div class="tool-name">{tool.name}</div>
+              <div class="tool-tagline">{tool.tagline}</div>
+            </a>
+          ))}
+        </div>
       </div>
-    </section>
-  ))}
+    ))}
+  </main>
 
-  <footer>
-    <p><a href="/methodology/">How we review</a> · Will Denholm, B2B pricing analyst · <a href="/llms.txt">llms.txt</a></p>
-    <p>Some links on this site are affiliate links. We may earn a commission at no cost to you. This does not influence our ratings.</p>
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-about">
+        <strong>Will Denholm</strong> — B2B industrial pricing analyst, 7+ years. Built pricing variance models (LogMid vs. ArthAvg, DVP% tracking) and evaluated Pricefx, PROS, Vendavo, Alteryx, Power BI, and Sigma in production. This is not a vendor directory — it's a practitioner's resource.
+      </div>
+      <div class="footer-links">
+        <a href="/methodology/">Methodology</a>
+        <a href="/llms.txt">llms.txt</a>
+        <a href="/sitemap-0.xml">Sitemap</a>
+      </div>
+    </div>
+    <p class="footer-disclosure">Some links on this site are affiliate links. We may earn a commission at no cost to you. Placement is not for sale.</p>
   </footer>
 </body>
 </html>

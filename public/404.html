@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Page Not Found | DataToolIndex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #FAFAF9; --border: #E0DBD3; --text: #1A1917;
+      --text-2: #6B6760; --text-3: #9C9790; --green: #1B5E3B;
+      --green-bg: #EEF7F2; --green-border: #86C9A4;
+      --mono: 'IBM Plex Mono', 'Courier New', monospace;
+      --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    }
+    html { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .site-header { border-bottom: 1px solid var(--border); padding: 14px 20px; }
+    .site-logo { font-family: var(--mono); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; text-decoration: none; color: var(--text); }
+    .site-logo span { color: var(--green); }
+    .page { max-width: 600px; margin: 80px auto; padding: 0 20px; text-align: center; }
+    .code { font-family: var(--mono); font-size: 72px; font-weight: 500; color: var(--border); letter-spacing: -4px; margin-bottom: 16px; }
+    h1 { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+    p { color: var(--text-2); margin-bottom: 28px; line-height: 1.7; }
+    .back-home {
+      display: inline-block;
+      background: var(--green);
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 40px;
+    }
+    .back-home:hover { background: #145030; }
+    .tool-note { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: 6px; padding: 16px 20px; text-align: left; font-size: 14px; color: var(--text-2); }
+    .tool-note strong { color: var(--text); display: block; margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a href="/" class="site-logo">Data<span>Tool</span>Index</a>
+  </header>
+  <div class="page">
+    <div class="code">404</div>
+    <h1>This tool page doesn't exist yet</h1>
+    <p>DataToolIndex covers 33 tools in depth. If you followed a link to a tool we haven't reviewed yet, it's on the list — we just haven't published it.</p>
+    <a href="/" class="back-home">← See all tools</a>
+    <div class="tool-note">
+      <strong>Looking for a specific tool?</strong>
+      We cover Fivetran, Airbyte, Power BI, Snowflake, dbt, Pricefx, PROS, Vendavo, Tableau, Looker, Sigma, Dagster, Prefect, and 20+ more. Start from the <a href="/" style="color: var(--green);">homepage</a> to find the closest match.
+    </div>
+  </div>
+</body>
+</html>
