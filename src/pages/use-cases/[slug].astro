@@ -1,0 +1,45 @@
+---
+import fs from 'fs';
+import path from 'path';
+
+export async function getStaticPaths() {
+  const toolsDir = new URL('../../../src/content/tools/', import.meta.url);
+  const files = fs.readdirSync(toolsDir).filter(f => f.endsWith('.mdx'));
+  
+  return files.map(file => ({
+    params: { slug: file.replace('.mdx', '') },
+    props: { file }
+  }));
+}
+
+const { slug } = Astro.params;
+const { file } = Astro.props;
+
+let content = '';
+try {
+  const filePath = path.join(process.cwd(), `src/content/tools/${file}`);
+  content = fs.readFileSync(filePath, 'utf-8');
+} catch (e) {
+  content = `# Tool not found: ${slug}`;
+}
+
+const title = content.split('\n')[0].replace('# ', '').trim() || slug;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>{title} | DataToolIndex</title>
+</head>
+<body style="font-family: system-ui; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6;">
+  <header style="margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 20px;">
+    <h1 style="margin: 0;"><a href="/" style="text-decoration: none; color: #000;">DataToolIndex</a></h1>
+  </header>
+  <main>
+    <h1>{title}</h1>
+    <p>Tool page</p>
+  </main>
+</body>
+</html>
