@@ -1,6 +1,8 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  integrations: [],
+  site: 'https://datatoolindex.com',
+  integrations: [sitemap()],
   output: 'static',
 });
