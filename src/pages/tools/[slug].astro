@@ -3,6 +3,137 @@ import fs from 'fs';
 import path from 'path';
 import { marked } from 'marked';
 
+// Tool → related use-case comparisons
+const relatedGuides: Record<string, {slug: string; title: string}[]> = {
+  fivetran: [
+    { slug: 'fivetran-vs-airbyte-for-growing-team', title: 'Fivetran vs Airbyte for Growing Teams' },
+    { slug: 'best-etl-for-snowflake-startup', title: 'Best ETL for Snowflake Startups' },
+    { slug: 'best-etl-under-500-per-month', title: 'Best ETL Under $500/Month' },
+  ],
+  airbyte: [
+    { slug: 'fivetran-vs-airbyte-for-growing-team', title: 'Fivetran vs Airbyte for Growing Teams' },
+    { slug: 'best-etl-for-snowflake-startup', title: 'Best ETL for Snowflake Startups' },
+    { slug: 'best-etl-under-500-per-month', title: 'Best ETL Under $500/Month' },
+  ],
+  hevo: [
+    { slug: 'best-etl-under-500-per-month', title: 'Best ETL Under $500/Month' },
+    { slug: 'best-etl-for-snowflake-startup', title: 'Best ETL for Snowflake Startups' },
+  ],
+  stitch: [
+    { slug: 'best-etl-under-500-per-month', title: 'Best ETL Under $500/Month' },
+    { slug: 'fivetran-vs-airbyte-for-growing-team', title: 'Fivetran vs Airbyte for Growing Teams' },
+  ],
+  meltano: [
+    { slug: 'best-etl-for-snowflake-startup', title: 'Best ETL for Snowflake Startups' },
+    { slug: 'best-etl-under-500-per-month', title: 'Best ETL Under $500/Month' },
+  ],
+  hightouch: [
+    { slug: 'best-reverse-etl-for-hubspot-sync', title: 'Best Reverse ETL for HubSpot Sync' },
+  ],
+  census: [
+    { slug: 'best-reverse-etl-for-hubspot-sync', title: 'Best Reverse ETL for HubSpot Sync' },
+  ],
+  dbt: [
+    { slug: 'best-bi-for-dbt-users', title: 'Best BI Tool for dbt Users' },
+    { slug: 'best-etl-for-snowflake-startup', title: 'Best ETL for Snowflake Startups' },
+  ],
+  coalesce: [
+    { slug: 'best-bi-for-dbt-users', title: 'Best BI Tool for dbt Users' },
+  ],
+  pricefx: [
+    { slug: 'best-pricing-analytics-software-b2b-industrial', title: 'Best Pricing Analytics Software for B2B Industrial Manufacturers' },
+    { slug: 'best-tool-for-sales-quote-analysis', title: 'Best Tool for Sales Quote Analysis' },
+    { slug: 'best-cpq-for-b2b-industrial-distributor', title: 'Best CPQ for B2B Industrial Distributors' },
+  ],
+  pros: [
+    { slug: 'best-pricing-analytics-software-b2b-industrial', title: 'Best Pricing Analytics Software for B2B Industrial Manufacturers' },
+    { slug: 'best-tool-for-sales-quote-analysis', title: 'Best Tool for Sales Quote Analysis' },
+  ],
+  vendavo: [
+    { slug: 'best-pricing-analytics-software-b2b-industrial', title: 'Best Pricing Analytics Software for B2B Industrial Manufacturers' },
+    { slug: 'best-cpq-for-b2b-industrial-distributor', title: 'Best CPQ for B2B Industrial Distributors' },
+    { slug: 'best-tool-for-sales-quote-analysis', title: 'Best Tool for Sales Quote Analysis' },
+  ],
+  zilliant: [
+    { slug: 'best-pricing-analytics-software-b2b-industrial', title: 'Best Pricing Analytics Software for B2B Industrial Manufacturers' },
+    { slug: 'best-cpq-for-b2b-industrial-distributor', title: 'Best CPQ for B2B Industrial Distributors' },
+  ],
+  'salesforce-cpq': [
+    { slug: 'best-cpq-for-b2b-industrial-distributor', title: 'Best CPQ for B2B Industrial Distributors' },
+    { slug: 'best-tool-for-sales-quote-analysis', title: 'Best Tool for Sales Quote Analysis' },
+  ],
+  tableau: [
+    { slug: 'best-bi-tool-for-revops-team', title: 'Best BI Tool for RevOps Teams' },
+    { slug: 'best-bi-for-dbt-users', title: 'Best BI Tool for dbt Users' },
+  ],
+  looker: [
+    { slug: 'best-bi-for-dbt-users', title: 'Best BI Tool for dbt Users' },
+    { slug: 'best-bi-tool-for-revops-team', title: 'Best BI Tool for RevOps Teams' },
+    { slug: 'best-embedded-analytics-for-saas-product', title: 'Best Embedded Analytics for SaaS Products' },
+  ],
+  sigma: [
+    { slug: 'best-bi-tool-for-revops-team', title: 'Best BI Tool for RevOps Teams' },
+    { slug: 'best-power-query-alternative-for-cloud', title: 'Best Power Query Alternative for Cloud' },
+    { slug: 'best-data-prep-tool-for-excel-users', title: 'Best Data Prep Tool for Excel Users' },
+    { slug: 'best-embedded-analytics-for-saas-product', title: 'Best Embedded Analytics for SaaS Products' },
+  ],
+  'power-bi': [
+    { slug: 'best-power-query-alternative-for-cloud', title: 'Best Power Query Alternative for Cloud' },
+    { slug: 'best-data-prep-tool-for-excel-users', title: 'Best Data Prep Tool for Excel Users' },
+    { slug: 'best-bi-tool-for-revops-team', title: 'Best BI Tool for RevOps Teams' },
+  ],
+  hex: [
+    { slug: 'best-bi-for-dbt-users', title: 'Best BI Tool for dbt Users' },
+    { slug: 'best-bi-tool-for-revops-team', title: 'Best BI Tool for RevOps Teams' },
+  ],
+  mode: [
+    { slug: 'best-bi-for-dbt-users', title: 'Best BI Tool for dbt Users' },
+    { slug: 'best-bi-tool-for-revops-team', title: 'Best BI Tool for RevOps Teams' },
+  ],
+  alteryx: [
+    { slug: 'best-data-prep-tool-for-excel-users', title: 'Best Data Prep Tool for Excel Users' },
+    { slug: 'best-power-query-alternative-for-cloud', title: 'Best Power Query Alternative for Cloud' },
+  ],
+  snowflake: [
+    { slug: 'cheapest-snowflake-alternative-for-startups', title: 'Cheapest Snowflake Alternative for Startups' },
+    { slug: 'best-etl-for-snowflake-startup', title: 'Best ETL for Snowflake Startups' },
+    { slug: 'best-bi-for-dbt-users', title: 'Best BI Tool for dbt Users' },
+  ],
+  bigquery: [
+    { slug: 'cheapest-snowflake-alternative-for-startups', title: 'Cheapest Snowflake Alternative for Startups' },
+    { slug: 'best-etl-for-snowflake-startup', title: 'Best ETL for Snowflake Startups' },
+  ],
+  databricks: [
+    { slug: 'cheapest-snowflake-alternative-for-startups', title: 'Cheapest Snowflake Alternative for Startups' },
+  ],
+  airflow: [
+    { slug: 'best-orchestrator-for-small-data-team', title: 'Best Orchestrator for Small Data Teams' },
+  ],
+  prefect: [
+    { slug: 'best-orchestrator-for-small-data-team', title: 'Best Orchestrator for Small Data Teams' },
+  ],
+  dagster: [
+    { slug: 'best-orchestrator-for-small-data-team', title: 'Best Orchestrator for Small Data Teams' },
+    { slug: 'best-bi-for-dbt-users', title: 'Best BI Tool for dbt Users' },
+  ],
+  pipedrive: [
+    { slug: 'best-reverse-etl-for-hubspot-sync', title: 'Best Reverse ETL for HubSpot Sync' },
+    { slug: 'best-tool-for-sales-quote-analysis', title: 'Best Tool for Sales Quote Analysis' },
+  ],
+  monday: [
+    { slug: 'best-bi-tool-for-revops-team', title: 'Best BI Tool for RevOps Teams' },
+  ],
+  clickup: [
+    { slug: 'best-orchestrator-for-small-data-team', title: 'Best Orchestrator for Small Data Teams' },
+  ],
+  rudderstack: [
+    { slug: 'best-reverse-etl-for-hubspot-sync', title: 'Best Reverse ETL for HubSpot Sync' },
+  ],
+  segment: [
+    { slug: 'best-reverse-etl-for-hubspot-sync', title: 'Best Reverse ETL for HubSpot Sync' },
+  ],
+};
+
 export async function getStaticPaths() {
   const toolsDir = path.join(process.cwd(), 'src/content/tools');
   const files = fs.readdirSync(toolsDir).filter(f => f.endsWith('.mdx'));
@@ -340,6 +471,35 @@ const verifiedDisplay = lastVerified
     .section-callout--faq { background: var(--bg-alt); border: 1px solid var(--border); }
     .section-callout--faq p:first-child { font-weight: 700; margin-bottom: 6px; }
 
+    /* ── Related guides ── */
+    .related-guides {
+      margin-top: 48px;
+      padding: 20px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .related-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-3);
+      margin-bottom: 12px;
+    }
+    .related-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .related-list a {
+      color: var(--green);
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .related-list a::before { content: '→'; font-size: 12px; }
+    .related-list a:hover { text-decoration: underline; }
+
     /* ── Footer ── */
     .page-footer {
       max-width: var(--max-w);
@@ -418,6 +578,17 @@ const verifiedDisplay = lastVerified
     </header>
 
     <article set:html={html} />
+
+    {relatedGuides[slug] && relatedGuides[slug].length > 0 && (
+      <aside class="related-guides">
+        <div class="related-label">Related comparisons</div>
+        <ul class="related-list">
+          {relatedGuides[slug].map(g => (
+            <li><a href={`/use-cases/${g.slug}/`}>{g.title}</a></li>
+          ))}
+        </ul>
+      </aside>
+    )}
   </div>
 
   <footer class="page-footer">
