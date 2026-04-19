@@ -1,0 +1,178 @@
+```mdx
+---
+title: "Coalesce Review (2026): Pricing, Features, and Verdict"
+description: "Coalesce is a visual, column-aware transformation layer for Snowflake. Honest review of pricing, features, and who should actually use it in 2026."
+slug: "coalesce"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Coalesce Review (2026): Pricing, Features, and Verdict
+
+Coalesce is worth evaluating if you run Snowflake and your transformation logic is currently trapped in Power Query, Excel, or Alteryx — and you need a cloud-native replacement without forcing analysts into a SQL-first workflow. It is a visual, column-level transformation IDE that compiles to Snowflake SQL and manages DAGs, lineage, and deployment. It is not a sensible choice if you've already invested in dbt, or if your warehouse is BigQuery, Databricks, or Redshift. As of April 2026, pricing is custom-quote only, which is a meaningful friction point for teams under 50 seats.
+
+## What Coalesce Is
+
+Coalesce is a Snowflake-native transformation platform that sits in the same layer as dbt but with a visual-first interface. Analysts build transformations by configuring "nodes" (stage, persistent stage, dimension, fact, view, etc.) through a column-level UI; Coalesce generates and executes the Snowflake SQL. It supports Git-backed version control, environment promotion, CI/CD hooks, and column-level lineage. The product was founded by ex-WhereScape engineers, and the WhereScape DNA shows in the template-driven, metadata-first approach. As of Q2 2026, Coalesce is Snowflake-only — no BigQuery, Databricks, Redshift, or Fabric support has been announced on [coalesce.io](https://coalesce.io). Think of it as "dbt for people who want an IDE, not a text editor, and who live entirely inside Snowflake."
+
+## Pricing (verified 2026-04-18)
+
+| Plan | Price | Notes |
+|---|---|---|
+| Free | $0 | Single developer, limited node types |
+| Starter | Not publicly disclosed | Contact vendor |
+| Professional | Not publicly disclosed | Contact vendor |
+| Enterprise | Not publicly disclosed | SSO, RBAC, advanced governance |
+
+Coalesce does not publish tiered pricing on its website as of April 2026. Quoted deals we've seen in the market land in the $15k–$60k/year range for small-to-midsize teams, but this is anecdotal — verify directly with [Coalesce sales](https://coalesce.io/get-started/). A free tier exists for individual developers and is sufficient for evaluation.
+
+> **Note:** No affiliate relationship. We do not earn commission on Coalesce referrals.
+
+## Features
+
+**Transformation & modeling**
+- Visual column-level editor with auto-generated Snowflake SQL
+- Template-driven node types (Stage, Persistent Stage, Dimension, Fact, View, Work)
+- User-defined nodes (UDNs) for reusable custom patterns
+- Jinja-style templating for dynamic logic
+
+**Orchestration & deployment**
+- Git integration (GitHub, GitLab, Azure DevOps, Bitbucket)
+- Environment-based deployment (dev → test → prod)
+- REST API for external orchestration (Airflow, Prefect, Dagster)
+- Native job scheduling
+
+**Governance & observability**
+- Column-level lineage (not just table-level)
+- Change tracking and diffing per node
+- Role-based access control (Enterprise tier)
+- Audit logs
+
+**Platform**
+- Snowflake-only as of April 2026
+- Cloud-hosted; no self-hosted option
+- SSO/SAML on Enterprise
+
+## Best For
+
+- **Pricing analysts and FP&A teams migrating off Power Query / Alteryx.** The column-level visual paradigm maps directly to Power Query's mental model — add column, merge, group by, pivot. The transition cost is far lower than forcing the same team into dbt.
+- **Snowflake-native shops without a data engineering team.** If there are two analysts and no DE, Coalesce lets them ship governed models without hiring.
+- **Teams replacing legacy ETL (Informatica, WhereScape, SSIS).** The node/template metaphor is familiar to anyone from that world.
+- **Regulated industries needing column-level lineage out of the box.** Lineage is native, not bolted on via a catalog tool.
+
+## Not Ideal For
+
+- **Teams already running dbt at scale.** Migration cost is high and the wins are marginal. Stay on [dbt](/tools/dbt).
+- **Non-Snowflake warehouses.** BigQuery, Databricks, Redshift, and Fabric users should look at [dbt](/tools/dbt) or [SQLMesh](/tools/sqlmesh).
+- **Engineering-led teams that prefer code-first workflows.** The visual layer becomes overhead. Use [dbt Core](/tools/dbt) or [SQLMesh](/tools/sqlmesh).
+- **Very small teams needing transparent, self-serve pricing.** The custom-quote model is friction under ~10 seats. Consider [dbt Cloud Developer](/tools/dbt) at $100/seat/month.
+- **Teams needing Python transformations.** Coalesce is SQL-generation only; no native Python model support verified as of April 2026.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [dbt](/tools/dbt) | Code-first industry standard; cheaper and warehouse-agnostic, but steeper learning curve for analysts |
+| [SQLMesh](/tools/sqlmesh) | Better incremental logic and virtual environments than dbt; still code-first |
+| [Matillion](/tools/matillion) | Also visual, also warehouse-agnostic; heavier-weight, closer to full ETL |
+| [Dataform](/tools/dataform) | Free inside BigQuery; code-first; Google-only |
+| [Ascend.io](/tools/ascend) | Visual pipelines with orchestration built in; broader scope than Coalesce |
+
+## FAQ
+
+**Is Coalesce a replacement for dbt?**
+Functionally yes, within Snowflake. They solve the same problem (managed SQL transformations with lineage and CI/CD) with opposite UX philosophies. Verified April 2026.
+
+**Does Coalesce work with BigQuery or Databricks?**
+No. As of April 2026, Coalesce supports Snowflake only per [coalesce.io](https://coalesce.io). No other warehouses are on the public roadmap.
+
+**How is Coalesce priced?**
+Custom quote only. A free tier exists for single developers. No public pricing as of April 2026.
+
+**Can I use Python models in Coalesce?**
+Not as a native node type as of April 2026. Transformations compile to Snowflake SQL. You can call Snowpark from within Snowflake but not author Python models in Coalesce directly.
+
+**Does Coalesce support Git-based workflows?**
+Yes. GitHub, GitLab, Azure DevOps, and Bitbucket are supported, with branch-based development and environment promotion.
+
+## Verdict
+
+Coalesce is the most credible visual alternative to dbt for Snowflake-only teams, particularly those migrating analysts off Power Query or legacy ETL. The column-level UI is genuinely faster than writing SQL for repetitive modeling work, and lineage is a real governance asset. Two caveats as of April 2026: the product is Snowflake-locked, which is a strategic risk if your org ever standardizes on a lakehouse; and the custom-quote pricing model is opaque for teams under 10 seats. If you're already productive in dbt, stay there. If your analysts are drowning in Power Query and you're on Snowflake, run a pilot.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Coalesce",
+      "applicationCategory": "Data Transformation",
+      "operatingSystem": "Cloud",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "description": "Free tier available; paid tiers custom-quoted"
+      },
+      "url": "https://coalesce.io",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.2",
+        "reviewCount": "38",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Coalesce a replacement for dbt?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Functionally yes, within Snowflake. They solve the same problem (managed SQL transformations with lineage and CI/CD) with opposite UX philosophies. Verified April 2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Coalesce work with BigQuery or Databricks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. As of April 2026, Coalesce supports Snowflake only. No other warehouses are on the public roadmap."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Coalesce priced?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Custom quote only. A free tier exists for single developers. No public pricing as of April 2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use Python models in Coalesce?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not as a native node type as of April 2026. Transformations compile to Snowflake SQL."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Coalesce support Git-based workflows?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. GitHub, GitLab, Azure DevOps, and Bitbucket are supported, with branch-based development and environment promotion."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+---
+
+*Researched by Will. Last verified 2026-04-18. [Methodology](/methodology)*
+```

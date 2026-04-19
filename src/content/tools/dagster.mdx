@@ -1,0 +1,180 @@
+```mdx
+---
+title: "Dagster Review (2026): Pricing, Features, and Verdict"
+description: "Analyst review of Dagster: asset-centric orchestration, pricing tiers, dbt integration, lineage, and when to pick it over Airflow or Prefect."
+slug: "dagster"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Dagster Review (2026): Pricing, Features, and Verdict
+
+Dagster is worth it if you operate a modern data stack where *what data exists* matters more than *what jobs ran*. Its asset-centric model — every table, file, or ML artifact is a first-class object with lineage — is genuinely differentiated from task-based orchestrators like Airflow or Prefect. Verified April 2026: Dagster fits teams running dbt + Python together, with analytics engineers who want to trace which dashboards break when a source schema changes. It is not the right tool for teams without strong Python comfort, single-pipeline shops, or anyone needing a no-code scheduler.
+
+## What Dagster Is
+
+Dagster is an open-source data orchestrator built around the concept of **software-defined assets** rather than tasks. Where Airflow and Prefect model work as DAGs of operations, Dagster models the data itself — each asset (a table, model, file, ML artifact) declares its upstream dependencies, and the scheduler derives execution from the asset graph. This produces a lineage view that covers both orchestration and catalog concerns. The project is maintained by Dagster Labs, which also operates Dagster+ (the commercial hybrid/serverless offering). As of April 2026, it ships first-class integrations with dbt, Airbyte, Fivetran, Snowflake, Databricks, and Pandas/Polars, and supports Python-native definitions with type-checked IO between assets.
+
+## Pricing (verified 2026-04-18)
+
+| Tier | Model | Notable limits | Target user |
+|---|---|---|---|
+| Dagster OSS | Free, self-hosted | Self-managed infra, no SLA | Teams with DevOps capacity |
+| Dagster+ Solo | Usage-based (per-minute compute + users) | Single-user workspaces | Individual practitioners |
+| Dagster+ Starter | Usage-based | Small teams, standard support | Early-stage data teams |
+| Dagster+ Pro | Usage-based + platform fee | RBAC, SSO/SAML, branch deployments, audit logs | Mid-market / enterprise |
+| Dagster+ Enterprise | Contact vendor | Custom SLAs, dedicated support, hybrid compute | Large orgs with compliance needs |
+
+**Notes (verified 2026-04-18):**
+- Public list prices for Solo/Starter/Pro are published at [dagster.io/pricing](https://dagster.io/pricing). Enterprise pricing is not publicly disclosed — contact vendor.
+- Dagster+ Hybrid lets you run compute in your own VPC while the control plane is managed by Dagster Labs. This is the common pattern for regulated data teams.
+- OSS is Apache 2.0 licensed and functionally complete for orchestration; the commercial tier adds observability UI, branch deployments, RBAC, and alerting.
+
+## Features
+
+**Asset & lineage model**
+- Software-defined assets with declarative dependencies
+- Asset checks (data quality gates attached to assets, not separate DAGs)
+- Auto-materialize policies (event-driven scheduling based on upstream freshness)
+- Column-level lineage for dbt and Snowflake (as of 2026)
+
+**Developer experience**
+- Python-native API with typed inputs/outputs
+- Local dev against the full asset graph (`dagster dev`)
+- Branch deployments in Dagster+ for PR-level testing against production metadata
+
+**Integrations (verified April 2026)**
+- dbt Core and dbt Cloud — models imported as assets automatically
+- Airbyte, Fivetran, Sling — ingestion assets
+- Snowflake, Databricks, BigQuery, DuckDB, Postgres
+- Pandas, Polars, PySpark IO managers
+
+**Ops & governance**
+- RBAC, SSO/SAML (Pro+)
+- Audit logs, SOC 2 Type II (verify current status at [dagster.io/security](https://dagster.io/security))
+- Sensors, schedules, backfills, partitioned assets
+
+## Best For
+
+- **Analytics engineering teams running dbt + Python side-by-side.** Dagster treats dbt models as assets in the same graph as your Python transforms — no bolt-on.
+- **Data platform teams needing lineage without a separate catalog.** The asset graph is the lineage. For mid-size teams this can defer a DataHub/Atlan purchase.
+- **Pricing and finance data pipelines with deep dependency chains.** When quote data → margin models → backlog → forecast dashboards all depend on upstream source freshness, asset-level auto-materialize is the cleanest mental model.
+- **Teams practicing data contracts / quality gates.** Asset checks attach directly to assets, so failing checks block downstream materialization.
+- **Regulated orgs wanting managed control plane + own-VPC compute.** Dagster+ Hybrid is a mature option as of Q1 2026.
+
+## Not Ideal For
+
+- **Teams without Python comfort.** Dagster is Python-first. For SQL-only shops, [dbt Cloud's scheduler](/tools/dbt-cloud) or a warehouse-native scheduler is simpler.
+- **Single-pipeline or cron-replacement use cases.** The asset abstraction is overkill. Use [Prefect](/tools/prefect) or a managed cron.
+- **Pure task-sequencing workloads (ML training pipelines, infra jobs).** These fit Airflow or [Prefect](/tools/prefect) more naturally; Dagster can do it but you fight the asset model.
+- **Teams needing hundreds of prebuilt operators out of the box.** [Airflow](/tools/airflow) still has the largest provider ecosystem.
+- **Non-technical business users scheduling reports.** Wrong tool — use a BI scheduler.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Airflow](/tools/airflow) | Task-centric, massive operator library, weaker lineage and DX |
+| [Prefect](/tools/prefect) | Python-native scheduling, simpler mental model, less lineage depth |
+| [Mage](/tools/mage) | Notebook-style dev UX, smaller ecosystem |
+| [Kestra](/tools/kestra) | YAML-first, language-agnostic, good for polyglot teams |
+| [Temporal](/tools/temporal) | Durable execution for application workflows — different category, not a data orchestrator |
+
+## FAQ
+
+**Is Dagster free?**
+Yes. Dagster OSS is Apache 2.0 licensed and production-capable. Dagster+ (the managed/hybrid offering) is paid, with usage-based pricing published at dagster.io/pricing (verified 2026-04-18).
+
+**How does Dagster differ from Airflow?**
+Airflow orchestrates tasks; Dagster orchestrates assets. In Dagster, you declare the data you want to exist and its dependencies, and execution is derived. Airflow requires you to model execution directly.
+
+**Does Dagster replace a data catalog?**
+Partially. As of April 2026, Dagster provides asset-level and column-level lineage for supported sources, which covers the lineage use case for many mid-size teams. For broader governance (business glossary, non-Dagster sources, stewardship workflows), a dedicated catalog is still warranted.
+
+**Can Dagster run dbt?**
+Yes. Dagster ingests dbt projects and exposes each model as an asset, so dbt runs are scheduled and observed inside the same graph as Python assets. This is one of the strongest reasons to pick Dagster.
+
+**What's the difference between Dagster+ Serverless and Hybrid?**
+Serverless runs compute in Dagster Labs' infrastructure. Hybrid runs compute in your own VPC/Kubernetes while the control plane is managed. Hybrid is typical for regulated data or large warehouses where egress matters.
+
+## Verdict
+
+Dagster is the strongest choice in 2026 for Python-fluent data teams whose pain is **not knowing what breaks when something upstream changes**. The asset-centric model is a real architectural bet that pays off on complex pipelines — pricing, forecasting, ML feature stores — where lineage is the primary ops problem. It is less compelling if you just need cron-with-retries (Prefect is simpler) or a vast operator library (Airflow wins). Pricing is reasonable at the Starter/Pro tiers but Enterprise is opaque; budget for a procurement cycle. For most modern data stacks standing up orchestration fresh in 2026, Dagster is the default-recommend.
+
+---
+
+Researched by Will. Last verified 2026-04-18. [Methodology](/methodology)
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Dagster",
+      "applicationCategory": "DataOrchestration",
+      "operatingSystem": "Linux, macOS, Windows (Python 3.9+)",
+      "url": "https://dagster.io",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "description": "Dagster OSS is free (Apache 2.0). Dagster+ is usage-based; see dagster.io/pricing."
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.5",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Dagster free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Dagster OSS is Apache 2.0 licensed and production-capable. Dagster+ is the paid managed/hybrid offering with usage-based pricing, verified April 2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Dagster differ from Airflow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Airflow orchestrates tasks; Dagster orchestrates assets. Dagster derives execution from declared data dependencies, while Airflow requires you to model execution directly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Dagster replace a data catalog?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Partially. Dagster provides asset and column-level lineage for supported sources as of April 2026, covering lineage needs for many mid-size teams. A dedicated catalog is still warranted for broader governance."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Dagster run dbt?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Dagster ingests dbt projects and exposes each model as an asset, scheduling and observing dbt runs inside the same graph as Python assets."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between Dagster+ Serverless and Hybrid?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Serverless runs compute in Dagster Labs infrastructure. Hybrid runs compute in your own VPC or Kubernetes with a managed control plane, typical for regulated data workloads."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+```

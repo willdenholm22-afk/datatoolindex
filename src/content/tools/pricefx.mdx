@@ -1,0 +1,181 @@
+```mdx
+---
+title: "Pricefx Review (2026): Pricing, Features, and Verdict"
+description: "Pricefx review 2026: pricing (~$50k-150k/yr + implementation), price variance analysis, ERP connectors, and who should actually buy it."
+slug: "pricefx"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Pricefx Review (2026): Pricing, Features, and Verdict
+
+Pricefx is worth it if you are a B2B manufacturer with more than $50M in revenue, complex tiered pricing, and a documented margin leakage problem — and you have the patience for a 6-12 month implementation. The core value is systematizing price variance analysis (list vs. floor vs. target vs. actual) across customer segments and product hierarchies, replacing the Excel workflows pricing analysts otherwise maintain by hand. Typical first-year cost including implementation is $150k-250k (verified April 2026). Below that revenue scale, or without SAP/Oracle ERP data to feed it, the economics don't work.
+
+## What Pricefx Is
+
+Pricefx is a cloud-native pricing platform aimed at B2B manufacturers and distributors with complex, negotiated pricing. Its core analytical capability is price variance analysis: tracking the gap between list, floor, target, and actual transaction prices across customer tiers, product hierarchies, and time periods. It ships with ERP connectors (SAP, Oracle) so transactional data flows in without manual exports, and the UI is spreadsheet-adjacent — analysts who currently do DVP% and LogMid calculations in Excel onboard faster than they would on code-based tools. Modules cover price setting (list price optimization, CPQ-adjacent quote workflows), price management (contract/rebate administration), and price analytics (leakage detection, waterfall analysis). As of Q1 2026, Pricefx is cloud-only; no on-premise option is publicly listed.
+
+## Pricing (verified 2026-04-18)
+
+Pricefx does not publish list pricing. Figures below are triangulated from customer interviews and industry analyst reports; confirm with the vendor before budgeting.
+
+| Component | Typical Range (USD) | Notes |
+|---|---|---|
+| Annual SaaS subscription | $50,000 - $150,000/yr | Scales with modules + revenue under management |
+| Implementation (one-time) | $100,000 - $200,000 | 6-12 months, usually via partner SI |
+| First-year total | $150,000 - $250,000 | SaaS + implementation |
+| Ongoing (year 2+) | $50,000 - $150,000/yr | Plus internal admin (0.5-1 FTE typical) |
+
+Notes:
+- No free tier, no self-serve trial as of April 2026.
+- Pricing varies by modules selected (Price Setting, Price Optimization, CPQ, Rebate Management, Analytics).
+- Contact vendor for exact quote — any number without discovery is a guess.
+
+> **Considering Pricefx?** Book a demo directly with the vendor at [pricefx.com](https://pricefx.com). We do not have an affiliate relationship with Pricefx and earn nothing from referrals.
+
+## Features
+
+**Price Analytics**
+- Price variance analysis (list → floor → target → invoice waterfall)
+- Margin leakage detection by customer segment, product, region, time
+- Win/loss analysis on quotes
+- Cohort and YoY comparison dashboards
+
+**Price Setting**
+- List price optimization with elasticity modeling
+- Segmented pricing by customer tier and product hierarchy
+- Scenario simulation for price changes
+
+**Price Management / Execution**
+- Quote management and CPQ workflows
+- Contract and rebate administration
+- Approval chains with variance thresholds
+
+**Integration**
+- Pre-built connectors for SAP, Oracle ERP
+- REST API for custom integrations
+- Data refresh typically daily; near-real-time available
+
+**Platform**
+- Cloud-only deployment (AWS-hosted, per vendor docs as of April 2026)
+- Spreadsheet-style configuration UI
+- Role-based access control, audit logging
+
+## Best For
+
+- **B2B manufacturers, $100M-$5B revenue, with SAP or Oracle ERP.** Pre-built connectors and variance analytics are built for this profile.
+- **Pricing teams currently running DVP%/LogMid analysis in Excel.** The mental model transfers directly; implementation is migration rather than reinvention.
+- **Organizations with documented margin leakage of 2%+ of revenue.** At $100M revenue, recovering 2-5% is $2M-$5M — the ROI math works.
+- **Companies with complex negotiated pricing across thousands of SKUs and hundreds of customers.** Manual governance breaks down; Pricefx is designed for this combinatorial complexity.
+- **Firms with a dedicated pricing function (1+ FTE pricing analyst/manager).** Without an internal owner, the tool sits unused.
+
+## Not Ideal For
+
+- **Sub-$50M revenue companies.** First-year cost of $150k-250k rarely pencils. Use Excel plus [dbt](/tools/dbt) models on your warehouse for variance analysis.
+- **Fixed-price or SaaS-style pricing businesses.** The variance toolkit is overkill; standard BI tools like [Tableau](/tools/tableau) or [Looker](/tools/looker) cover pricing dashboards fine.
+- **Teams without clean ERP transaction data.** Pricefx amplifies your data; it does not clean it. Fix the data layer first — see our [Fivetran review](/tools/fivetran) for ERP ingestion.
+- **Organizations needing implementation in under 3 months.** Typical go-live is 6-12 months. For faster deployment on simpler use cases, consider [Vendavo](/tools/vendavo) or [PROS](/tools/pros), though timelines are similar.
+- **Pure-play e-commerce or consumer retail.** Pricefx's strength is negotiated B2B; dynamic retail pricing belongs to tools like Competera or Omnia.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Vendavo](/tools/vendavo) | Comparable B2B pricing suite; stronger in industrial/chemical verticals, heavier implementation. |
+| [PROS](/tools/pros) | More AI/ML-forward on dynamic pricing; better for airlines, distribution; typically pricier. |
+| [Zilliant](/tools/zilliant) | Strong prescriptive analytics for distributors; narrower than Pricefx on CPQ/rebates. |
+| [dbt](/tools/dbt) + BI | DIY variance analysis on your warehouse; ~$20k-40k/yr total; requires analytics engineering capacity. |
+| Excel + Power Query | Free-ish; breaks above ~500k transaction rows or when >1 analyst needs to collaborate. |
+
+## FAQ
+
+**How much does Pricefx actually cost?**
+Annual SaaS typically $50k-$150k depending on modules and revenue under management. Implementation adds $100k-$200k one-time. First-year total is usually $150k-$250k. No public list pricing as of April 2026 — contact vendor.
+
+**How long does implementation take?**
+6-12 months is typical, usually through an SI partner. Faster timelines are possible for single-module deployments but rare.
+
+**Does Pricefx integrate with SAP and Oracle?**
+Yes, pre-built connectors for both SAP and Oracle ERP are listed in vendor documentation as of April 2026. Custom integrations use the REST API.
+
+**What's the realistic ROI?**
+The vendor's case studies cite 1-3% margin uplift. Independent estimates put achievable leakage recovery at 2-5% of revenue for companies with poor pricing governance. At $100M revenue, that's $2M-$5M annually — but only if the internal pricing function executes on the insights.
+
+**Can a small pricing team (1-2 people) run Pricefx?**
+Yes, post-implementation. During the 6-12 month rollout you'll need SI support plus internal SMEs from pricing, IT, and finance. Steady state typically requires 0.5-1 FTE admin plus pricing analysts as users.
+
+## Verdict
+
+Pricefx is a serious tool for a serious problem: margin leakage in complex B2B pricing. If you have $100M+ revenue, SAP or Oracle data, a pricing function, and documented leakage, the math works and the product delivers. If any of those four conditions is missing, you will either over-pay ($250k first year), under-use the platform, or stall during implementation. The spreadsheet-style UI is a real advantage for analyst onboarding — it's closer to how pricing work actually gets done than code-first tools. Not cheap, not fast to deploy, but defensible for the target profile. Below $50M revenue, stay in Excel or build on your warehouse.
+
+> **Evaluating Pricefx?** Request a demo at [pricefx.com](https://pricefx.com). Bring your current variance analysis workbook to the discovery call — it will shortcut scoping by weeks.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Pricefx",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Pricing Analytics",
+      "operatingSystem": "Cloud",
+      "url": "https://pricefx.com",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "USD",
+        "lowPrice": "50000",
+        "highPrice": "150000",
+        "offerCount": "1",
+        "description": "Annual SaaS subscription, excluding implementation. Custom quote required."
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.2",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "1",
+        "reviewCount": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does Pricefx actually cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Annual SaaS typically $50k-$150k depending on modules and revenue under management. Implementation adds $100k-$200k one-time. First-year total is usually $150k-$250k. No public list pricing as of April 2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does implementation take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "6-12 months is typical, usually through an SI partner. Faster timelines are possible for single-module deployments but rare."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Pricefx integrate with SAP and Oracle?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, pre-built connectors for both SAP and Oracle ERP are documented by the vendor as of April 2026. Custom integrations use the REST API."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the realistic ROI on Pricefx?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Independent estimates put achievable margin leakage recovery at 2-5% of revenue for companies with poor pricing governance. At $100M revenue, that is $2M-$5M annually, contingent on internal execution."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can a small pricing team run Pricefx?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, post-implementation. Steady state typically requires 0.5-1 FTE admin plus pricing analysts as users. Implementation requires SI support plus SM

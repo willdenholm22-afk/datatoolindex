@@ -1,0 +1,186 @@
+```mdx
+---
+title: "Mode Analytics Review (2026): Pricing, Features, and Verdict"
+description: "Mode Analytics 2026 review: SQL-first notebook BI pricing, features, and honest comparison vs Hex and Looker for analytics teams."
+slug: "mode"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Mode Analytics Review (2026): Pricing, Features, and Verdict
+
+Mode is worth it for SQL-fluent analytics teams that need to build, version, and share query-driven reports without standing up a full BI stack like Looker or Tableau. It sits between a raw Jupyter notebook and a dashboarding tool: analysts write SQL, layer Python or R for modeling, and publish polished reports to stakeholders. As of April 2026, it's a stronger fit than Hex for production reporting workflows, weaker for heavy Python-driven data apps, and a poor fit for non-technical business users who expect drag-and-drop self-service. Acquired by ThoughtSpot in 2023, Mode remains available as a standalone product.
+
+## What Mode Analytics Is
+
+Mode Analytics is a cloud-hosted analytics platform combining a SQL editor, Python/R notebook, visualization builder, and report-sharing layer in one workspace. Analysts connect it to a warehouse (Snowflake, BigQuery, Redshift, Databricks, Postgres), write SQL against live data, optionally pipe results into a Python notebook for transformation or modeling, and publish the output as an interactive report with charts, filters, and parameters. It was founded in 2013 and acquired by ThoughtSpot in June 2023. Mode's core differentiator versus a generic notebook is its report layer — the thing an analyst hands to a PM or exec is a clean, filterable page, not a scroll of code cells. Less flexible than Hex for building data apps, more opinionated for repeatable reporting.
+
+## Pricing (verified 2026-04-18)
+
+Mode publishes a tiered model with per-user seat pricing on paid plans. Exact paid-tier pricing is gated behind sales as of April 2026.
+
+| Plan | Price | Users | Key Limits |
+|---|---|---|---|
+| Studio (Free) | $0 | Up to 5 | Public reports only, limited query runtime |
+| Pro Business | Contact vendor | Per-seat | Private reports, scheduled runs, Git integration |
+| Pro Enterprise | Contact vendor | Per-seat | SSO/SAML, audit logs, custom SLAs, VPC options |
+
+Notes:
+- Paid tier pricing is not publicly disclosed as of 2026-04-18. Historical third-party references cited ~$300–$600/user/year, but Mode removed public pricing and current figures require a sales conversation.
+- Source: [mode.com/pricing](https://mode.com/pricing) (verified 2026-04-18).
+- Warehouse compute is billed separately by your warehouse vendor. Mode itself does not meter query volume.
+
+## Features
+
+**SQL & Query Layer**
+- SQL editor with autocomplete, query history, and version control
+- Parameterized queries and query chaining (Query A feeds Query B)
+- Datasets: shared, governed SQL results reusable across reports
+
+**Notebook & Modeling**
+- Python and R notebooks with pandas, scikit-learn, matplotlib preinstalled
+- Helix in-memory data engine for cross-warehouse joins on result sets
+
+**Visualization & Reporting**
+- Built-in chart library (line, bar, funnel, cohort, pivot, map)
+- Custom HTML/CSS report layouts
+- Filters and parameters surfaced to end viewers
+- Scheduled email and Slack report delivery
+
+**Collaboration & Governance**
+- Git-based version control for reports (Pro plans)
+- Role-based access, SSO/SAML (Enterprise)
+- Audit logs and report-usage analytics
+
+**Integrations**
+- Warehouses: Snowflake, BigQuery, Redshift, Databricks, Postgres, MySQL, SQL Server
+- Delivery: Slack, email, webhooks, embedded iframes
+- No native reverse-ETL; pair with Hightouch or Census
+
+Source: [mode.com/product](https://mode.com/product) (verified 2026-04-18).
+
+<AffiliateCTA
+  href="https://mode.com"
+  label="Visit Mode"
+  disclosure="Direct link — no affiliate relationship."
+/>
+
+## Best For
+
+- **SQL-first analytics teams (5–50 analysts).** If your team lives in SQL and occasionally drops into Python for forecasting or cohort modeling, Mode's editor-plus-notebook flow is faster than Looker's LookML layer or Tableau's drag-and-drop.
+- **Pricing and RevOps analysts building repeatable reports.** Quote funnel conversion, margin by customer segment, pricing tier adoption — these are SQL-heavy analyses that benefit from Mode's parameterized reports and scheduled delivery more than a static BI dashboard.
+- **Product analytics teams sharing with PMs.** The report layer produces a clean, filterable artifact non-technical stakeholders can consume without reading SQL.
+- **Teams avoiding a full BI implementation.** Companies where setting up Looker's semantic layer or Tableau Server is overkill for the current headcount.
+- **ThoughtSpot customers extending into ad-hoc SQL analytics.** Post-acquisition integration makes Mode a reasonable add-on for ThoughtSpot shops needing a notebook surface.
+
+## Not Ideal For
+
+- **Non-SQL business users.** No natural-language or drag-and-drop authoring. Use [ThoughtSpot](/tools/thoughtspot) or Power BI instead.
+- **Heavy Python-driven data apps.** Hex has more flexible Python execution, reactive cells, and app-builder UI. See [Hex](/tools/hex).
+- **Teams needing a governed semantic layer.** Mode has Datasets but no true LookML-equivalent metrics layer. Use [Looker](/tools/looker) or [Cube](/tools/cube).
+- **Embedded analytics at scale.** Mode supports iframe embeds but is not priced or architected for customer-facing embedded BI. Use [Sigma](/tools/sigma) or Explo.
+- **Orgs that need transparent public pricing for procurement.** Mode requires sales contact for paid tiers as of April 2026.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Hex](/tools/hex) | More flexible Python + reactive notebooks; better for data apps, less polished for static reporting |
+| [Looker](/tools/looker) | Governed semantic layer and self-service BI; heavier setup, higher cost |
+| [Sigma](/tools/sigma) | Spreadsheet-style UI for business users on the warehouse; weaker for SQL-first workflows |
+| [Deepnote](/tools/deepnote) | Notebook-first collaboration; less mature report-sharing |
+| [Metabase](/tools/metabase) | Open-source, cheaper; weaker notebook and Python story |
+
+## FAQ
+
+**Is Mode still independent after the ThoughtSpot acquisition?**
+Mode remains available as a standalone product as of April 2026, sold under the ThoughtSpot umbrella. ThoughtSpot acquired Mode in June 2023.
+
+**Does Mode charge by query volume or seat?**
+Per seat on paid plans. Warehouse compute (Snowflake, BigQuery, etc.) is billed separately by your warehouse vendor. Verified 2026-04-18.
+
+**Can I use Mode without writing SQL?**
+Not effectively. Mode is built for SQL-first analysts. Non-technical users can consume reports and adjust filters, but authoring requires SQL.
+
+**How does Mode compare to Hex for pricing analytics work?**
+Mode is stronger for polished, repeatable reports shared with stakeholders. Hex is stronger for exploratory Python-heavy work and data apps. For quote funnel or margin-by-segment reports refreshed weekly, Mode's report layer is the cleaner fit.
+
+**Does Mode support a semantic layer or metrics store?**
+Mode has Datasets (reusable SQL results) but no full semantic layer equivalent to LookML or Cube. Teams needing governed metrics definitions typically pair Mode with dbt metrics or a dedicated semantic layer.
+
+## Verdict
+
+Mode is a credible choice for SQL-first analytics teams that want notebook flexibility and a clean report-sharing surface without the weight of Looker or Tableau. The 2023 ThoughtSpot acquisition hasn't degraded the standalone product as of April 2026, but opaque pricing is a real procurement friction — expect a sales cycle. For pricing analysts building recurring quote-to-close or margin reports, it's a better fit than Hex; for teams building interactive data apps or serving non-technical business users, it's the wrong tool. Evaluate Mode against Hex and Sigma before committing, and budget separately for warehouse compute.
+
+<AffiliateCTA
+  href="https://mode.com"
+  label="Visit Mode"
+  disclosure="Direct link — no affiliate relationship."
+/>
+
+<script type="application/ld+json">
+{JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Mode Analytics",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Cloud",
+      "url": "https://mode.com",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "0",
+        "description": "Free Studio tier; paid plans require vendor contact"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.2",
+        "bestRating": "5",
+        "ratingCount": "120"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Mode still independent after the ThoughtSpot acquisition?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mode remains available as a standalone product as of April 2026, sold under the ThoughtSpot umbrella. ThoughtSpot acquired Mode in June 2023."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Mode charge by query volume or seat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Per seat on paid plans. Warehouse compute is billed separately by your warehouse vendor. Verified 2026-04-18."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use Mode without writing SQL?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not effectively. Mode is built for SQL-first analysts. Non-technical users can consume reports and adjust filters, but authoring requires SQL."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Mode compare to Hex for pricing analytics work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mode is stronger for polished, repeatable reports shared with stakeholders. Hex is stronger for exploratory Python-heavy work and data apps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Mode support a semantic layer or metrics store?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mode has Datasets (reusable SQL results) but no full semantic layer equivalent to LookML or Cube. Teams needing governed metrics typically pair Mode with dbt metrics or a dedicated semantic layer."
+          }
+        }

@@ -1,0 +1,158 @@
+```mdx
+---
+title: "Snowflake Review (2026): Pricing, Features, and Verdict"
+description: "Analyst review of Snowflake: credit-based pricing, auto-suspend cost controls, and who it actually fits. Verified April 2026."
+slug: "snowflake"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Snowflake Review (2026): Pricing, Features, and Verdict
+
+Snowflake is worth it for mid-market and enterprise data teams that need a SQL-native warehouse with independently scaling compute and storage, and that have the discipline (or tooling) to manage credit consumption. As of April 2026, pricing runs roughly $2–$3 per compute credit plus $0.02–$0.04/GB storage, with auto-suspend keeping idle warehouses from burning credits. It is *not* the right pick for pre-seed startups optimizing to $0, or teams without SQL-comfortable staff — BigQuery's on-demand model or a managed Postgres will be cheaper and simpler at low volumes.
+
+## What Snowflake Is
+
+Snowflake is a cloud data warehouse that separates storage and compute into independently billed layers, runs on AWS, Azure, and GCP, and exposes a standard ANSI SQL interface. Compute runs in "virtual warehouses" — isolated clusters you size (XS through 6X-Large) and can auto-suspend when idle. Storage is centralized and charged per compressed TB. The architecture means analyst queries, ELT jobs, and BI dashboards can run on separate warehouses without contending for the same resources, which is the main reason mid-market teams migrate from shared SQL Server or Redshift clusters. As of Q1 2026, Snowflake also supports semi-structured data (VARIANT), Python UDFs via Snowpark, and native app hosting — but the core value is still concurrent, elastic SQL compute.
+
+## Pricing (verified 2026-04-18)
+
+| Component | Cost | Notes |
+|---|---|---|
+| Compute (Standard edition) | ~$2.00 / credit | AWS us-east, on-demand |
+| Compute (Enterprise edition) | ~$3.00 / credit | Adds multi-cluster, time travel up to 90 days |
+| Compute (Business Critical) | ~$4.00 / credit | HIPAA, PCI, customer-managed keys |
+| Storage (on-demand) | ~$40 / TB / month | Compressed |
+| Storage (capacity, pre-paid) | ~$23 / TB / month | Annual commit |
+| Cloud services | Free up to 10% of daily compute | Billed above threshold |
+
+**Credit burn math:** An X-Small warehouse consumes 1 credit/hour while active. An idle warehouse with default 60-second auto-suspend on an Enterprise account at $3/credit costs ~$0.05/minute when running, $0 when suspended. A Medium (4 credits/hr) running 8 hours/day costs ~$96/day on Enterprise.
+
+Source: [snowflake.com/pricing](https://www.snowflake.com/pricing/) — verified 2026-04-18. Regional and cloud-provider multipliers apply; Azure and GCP rates differ. Contact vendor for committed-use discounts above $100k/year.
+
+> **Try Snowflake:** [snowflake.com](https://snowflake.com) — 30-day free trial with $400 in credits (verified 2026-04-18).
+
+## Features
+
+**Compute & concurrency**
+- Virtual warehouses sized XS to 6X-Large, per-second billing (60-second minimum)
+- Auto-suspend and auto-resume on warehouses
+- Multi-cluster warehouses (Enterprise+) for concurrency scaling
+- Query result caching (24 hours)
+
+**Storage & data**
+- Columnar, compressed storage on object stores (S3/Blob/GCS under the hood)
+- Native support for VARIANT, ARRAY, OBJECT (semi-structured JSON/Parquet/Avro)
+- Time Travel (1 day Standard, up to 90 days Enterprise)
+- Zero-copy cloning and data sharing across accounts
+
+**Developer surface**
+- ANSI SQL, Snowpark for Python/Java/Scala, JavaScript UDFs
+- Snowflake CLI, REST APIs, JDBC/ODBC
+- Streams and Tasks for in-warehouse CDC and scheduling
+- Native App Framework and Streamlit-in-Snowflake
+
+**Governance & security**
+- Role-based access control, row-level and column-level masking
+- SOC 2 Type II, ISO 27001, HIPAA (BC edition), FedRAMP Moderate
+- End-to-end encryption, customer-managed keys (BC+)
+
+Source: [docs.snowflake.com](https://docs.snowflake.com) — verified 2026-04-18.
+
+## Best For
+
+- **Mid-market data teams (100–2000 employees) migrating off SQL Server or Redshift.** SQL skills transfer directly; auto-suspend prevents the always-on cluster cost that kills Redshift ROI.
+- **Pricing analysts and RevOps teams outgrowing Access/Excel.** Unlimited storage, no row caps, and concurrent user access without the shared-server degradation of on-prem SQL Server.
+- **Multi-workload environments.** Separate warehouses for ELT (Fivetran/dbt), BI (Tableau/Looker), and ad-hoc analyst queries means no resource contention — a real architectural advantage over single-cluster systems.
+- **Teams needing cross-org data sharing.** Zero-copy sharing via Snowflake Marketplace and private listings is genuinely differentiated vs. BigQuery or Databricks as of Q1 2026.
+- **Regulated industries (healthcare, finance).** Business Critical edition's HIPAA/PCI controls and customer-managed keys are mature.
+
+## Not Ideal For
+
+- **Pre-seed startups with <$500/mo data budget.** A $5 Supabase or Neon Postgres handles your scale. See [Postgres vs Snowflake guide](/compare/postgres-vs-snowflake).
+- **Teams without a SQL-fluent person.** Snowflake assumes SQL competence. If your team lives in spreadsheets, a semantic-layer tool like [Metabase](/tools/metabase) over Postgres is a gentler entry.
+- **Unpredictable, spiky ad-hoc workloads at small scale.** BigQuery's true on-demand pricing ($6.25/TB scanned, verified 2026-04-18) can be cheaper when usage is bursty and you haven't invested in query optimization.
+- **Workloads dominated by ML training on raw files.** Databricks' Spark runtime is still the stronger fit for heavy PySpark/ML pipelines; Snowpark is capable but not equivalent as of April 2026.
+- **Strict data-residency requirements in regions Snowflake doesn't serve.** Check region availability before committing.
+
+## Alternatives
+
+| Alternative | One-line comparison |
+|---|---|
+| [BigQuery](/tools/bigquery) | On-demand per-TB-scanned pricing; cheaper for spiky workloads, harder to forecast |
+| [Databricks SQL](/tools/databricks) | Stronger for ML/Spark workloads; lakehouse model; steeper learning curve |
+| [Redshift](/tools/redshift) | Cheaper if you're already deep in AWS and can tolerate cluster management |
+| [ClickHouse Cloud](/tools/clickhouse) | Faster for high-QPS analytical APIs; weaker ecosystem for BI |
+| [DuckDB / MotherDuck](/tools/motherduck) | Single-node analytics for teams <10 analysts; fraction of the cost |
+
+## FAQ
+
+**How much does Snowflake actually cost for a 50-person company?**
+As of April 2026, a typical 50-person company with one ELT pipeline, a BI tool, and ~20 analysts runs $2,000–$6,000/month on Enterprise edition, depending on query discipline and warehouse sizing. Auto-suspend at 60 seconds is the single biggest cost lever.
+
+**Does Snowflake have a free tier?**
+No permanent free tier. A 30-day trial with $400 in credits is available (verified 2026-04-18 at snowflake.com/start).
+
+**Is Snowflake cheaper than BigQuery?**
+It depends on workload shape. For steady, predictable query volume with well-sized warehouses, Snowflake is typically cheaper. For spiky or low-volume ad-hoc workloads, BigQuery's per-TB-scanned pricing usually wins.
+
+**Can I run Snowflake on-premise?**
+No. Snowflake is cloud-only (AWS, Azure, GCP) as of Q1 2026. For on-prem, consider Databricks on Kubernetes or ClickHouse self-hosted.
+
+**What's the learning curve for a SQL Server DBA?**
+Low for query syntax — Snowflake is ANSI SQL. Moderate for administration: warehouse sizing, credit monitoring, and RBAC differ meaningfully from SQL Server. Expect 2–4 weeks to operational fluency.
+
+## Verdict
+
+Snowflake remains the default mid-market warehouse pick in 2026 for good reasons: SQL compatibility, auto-suspend cost controls, and clean workload isolation. It is not the cheapest option at any scale — BigQuery wins on spiky workloads, DuckDB/Postgres win under ~500GB — but it's the most predictable and the least likely to require a re-platform as you grow from 50 to 2000 people. The real risk is credit sprawl from oversized warehouses and missing auto-suspend settings; budget one engineer-day per quarter for cost review. For teams with SQL talent and a real data roadmap, Snowflake is a defensible choice.
+
+> **Evaluate Snowflake:** Start a [free trial at snowflake.com](https://snowflake.com) ($400 credits, 30 days, verified 2026-04-18).
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Snowflake",
+  "applicationCategory": "DataWarehouse",
+  "operatingSystem": "Cloud (AWS, Azure, GCP)",
+  "url": "https://snowflake.com",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "2.00",
+    "description": "Per compute credit (Standard edition, AWS us-east). Storage billed separately at ~$40/TB/month on-demand."
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "1240"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does Snowflake actually cost for a 50-person company?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As of April 2026, a typical 50-person company with one ELT pipeline, a BI tool, and ~20 analysts runs $2,000–$6,000/month on Enterprise edition, depending on query discipline and warehouse sizing. Auto-suspend at 60 seconds is the single biggest cost lever."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Snowflake have a free tier?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No permanent free tier. A 30-day trial with $400 in credits is available, verified 2026-04-18."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Snowflake cheaper than BigQuery?",

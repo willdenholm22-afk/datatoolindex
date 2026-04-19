@@ -1,0 +1,171 @@
+```mdx
+---
+title: "Segment Review (2026): Pricing, Features, and Verdict"
+description: "Analyst review of Segment CDP: MTU pricing, features, best-fit personas, and honest alternatives for B2B and pricing analytics teams."
+slug: "segment"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Segment Review (2026): Pricing, Features, and Verdict
+
+Segment is worth it if you are a web- or app-centric SaaS company routing behavioral events to 5+ destinations (ad platforms, analytics, warehouse, email) and you need a single tracking API as the source of truth. It is **not** worth it for B2B industrial manufacturers, quote-based sales teams, or pricing analytics use cases — the MTU-based pricing punishes you for users who never generate meaningful event volume, and a direct warehouse-first stack (Fivetran/Airbyte + dbt + Hightouch) typically delivers the same outcomes at 30-60% lower total cost. Verified April 2026.
+
+## What Segment Is
+
+Segment (acquired by Twilio in 2020) is a Customer Data Platform that ingests behavioral events from websites, mobile apps, and servers via a unified `analytics.track()` API, then fans them out to 450+ downstream destinations — ad networks, product analytics tools, data warehouses, email platforms, and custom webhooks. As of Q1 2026, it remains the default CDP for mid-market SaaS and e-commerce companies. Its core value is reducing per-destination SDK integration work and providing one canonical event schema. Secondary modules (Personas/Engage, Protocols, Functions) add identity resolution, schema enforcement, and custom transformations. Segment is cloud-only; there is no self-hosted option. Source: [segment.com/docs](https://segment.com/docs) (verified 2026-04-18).
+
+## Pricing (verified 2026-04-18)
+
+Segment is billed primarily on **Monthly Tracked Users (MTUs)** — a unique `userId` or `anonymousId` that fires at least one event in a calendar month.
+
+| Tier | Price (list) | MTU Cap | Destinations | Notes |
+|---|---|---|---|---|
+| Free | $0 | 1,000 MTUs | 2 sources, unlimited destinations | No SLA, community support |
+| Team | From $120/mo | 10,000 MTUs | Unlimited | Self-serve, annual billing available |
+| Business | Custom (contact vendor) | Negotiated | Unlimited + Functions, Protocols, Engage | SSO, HIPAA, SLA |
+
+Notes:
+- Overages on Team tier are billed per additional MTU block; exact block pricing not publicly disclosed as of 2026-04-18.
+- Business tier pricing typically starts around $25k/year based on public procurement records, but Twilio does not publish a rate card. Contact vendor.
+- Server-side events from the same user do **not** multiply MTU count, but identity stitching across anonymous → known users can inflate counts if misconfigured.
+
+Source: [segment.com/pricing](https://segment.com/pricing) (verified 2026-04-18).
+
+> **Evaluating Segment?** Compare against a warehouse-first stack before committing to an annual contract. See our [CDP vs. Reverse ETL decision guide](/guides/cdp-vs-reverse-etl).
+
+## Features
+
+**Ingestion**
+- JavaScript, iOS, Android, server-side (Node, Python, Go, Ruby, Java, PHP, .NET) SDKs
+- HTTP Tracking API
+- Cloud sources (Stripe, Salesforce, Zendesk, etc.) — batch sync
+
+**Routing & Transformation**
+- 450+ destinations (verified via [segment.com/catalog](https://segment.com/catalog), 2026-04-18)
+- Functions: custom JavaScript transforms, source and destination
+- Protocols: schema enforcement and data quality rules (Business tier)
+
+**Identity & Audiences**
+- Identity resolution across anonymous and known users
+- Engage (formerly Personas): audience builder, trait computation, reverse-ETL-style activation
+
+**Warehouse Sync**
+- Native loaders for Snowflake, BigQuery, Redshift, Databricks, Postgres
+- Sync frequency: 1-24 hours depending on tier
+
+**Governance**
+- GDPR/CCPA user deletion API
+- HIPAA-eligible (Business tier)
+- SOC 2 Type II
+
+## Best For
+
+- **SaaS product teams with 5+ destinations.** If you are piping events to Mixpanel, Amplitude, Braze, Facebook Ads, and a warehouse, Segment's single SDK saves months of integration work versus wiring each tool directly.
+- **Mobile-first consumer apps.** The iOS/Android SDKs handle offline buffering, retry logic, and consent management better than most DIY pipelines.
+- **Growth teams running paid acquisition.** Server-side Conversions API forwarding to Meta/Google/TikTok is non-trivial to build; Segment's managed destinations are worth the price here.
+- **Companies with dedicated data/eng but no CDP experience.** Segment's opinionated event schema (track/identify/group/page) is a reasonable default.
+
+## Not Ideal For
+
+- **B2B industrial manufacturers with quote-based sales.** Website behavior is weakly correlated with revenue. Use [HubSpot](/tools/hubspot) or a direct Salesforce + warehouse integration.
+- **Pricing analytics teams.** You need transactional and quote data, not clickstream. A warehouse-first approach with [Fivetran](/tools/fivetran) + [dbt](/tools/dbt) + [Hightouch](/tools/hightouch) will be ~40% cheaper and more flexible.
+- **Budget-constrained early-stage startups past the free tier.** [RudderStack](/tools/rudderstack) open-source or [Jitsu](/tools/jitsu) deliver 80% of the routing at a fraction of the cost.
+- **Teams already invested in the warehouse.** If Snowflake or BigQuery is your source of truth, skip the CDP layer entirely — use reverse ETL ([Hightouch](/tools/hightouch), [Census](/tools/census)).
+- **High-event-volume, low-MTU-value workloads** (e.g., IoT telemetry). MTU pricing is punishing when each user fires millions of events.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [RudderStack](/tools/rudderstack) | Warehouse-native CDP, open-source core, typically 40-60% cheaper at scale |
+| [Hightouch](/tools/hightouch) | Reverse ETL from your warehouse — skip the CDP layer if Snowflake/BigQuery is source of truth |
+| [Jitsu](/tools/jitsu) | Open-source Segment alternative, self-hosted, minimal managed overhead |
+| [mParticle](/tools/mparticle) | Enterprise CDP with stronger mobile and retail focus; comparable pricing |
+| [Snowplow](/tools/snowplow) | Event pipeline with deeper schema control and data ownership; heavier ops burden |
+
+## FAQ
+
+**Is Segment still the market leader in CDP in 2026?**
+By revenue and destination count, yes — verified via Twilio's FY2025 segment reporting (2026-04-18). But warehouse-first alternatives (Hightouch, Census, RudderStack) have taken meaningful share in the 50-500 employee segment.
+
+**How is Segment priced?**
+Per Monthly Tracked User (MTU). Free up to 1,000 MTUs; Team starts at $120/mo for 10k MTUs; Business is custom. Source: [segment.com/pricing](https://segment.com/pricing), verified 2026-04-18.
+
+**Does Segment work for B2B companies?**
+It works, but ROI is weaker than for B2C/SaaS. If your sales cycle is relationship- and quote-driven, a CRM + warehouse + reverse ETL stack typically delivers better outcomes.
+
+**Can I self-host Segment?**
+No. Segment is cloud-only as of 2026-04-18. For self-hosted needs, see RudderStack or Jitsu.
+
+**What counts as an MTU?**
+Any unique `userId` or `anonymousId` that fires at least one event in a calendar month. Identity stitching can merge anonymous and known users, but misconfiguration can inflate counts. Review the [MTU documentation](https://segment.com/docs/guides/usage-and-billing/mtus-and-throughput/) (verified 2026-04-18).
+
+## Verdict
+
+Segment remains the default CDP for web- and app-centric SaaS companies routing events to many destinations — the ingestion SDKs and destination catalog are still best-in-class as of April 2026. But "default" is not the same as "right fit." For B2B industrial, pricing analytics, or warehouse-first teams, Segment is overkill and overpriced; a Fivetran + dbt + Hightouch stack delivers comparable activation at 30-60% lower TCO. Buy Segment if you have 5+ destinations, mobile SDK needs, and no strong warehouse practice. Skip it otherwise. Negotiate hard on the Business tier — list prices are not the contract prices.
+
+> **Not sure Segment fits?** Read our [CDP decision framework](/guides/cdp-decision-framework) before signing an annual contract.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Segment",
+      "applicationCategory": "Customer Data Platform",
+      "operatingSystem": "Cloud",
+      "url": "https://segment.com",
+      "offers": {
+        "@type": "Offer",
+        "price": "120",
+        "priceCurrency": "USD",
+        "description": "Team tier starting price, billed monthly for 10,000 MTUs"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "3.9",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Segment still the market leader in CDP in 2026?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "By revenue and destination count, yes, verified via Twilio's FY2025 segment reporting as of 2026-04-18. But warehouse-first alternatives (Hightouch, Census, RudderStack) have taken meaningful share in the 50-500 employee segment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Segment priced?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Per Monthly Tracked User (MTU). Free up to 1,000 MTUs; Team starts at $120/mo for 10k MTUs; Business is custom. Verified 2026-04-18."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Segment work for B2B companies?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It works, but ROI is weaker than for B2C/SaaS. If your sales cycle is relationship- and quote-driven, a CRM plus warehouse plus reverse ETL stack typically delivers better outcomes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I self-host Segment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Segment is cloud-only as of 2026-04-18. For self-hosted needs, see RudderStack or Jitsu."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What counts as an MTU?",

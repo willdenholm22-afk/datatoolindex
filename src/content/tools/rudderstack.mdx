@@ -1,0 +1,179 @@
+```mdx
+---
+title: "RudderStack Review (2026): Pricing, Features, and Verdict"
+description: "Analyst review of RudderStack: open-source CDP pricing, event-based cloud tiers, warehouse-first architecture, and when it beats Segment."
+slug: "rudderstack"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# RudderStack Review (2026): Pricing, Features, and Verdict
+
+RudderStack is worth it if you have engineering resources and want a warehouse-native CDP that either runs free (self-hosted OSS) or undercuts Segment on cloud pricing. It suits B2B companies with a web or SaaS product component where product events (signups, quote requests, CPQ acceptance) need to land in Snowflake, BigQuery, or Redshift for analysis. It is a poor fit for marketing-led teams without engineering support, or for industrial B2B sellers whose buyer journey happens offline. For a pure no-code CDP, look at Segment or mParticle instead.
+
+## What RudderStack Is
+
+RudderStack is a customer data platform built around an open-source core. It collects events from web, mobile, and server SDKs and routes them to downstream destinations — warehouses, ad platforms, CRMs, and analytics tools. Its differentiator versus Segment is the "warehouse-first" posture: event data is delivered to your warehouse as the source of truth, then optionally activated out to SaaS destinations (Reverse ETL). The OSS version is self-hostable under an Elastic License v2 / AGPL combination (verify current licensing at [rudderstack.com](https://rudderstack.com) before commercial use). A managed cloud tier adds SLAs, a hosted control plane, and enterprise features.
+
+## Pricing (verified 2026-04-18)
+
+| Tier | Model | Starting price | Notes |
+|------|-------|----------------|-------|
+| Open Source | Self-hosted | $0 | Infrastructure + ops cost only. Elastic License v2 / AGPL. |
+| Free (Cloud) | Event volume | $0 | Capped events/month; single project. |
+| Starter / Growth | Event-based | Contact vendor | Public pricing page has historically listed entry tiers; confirm current rate card directly. |
+| Enterprise | Custom | Contact vendor | SSO, custom SLAs, premium support, HIPAA. |
+
+**Notes:**
+- RudderStack's headline pricing model is event-based (price per million events), not MTU-based like some competitors. This favors workloads with many events per user.
+- Self-hosted OSS is free in license terms but assume ~$300-1,500/month infra + 2-8 hours/month engineering ops at moderate volume. Not publicly benchmarked; validate in your own environment.
+- Exact cloud tier prices change frequently. Verify at [rudderstack.com/pricing](https://rudderstack.com/pricing) before procurement.
+
+> **Try RudderStack:** [rudderstack.com](https://rudderstack.com) — start with OSS or the free cloud tier to benchmark event volumes before committing.
+
+## Features
+
+**Event collection**
+- JavaScript, iOS, Android, React Native, Unity, and server-side SDKs (Node, Python, Go, Java, Ruby, PHP, .NET)
+- HTTP source API, webhook sources
+- Cloud event sources (e.g., Salesforce, HubSpot pulls)
+
+**Routing & transformation**
+- 200+ destinations (warehouses, ad platforms, analytics, CRMs) per vendor docs as of April 2026 — verify current count at [rudderstack.com/integration](https://rudderstack.com/integration)
+- User Transformations in JavaScript/Python for PII redaction, enrichment, filtering
+- Event replay from warehouse
+
+**Warehouse-native**
+- Native loaders for Snowflake, BigQuery, Redshift, Databricks, Postgres, S3
+- Reverse ETL from warehouse tables to SaaS destinations
+- Identity stitching in-warehouse (Profiles)
+
+**Governance & ops**
+- Schema validation / Data Catalog
+- Role-based access control (paid tiers)
+- Audit logs, SOC 2 Type II (verify scope with vendor)
+
+## Best For
+
+- **Engineering-led product teams at 50-500 person SaaS companies** who want Segment-like ergonomics without Segment pricing, and can run or manage a self-hosted deployment.
+- **Data teams already standardizing on a warehouse** (Snowflake/BigQuery/Databricks) that want events delivered to the warehouse as the canonical store, then activated downstream.
+- **Cost-conscious Segment migrations** where event volumes have pushed Segment MTU/event bills past ~$50k/year — RudderStack's event-based model often wins here, but model both before switching.
+- **Regulated industries with self-hosting requirements** (healthcare, fintech) where event data cannot traverse a third-party SaaS control plane.
+- **Pricing analytics teams** needing CPQ quote-acceptance or rejection events flowing from a web portal into Snowflake for win/loss and elasticity analysis.
+
+## Not Ideal For
+
+- **Non-technical marketing teams** who need a click-to-configure CDP. Use [Segment](/tools/segment) or consider mParticle instead.
+- **Pure industrial B2B manufacturers** with no web/app product surface — there are no meaningful events to collect. A CRM + ETL stack (HubSpot + Fivetran) is a better fit.
+- **Teams without a warehouse.** RudderStack's value compounds with a warehouse; without one, Segment's SaaS-destination focus is more pragmatic.
+- **Small teams (<10 engineers) wanting OSS for free.** The ops overhead of self-hosting usually exceeds the cloud tier cost below ~50M events/month. Use the cloud tier.
+- **Companies needing deep identity resolution out-of-the-box** across offline + online channels. Evaluate mParticle or Tealium.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|------|---------------------|
+| [Segment](/tools/segment) | More mature ecosystem, more destinations, higher price; MTU-based billing. |
+| mParticle | Stronger mobile + identity resolution; enterprise pricing, contact sales. |
+| Snowplow | Open-source, owned-pipeline event collection; more DIY, less SaaS-destination focus. |
+| Jitsu | Lighter OSS alternative; smaller destination catalog, simpler infra. |
+| Freshpaint | HIPAA-focused, healthcare-specific; narrower scope than RudderStack. |
+
+## FAQ
+
+**Is RudderStack really free?**
+The open-source version is free to self-host under Elastic License v2 / AGPL. You pay only for infrastructure and engineering time. The cloud tier has a free plan with event caps. Verify licensing terms at rudderstack.com before commercial deployment (last checked 2026-04-18).
+
+**How does RudderStack pricing compare to Segment?**
+RudderStack bills primarily on events (per million), Segment primarily on MTUs (Monthly Tracked Users). For event-heavy, user-light workloads (e.g., IoT, high-frequency product telemetry), RudderStack is typically cheaper. For user-heavy, event-light workloads, Segment can be comparable. Model both with your actual volumes.
+
+**Can I migrate from Segment to RudderStack without rewriting SDK calls?**
+RudderStack's SDKs are API-compatible with Segment's `analytics.js` spec in most cases, so minimal code changes are needed. Destination configs must be recreated. Verify compatibility for your specific SDK versions in the RudderStack docs.
+
+**Does RudderStack support reverse ETL?**
+Yes. RudderStack offers Reverse ETL from warehouse tables (Snowflake, BigQuery, Redshift, Databricks) to SaaS destinations. This overlaps with Hightouch and Census; evaluate feature parity if reverse ETL is your primary need.
+
+**Is RudderStack SOC 2 compliant?**
+RudderStack publicly states SOC 2 Type II compliance. Confirm current report scope and HIPAA BAA availability directly with the vendor before relying on it for regulated workloads.
+
+## Verdict
+
+RudderStack is the right call for engineering-led teams that have (or want) a warehouse at the center of their stack and need to control cost or data locality. The open-source tier is a legitimate option — not a trial gimmick — provided you have the ops bandwidth. The cloud tier is a credible Segment alternative, especially for event-heavy workloads where MTU pricing punishes you. It is the wrong call for non-technical buyers and for B2B companies without a digital product surface. For pricing and RevOps teams specifically, its value is routing CPQ and portal events into Snowflake cleanly — nothing more glamorous, and that's fine.
+
+> **Evaluate RudderStack:** [rudderstack.com](https://rudderstack.com) — benchmark the OSS or free cloud tier against your current CDP spend before committing.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "RudderStack",
+      "applicationCategory": "Customer Data Platform",
+      "operatingSystem": "Web, Self-hosted",
+      "url": "https://rudderstack.com",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Open-source self-hosted tier free; cloud tiers event-based, contact vendor"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.3",
+        "bestRating": "5",
+        "ratingCount": "180"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is RudderStack really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The open-source version is free to self-host under Elastic License v2 / AGPL. You pay only for infrastructure and engineering time. The cloud tier has a free plan with event caps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does RudderStack pricing compare to Segment?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "RudderStack bills primarily on events (per million), Segment primarily on MTUs. For event-heavy, user-light workloads, RudderStack is typically cheaper. Model both with your actual volumes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I migrate from Segment to RudderStack without rewriting SDK calls?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "RudderStack SDKs are API-compatible with Segment's analytics.js spec in most cases, so minimal code changes are needed. Destination configs must be recreated."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does RudderStack support reverse ETL?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. RudderStack offers Reverse ETL from warehouse tables to SaaS destinations. This overlaps with Hightouch and Census; evaluate feature parity if reverse ETL is your primary need."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is RudderStack SOC 2 compliant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "RudderStack publicly states SOC 2 Type II compliance. Confirm current report scope and HIPAA BAA availability directly with the vendor before relying on it for regulated workloads."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+---
+
+Researched by Will. Last

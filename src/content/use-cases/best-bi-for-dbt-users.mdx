@@ -1,0 +1,174 @@
+```mdx
+---
+title: "Best BI Tool If You Already Use dbt?"
+description: "An analyst-grade ranking of BI tools that pair well with a dbt-modeled warehouse. Hex leads for analyst-heavy teams; Looker wins at enterprise governance scale."
+date: 2026-04-15
+updated: 2026-04-15
+category: use-case
+tags: [bi, dbt, notebook-bi, looker, hex, mode]
+---
+
+# Best BI Tool If You Already Use dbt?
+
+**Short answer (verified April 2026):** If you already run dbt, your warehouse has clean, documented models — the BI layer's job is to query them without adding a parallel modeling layer. For most data teams under ~200 people, **Hex** is the best pairing: SQL-first, free to start, and it queries dbt-modeled tables directly without requiring a semantic layer rewrite. **Looker** is the right answer only when centralized metric governance (LookML + dbt docs integration) is a documented pain point worth a 3–6 month implementation.
+
+## Ranked Shortlist
+
+### 1. Hex — Best for analyst-led teams on dbt
+
+Hex connects directly to Snowflake, BigQuery, Databricks, and Postgres, so querying your `dbt_prod.fct_orders` table is a single SQL cell. The notebook model suits teams that already trust dbt as the source of truth and don't want a second semantic layer. Python cells let pricing and finance analysts layer statistical models on top of dbt outputs without exporting to CSV.
+
+- **Pricing (verified April 2026):** Free tier available; paid plans per seat + compute. See [hex.tech/pricing](https://hex.tech/pricing) for current tiers.
+- **Setup time:** Hours, not weeks.
+- **Best for:** Teams where analysts write SQL and dbt already defines the metrics.
+
+[Evaluate Hex →](https://hex.tech)
+
+### 2. Looker — Best for enterprise governance on top of dbt
+
+Looker's LookML layer can reference dbt model metadata, and as of the dbt Semantic Layer integration (GA October 2023, per [dbt Labs docs](https://docs.getdbt.com/docs/use-dbt-semantic-layer/dbt-sl)), you can surface dbt-defined metrics inside Looker. This is the most coherent dbt + BI combination *if* you have 20+ analysts, multiple conflicting definitions of "revenue" or "margin," and a dedicated BI engineer.
+
+- **Pricing (as of Q1 2026):** Custom enterprise only. Public benchmarks put deployments at $50k–$200k+/yr. Contact vendor.
+- **Setup time:** 3–6 months minimum for a production LookML model.
+- **Best for:** >$250M revenue orgs where metric consistency is a board-level concern.
+
+[Evaluate Looker →](https://looker.com)
+
+### 3. Mode Analytics — Best for SQL-first report sharing
+
+Mode sits between Hex and a traditional BI tool. It's SQL-first, has cleaner out-of-the-box charts than Hex for stakeholder-facing reports, and integrates with dbt via direct warehouse connections. Less Python flexibility than Hex; more polish for recurring exec reports.
+
+- **Pricing (verified April 2026):** Per seat; specific tiers not publicly disclosed on all plans. See [mode.com/pricing](https://mode.com/pricing).
+- **Setup time:** Days.
+- **Best for:** SQL-comfortable analyst teams whose primary output is shared reports, not exploratory notebooks.
+
+[Evaluate Mode →](https://mode.com)
+
+## How We Evaluated
+
+Weighted for "already running dbt":
+
+| Criterion | Weight | Why it matters for dbt users |
+|---|---|---|
+| Direct warehouse query (no forced semantic layer) | 25% | dbt already is your semantic layer. A BI tool that demands its own model forces duplicate logic. |
+| SQL-first workflow | 20% | Your team already writes SQL for dbt. A drag-and-drop-only tool wastes that skill. |
+| Time to first dashboard | 15% | Fast iteration beats long implementations when models already exist upstream. |
+| dbt metadata / docs integration | 15% | Tools that surface dbt column descriptions and lineage reduce duplicated documentation. |
+| Governance and metric consistency | 15% | Matters more as team size grows past ~20 analysts. |
+| Cost at team scale | 10% | Per-seat vs. enterprise pricing diverges sharply above 15 seats. |
+
+## Runner-Ups Worth Considering
+
+- **Lightdash** — Open-source BI that reads `.yml` files directly from your dbt project. Strongest *native* dbt integration in the market as of Q1 2026. Not in the top 3 only because the ecosystem and support tier are narrower than Hex or Looker. Worth evaluating if dbt-native tooling is a hard requirement. See [lightdash.com](https://lightdash.com).
+- **Preset (Apache Superset, managed)** — Open-source lineage, warehouse-direct queries, reasonable pricing. Less polished than Hex for notebook-style analysis. Good fit if you want open-source BI without self-hosting.
+- **Metabase** — Works fine with dbt-modeled warehouses and is cheaper than Looker. Weaker on governance; better for small teams that outgrew spreadsheets but haven't hit Looker-scale problems.
+
+## What to Avoid
+
+1. **Rebuilding your dbt models inside a BI tool's semantic layer.** If you adopt Looker, invest in the dbt Semantic Layer integration or LookML-generated-from-dbt tooling (e.g., `dbt2looker`) rather than hand-maintaining LookML that duplicates your dbt models. Duplicated logic is how metric drift starts.
+2. **Buying enterprise BI "for governance" before you have a governance problem.** A 10-person analytics team running dbt + Hex will ship faster than the same team three months into a Looker implementation. Only move to Looker when you can name three specific metric-definition conflicts that governance would have prevented.
+
+## FAQ
+
+**Q: Does dbt replace the need for a BI tool's semantic layer?**
+A: Partially. dbt defines models and, via the dbt Semantic Layer (GA October 2023), metrics. Tools like Hex and Lightdash can query these directly. Tools like Looker maintain their own modeling layer (LookML) but can integrate with dbt metrics. Whether you need both depends on how many BI tools consume the models.
+
+**Q: Can Hex read dbt model documentation?**
+A: Hex connects to your warehouse and can display schema information, but deep dbt docs/lineage integration is not a core feature as of April 2026. Contact vendor for the current state of dbt metadata integration.
+
+**Q: Is Looker worth it for a team under 50 analysts?**
+A: Usually no. LookML's value compounds with scale — metric consistency across 5 analysts is solvable with code review; across 50, it requires enforced tooling. Under 50 analysts, a cheaper BI tool plus disciplined dbt practices typically delivers the same outcome at 10–20% of the cost.
+
+**Q: What about Tableau or Power BI with dbt?**
+A: Both work — they query the warehouse like any BI tool. Neither has deep native dbt integration as of Q1 2026. They're reasonable choices if your org has an existing license, but we wouldn't recommend adopting them specifically *because* you use dbt.
+
+**Q: Do I need the dbt Semantic Layer to use these tools?**
+A: No. All three top-ranked tools query dbt-modeled tables directly via SQL. The Semantic Layer adds value when multiple BI tools need consistent metric definitions — it's a team-size and tool-sprawl question, not a prerequisite.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "name": "Best BI Tools for dbt Users",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Hex",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://hex.tech"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Looker",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://looker.com"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Mode Analytics",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://mode.com"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {"@type": "SoftwareApplication", "name": "Hex", "url": "https://hex.tech"},
+      "reviewRating": {"@type": "Rating", "ratingValue": "4.5", "bestRating": "5"},
+      "author": {"@type": "Organization", "name": "Analytics Stack Review"},
+      "reviewBody": "Best pairing with dbt for analyst-led teams under ~200 people. SQL-first, direct warehouse queries, free tier for evaluation."
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {"@type": "SoftwareApplication", "name": "Looker", "url": "https://looker.com"},
+      "reviewRating": {"@type": "Rating", "ratingValue": "4.0", "bestRating": "5"},
+      "author": {"@type": "Organization", "name": "Analytics Stack Review"},
+      "reviewBody": "Strongest enterprise governance story with dbt Semantic Layer integration. Justified only at scale; 3-6 month implementation and $50k-200k+/yr cost."
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {"@type": "SoftwareApplication", "name": "Mode Analytics", "url": "https://mode.com"},
+      "reviewRating": {"@type": "Rating", "ratingValue": "4.0", "bestRating": "5"},
+      "author": {"@type": "Organization", "name": "Analytics Stack Review"},
+      "reviewBody": "SQL-first with cleaner report-sharing polish than Hex. Less Python flexibility. Good fit for analyst teams whose primary output is recurring reports."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does dbt replace the need for a BI tool's semantic layer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Partially. dbt defines models and, via the dbt Semantic Layer (GA October 2023), metrics. Tools like Hex and Lightdash can query these directly. Looker maintains its own LookML layer but can integrate with dbt metrics. Whether you need both depends on how many BI tools consume the models."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Hex read dbt model documentation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Hex connects to your warehouse and can display schema information, but deep dbt docs/lineage integration is not a core feature as of April 2026. Contact vendor for current integration state."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Looker worth it for a team under 50 analysts?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Usually no. LookML's value compounds with scale. Under 50 analysts, a che

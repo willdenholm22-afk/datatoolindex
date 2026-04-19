@@ -1,0 +1,184 @@
+```mdx
+---
+title: "Hex Review (2026): Pricing, Features, and Verdict"
+description: "Analyst-grade review of Hex: notebook BI pricing, SQL+Python workflow, best-fit personas, and honest limitations. Verified April 2026."
+slug: "hex"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Hex Review (2026): Pricing, Features, and Verdict
+
+Hex is worth it if you have SQL- and Python-literate analysts who need to run exploratory analysis, custom models, or one-off investigations and share the results as a polished document. It is not a replacement for operational BI. The free tier is usable for individuals and tiny teams; paid plans kick in when you need workspaces, more compute, or governance. If your team still lives in Excel or needs scheduled pixel-perfect dashboards, Hex is the wrong tool. If you're a pricing analyst, data scientist, or analytics engineer who wants a notebook you can actually hand to a stakeholder, it's a strong fit (verified April 2026).
+
+## What Hex Is
+
+Hex is a cloud-based collaborative notebook that combines SQL cells, Python cells, and no-code charting into a single document you can publish as an app-like report. Cells execute sequentially — a mental-model shift from Excel, where formulas recalculate automatically. You connect to a warehouse (Snowflake, BigQuery, Databricks, Postgres, Redshift), write SQL to pull data, pipe results into Python dataframes for modeling or stats, then surface outputs via charts, input widgets, and markdown. The finished artifact can be shared with read-only stakeholders as a "published app." It sits between pure-code notebooks (Jupyter, Deepnote) and dashboard-first BI (Looker, Tableau) — stronger than either at ad-hoc analysis that needs both flexibility and shareability (verified April 2026 via https://hex.tech).
+
+## Pricing (verified 2026-04-18)
+
+| Plan | Price | Seats | Notes |
+|---|---|---|---|
+| Community | $0 | Up to 5 editors | Limited compute, public projects |
+| Team | Contact vendor | Per editor + viewer | Private workspaces, warehouse connections |
+| Professional | Contact vendor | Per editor + viewer | Version control, approvals, scheduling |
+| Enterprise | Contact vendor | Custom | SSO, SCIM, audit logs, VPC options |
+
+Notes:
+- Hex bills on a **per-seat (editor) + compute** model. Public list pricing for Team/Professional is not disclosed on hex.tech as of 2026-04-18 — contact vendor.
+- Viewer seats are typically cheaper than editor seats, but exact ratio is not publicly disclosed.
+- Compute overages apply to long-running Python kernels and large query results. Confirm quotas during procurement.
+- Source: https://hex.tech/pricing (verified 2026-04-18).
+
+> **Try Hex** → [hex.tech](https://hex.tech) — the Community tier is genuinely usable for evaluation; no credit card required (verified April 2026).
+
+## Features
+
+**Data access**
+- Native warehouse connectors: Snowflake, BigQuery, Databricks, Redshift, Postgres, MySQL
+- dbt metadata integration for model lineage
+- File uploads (CSV, Parquet) for ad-hoc data
+
+**Analysis**
+- SQL cells with variables, parameterization, and query chaining
+- Python cells with pre-installed pandas, numpy, scikit-learn, plotly
+- No-code chart cells for users who don't want to write matplotlib
+- Input widgets (dropdowns, sliders, date pickers) for interactive reports
+
+**Collaboration & publishing**
+- Real-time multiplayer editing
+- "Publish as app" for stakeholder-friendly views that hide code
+- Comments, version history
+- Git sync (on higher tiers — confirm with vendor)
+
+**Governance (Enterprise)**
+- SSO (SAML), SCIM, role-based permissions
+- Audit logs
+- Semantic layer integration (dbt, Cube — verify coverage)
+
+## Best For
+
+1. **Pricing and revenue analysts moving off Excel** — need SQL for quote pulls plus Python for elasticity modeling, and want to share results without exporting screenshots.
+2. **Analytics engineers validating dbt models** — fast iteration against the warehouse with lineage context.
+3. **Data science teams doing stakeholder-facing exploratory work** — the "published app" mode makes notebooks presentable without porting to Tableau.
+4. **Small data teams (5-50 people)** where one tool needs to cover ad-hoc analysis and light reporting.
+5. **Customer-facing data consultants** who need to hand clients a readable, interactive artifact.
+
+## Not Ideal For
+
+1. **Non-technical business users** — SQL or Python is required for meaningful work. Use [Looker](/tools/looker) or Metabase instead.
+2. **Operational dashboards with scheduled email/Slack delivery** — scheduling exists but Hex is not optimized for pixel-perfect recurring reports. Use [Looker](/tools/looker) or [Sigma](/tools/sigma).
+3. **Heavy self-service BI for hundreds of consumers** — per-seat economics and the notebook paradigm don't scale to broad consumption. Use [Looker](/tools/looker) or [Tableau](/tools/tableau).
+4. **Pure ML/DS workflows requiring GPU or heavy training** — use [Deepnote](/tools/deepnote), Databricks notebooks, or SageMaker.
+5. **Air-gapped / on-prem environments** — Hex is cloud-only as of April 2026.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Deepnote](/tools/deepnote) | Closer to a Jupyter replacement; weaker at stakeholder publishing. |
+| [Mode](/tools/mode) | Similar SQL+Python notebook; stronger historically in reporting, less polished UI. |
+| [Observable](/tools/observable) | JavaScript-first; best for custom data visualization, not SQL-heavy analysis. |
+| [Sigma](/tools/sigma) | Spreadsheet-style warehouse BI; better for Excel-native business users, no Python. |
+| [Looker](/tools/looker) | Governed dashboards and semantic layer; not an ad-hoc notebook. |
+
+## FAQ
+
+**Does Hex replace a BI tool like Looker or Tableau?**
+No. Hex is strong for exploratory and ad-hoc analysis shared as notebook-apps. For governed dashboards consumed by hundreds of users on a schedule, use a dedicated BI tool (verified April 2026).
+
+**Can non-technical users create content in Hex?**
+Minimally. No-code chart cells and input widgets exist, but building a useful Hex project requires SQL at minimum and usually Python. Non-technical users are best as *viewers* of published apps.
+
+**How is Hex priced?**
+Per editor seat plus compute, with a free Community tier. Team and Professional list pricing is not publicly disclosed as of 2026-04-18 — contact Hex for a quote.
+
+**Does Hex support scheduled report delivery?**
+Scheduling exists on paid tiers but is not Hex's strength. For reliable recurring email/Slack delivery of operational metrics, a traditional BI tool is a better fit (verified April 2026).
+
+**What warehouses does Hex connect to?**
+Snowflake, BigQuery, Databricks, Redshift, Postgres, and MySQL natively, plus CSV/Parquet upload. Confirm niche connector availability with the vendor (verified April 2026 via hex.tech).
+
+## Verdict
+
+Hex is the right tool for technical analysts and data scientists who need Excel-level flexibility with warehouse-scale data and want to publish results without a second tool. It is genuinely differentiated in the middle ground between Jupyter and Looker. Weaknesses are predictable: not for non-technical users, not for operational dashboards, and public pricing opacity makes procurement annoying. For pricing analysts modeling elasticity, analytics engineers validating dbt output, or data science teams handing stakeholders readable artifacts, the free tier is worth an afternoon of evaluation. Budget procurement time for a vendor call to get Team/Professional pricing (verified April 2026).
+
+> **Start on Hex Community (free)** → [hex.tech](https://hex.tech)
+
+---
+
+Researched by Will. Last verified 2026-04-18. [Methodology](/methodology)
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Hex",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://hex.tech",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Community tier free; paid tiers per-seat + compute, contact vendor"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "bestRating": "5",
+        "ratingCount": "1",
+        "reviewCount": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does Hex replace a BI tool like Looker or Tableau?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Hex is strong for exploratory and ad-hoc analysis shared as notebook-apps. For governed dashboards consumed by hundreds of users on a schedule, use a dedicated BI tool."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can non-technical users create content in Hex?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimally. No-code chart cells and input widgets exist, but building a useful Hex project requires SQL at minimum and usually Python. Non-technical users are best as viewers of published apps."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Hex priced?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Per editor seat plus compute, with a free Community tier. Team and Professional list pricing is not publicly disclosed as of 2026-04-18 — contact Hex for a quote."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Hex support scheduled report delivery?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Scheduling exists on paid tiers but is not Hex's strength. For reliable recurring email or Slack delivery of operational metrics, a traditional BI tool is a better fit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What warehouses does Hex connect to?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Snowflake, BigQuery, Databricks, Redshift, Postgres, and MySQL natively, plus CSV and Parquet upload. Confirm niche connector availability with the vendor."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+```

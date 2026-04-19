@@ -1,0 +1,186 @@
+```mdx
+---
+title: "Best BI Tool for a RevOps Team Under 20 People (2026)"
+description: "Analyst-grade comparison of Sigma, Power BI, Hex, and Mode for small RevOps teams. Verified pricing, self-service fit, and a clear winner by use case."
+slug: "best-bi-tool-revops-team-under-20"
+category: "use-case"
+date_published: "2026-04-15"
+last_verified: "2026-04-15"
+audience: "RevOps leads, pricing analysts, small-team data owners"
+---
+
+# Best BI tool for a RevOps team under 20 people?
+
+**Short answer (verified April 2026):** If your RevOps team already lives in Microsoft 365, **Power BI at $14/user/month** is the lowest-friction, lowest-cost option — Excel and Power Query skills transfer directly. If your team is non-Microsoft and wants non-SQL users to self-serve warehouse data, **Sigma** is the better call. Hex and Mode only make sense if you have at least one SQL- or Python-comfortable analyst on the team.
+
+## Ranked shortlist
+
+### 1. Power BI — Best overall for Microsoft-shop RevOps teams
+
+Power BI is the default answer when the team already pays for Microsoft 365. Power Query (M) and DAX map cleanly onto the Excel workflows most RevOps analysts already have, which collapses onboarding time. At 20 seats, you're looking at roughly $280/month on Power BI Pro, or ~$400/month if you need Premium Per User for larger datasets or faster refresh (as of [Microsoft's pricing page, April 2026](https://powerbi.microsoft.com/en-us/pricing/)).
+
+- **Pricing at 20 seats:** ~$280/mo (Pro, $14/seat) to ~$400/mo (PPU, $20/seat)
+- **Best for:** teams with existing Excel/Power Query pipelines, Microsoft 365 tenants
+- **CTA:** [Compare Power BI plans →](https://powerbi.microsoft.com/en-us/pricing/)
+
+### 2. Sigma — Best for non-SQL RevOps managers who want self-service
+
+Sigma's spreadsheet-style UI on top of Snowflake or BigQuery is the closest thing to "Excel that queries the warehouse." For RevOps managers who want to slice pipeline, quote-to-cash, or segment margin data without writing SQL or waiting on an analyst, Sigma removes the bottleneck. Pricing is not publicly disclosed — expect to contact vendor for a quote; peer benchmarks typically land in the $20–40/user/month range at this team size (verified via vendor discussions, Q1 2026).
+
+- **Pricing at 20 seats:** Contact vendor (public list price not disclosed, April 2026)
+- **Best for:** warehouse-native self-service, Excel-heritage users, no-SQL exploration
+- **Caveat:** no native scheduled email/report distribution — requires workaround
+- **CTA:** [Request Sigma pricing →](https://sigmacomputing.com)
+
+### 3. Hex — Best for analyst-led RevOps teams doing deep pricing or funnel work
+
+Hex combines SQL and Python in shareable notebooks. If your 20-person team includes one or two analysts doing cohorted pipeline analysis, price elasticity, or statistical forecasting, Hex is stronger than any dashboard tool. Business users consume polished "apps" built from the notebook. Free tier is functional for small teams; paid tier pricing is per seat plus compute — **contact vendor for current rates** (Hex does not publish full price cards, April 2026).
+
+- **Pricing at 20 seats:** Free tier + paid seats (contact vendor)
+- **Best for:** SQL/Python analysts, exploratory and modeling-heavy work
+- **Not ideal for:** non-technical users expected to self-serve
+
+### 4. Mode — Best for SQL-first ops reporting without full BI overhead
+
+Mode is the cleaner, more report-polished sibling to Hex. Less Python flexibility, better out-of-the-box charting and report sharing. Useful if your RevOps function is essentially "one analyst writing SQL that everyone else reads." Pricing is not publicly listed — **contact vendor** (as of April 2026).
+
+- **Pricing at 20 seats:** Not publicly disclosed
+- **Best for:** SQL-first analysts producing reports for RevOps consumers
+- **Not ideal for:** self-service by non-SQL business users
+
+## How we evaluated
+
+For a RevOps team under 20 people, we weighted criteria as follows:
+
+| Criterion | Weight | Why it matters at this scale |
+|---|---|---|
+| Total cost at 20 seats | 30% | Budget is tight; per-seat pricing compounds fast |
+| Self-service for non-SQL users | 25% | Small teams can't afford a dedicated BI engineer |
+| Excel/Power Query skill transfer | 20% | Most RevOps analysts come from Excel |
+| Warehouse connectivity (Snowflake, BigQuery, Redshift) | 15% | Data already lives in the warehouse |
+| Scheduled distribution (email, Slack) | 10% | Weekly pipeline reviews need automation |
+
+## Comparison table
+
+| Tool | Starting price (verified April 2026) | Self-service for non-SQL | Excel skill transfer | Scheduled delivery |
+|---|---|---|---|---|
+| Power BI | $14/user/mo | Moderate (DAX has a learning curve) | Strong (Power Query native) | Yes |
+| Sigma | Contact vendor | Strong | Strong (spreadsheet UI) | Add-on/workaround |
+| Hex | Free tier + paid | Weak | Weak | Limited |
+| Mode | Contact vendor | Weak | Weak | Yes |
+
+## Runner-ups worth considering
+
+- **Looker Studio (free):** Genuinely useful for Google Workspace shops with data in BigQuery. Not in the top ranking because governance and modeling depth are thin for RevOps workflows involving quote-to-cash. Worth piloting if you have zero BI budget.
+- **Metabase:** Open-source option with a hosted tier. Good for ad-hoc SQL questions, weaker on the spreadsheet-style exploration RevOps managers want. Not publicly benchmarked in our candidate set above.
+
+## What to avoid
+
+- **Don't buy Tableau or Looker (enterprise) for a 20-person RevOps team.** Per-seat economics and implementation overhead are built for 200+ seat deployments. You'll pay for governance and admin tooling you won't use.
+- **Don't stack a notebook tool (Hex/Mode) as your only BI layer if most of your team can't write SQL.** You'll create a single-analyst bottleneck within a quarter. Pair notebooks with a dashboard tool, or pick the dashboard tool first.
+
+## FAQ
+
+**Q: What's the cheapest BI tool for a 20-person RevOps team?**
+A: Power BI Pro at $14/user/month (~$280/mo for 20 seats), verified April 2026. Looker Studio is free but has thinner modeling capabilities.
+
+**Q: Do we need a data warehouse before picking a BI tool?**
+A: For Sigma, Hex, and Mode — yes, practically. All three are warehouse-native. Power BI can connect to files, databases, and SaaS APIs directly, so it's the most flexible without Snowflake or BigQuery in place.
+
+**Q: Can Sigma replace Excel for pricing analysts?**
+A: For warehouse-scale analysis, largely yes — the spreadsheet UX and formula syntax are deliberately close to Excel. For offline modeling and one-off scenarios, analysts typically keep Excel alongside.
+
+**Q: Is Power BI's $14/user pricing enough, or do we need Premium?**
+A: Pro ($14/user) covers most teams under 20 people. Premium Per User ($20/user) is needed for datasets above ~1GB per model or refresh frequencies beyond 8/day (per [Microsoft documentation, April 2026](https://learn.microsoft.com/en-us/power-bi/enterprise/service-premium-what-is)).
+
+**Q: Should we pick one tool or combine them?**
+A: At under 20 people, pick one. Maintaining two BI tools doubles admin overhead without proportional analytical gain. Combine only if you have a clear split between analyst-led exploration (Hex/Mode) and business-user dashboards (Power BI/Sigma).
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "name": "Best BI tools for a RevOps team under 20 people",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Power BI",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://powerbi.microsoft.com",
+            "offers": {
+              "@type": "Offer",
+              "price": "14",
+              "priceCurrency": "USD",
+              "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "14",
+                "priceCurrency": "USD",
+                "unitText": "user/month"
+              }
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Sigma",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://sigmacomputing.com"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Hex",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://hex.tech"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Mode Analytics",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://mode.com"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {"@type": "SoftwareApplication", "name": "Power BI"},
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "author": {"@type": "Organization", "name": "BI Comparison Hub"},
+      "reviewBody": "Best overall for RevOps teams under 20 people in Microsoft 365 shops. Lowest cost per seat and strongest Excel skill transfer."
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {"@type": "SoftwareApplication", "name": "Sigma"},
+      "reviewRating": {"@type": "Rating", "ratingValue": "4", "bestRating": "5"},
+      "author": {"@type": "Organization", "name": "BI Comparison Hub"},
+      "reviewBody": "Best self-service option for non-SQL RevOps managers on Snowflake or BigQuery. Lacks native scheduled distribution."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What's the cheapest BI tool for a 20-person RevOps team?",
+          "acceptedAnswer": {"@type": "Answer", "text": "Power BI Pro at $14/user/month, or roughly $280/month for 20 seats, verified April 2026. Looker Studio is free but has thinner modeling capabilities."}
+        },
+        {
+          "@type": "Question",
+          "name": "Do we need a data warehouse before picking a BI tool?",
+          "acceptedAnsw

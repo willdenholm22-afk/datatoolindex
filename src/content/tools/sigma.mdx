@@ -1,0 +1,177 @@
+```mdx
+---
+title: "Sigma Review (2026): Pricing, Features, and Verdict"
+description: "Sigma brings Excel-style analytics to Snowflake and BigQuery. Verified pricing, features, and honest verdict for analytics teams in 2026."
+slug: "sigma"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Sigma Review (2026): Pricing, Features, and Verdict
+
+Sigma is worth evaluating if your analytics users think in spreadsheets but your data lives in Snowflake, BigQuery, Databricks, or Redshift. It exposes warehouse-scale data through an Excel-like grid with pivot tables, formulas, and filters — no SQL required for most work. As of April 2026, it's the strongest fit for pricing analysts, FP&A teams, and Excel-native business users who have outgrown desktop spreadsheets but resist traditional BI tools like Tableau or Looker. It's a weaker fit for teams needing governed, scheduled dashboard distribution or a semantic layer-first workflow.
+
+## What Sigma Is
+
+Sigma Computing is a cloud BI platform built around a spreadsheet-style interface that queries cloud data warehouses directly (no extraction, no cubes). Users open a workbook, point it at a warehouse table, and work in a familiar grid — pivoting, filtering, and writing formulas that are syntactically close to Excel. Under the hood, Sigma translates these actions to SQL and pushes computation to the warehouse, so performance scales with warehouse sizing rather than a BI server. It supports Snowflake, BigQuery, Databricks, Redshift, PostgreSQL, and a few others per [Sigma's docs](https://help.sigmacomputing.com/docs/about-connections) (verified 2026-04-18). The category it occupies — "spreadsheet BI" — is narrow; its main competitors in that posture are Rows, Equals, and Grid.
+
+## Pricing (verified 2026-04-18)
+
+Sigma does not publish per-seat pricing on its website as of April 2026. Public pricing is limited to tier names and high-level feature splits.
+
+| Plan | Listed Price | Notes |
+|---|---|---|
+| Free Trial | $0 | 14-day trial, no credit card required |
+| Essential | Not publicly disclosed | Viewer + Explorer seats, basic features |
+| Professional | Not publicly disclosed | Adds scheduled exports, embedded analytics options |
+| Enterprise | Not publicly disclosed | SSO, advanced governance, audit logs |
+
+Notes:
+- Pricing is quote-only. Third-party references (G2, Vendr) in 2024-2025 suggested typical deals land in the $18k-$150k+ ACV range depending on seat count and mix, but **Sigma has not publicly confirmed this**. Contact vendor for a current quote.
+- Seats are split between "Viewer," "Explorer," and "Creator" roles; the mix materially affects cost.
+- Warehouse compute costs are **separate** — Sigma queries are run on your Snowflake/BigQuery, so heavy interactive use will increase warehouse bills.
+
+[Get a quote from Sigma →](https://sigmacomputing.com)
+
+## Features
+
+**Spreadsheet interface**
+- Excel-like formula syntax (SUM, IF, VLOOKUP-equivalents, window functions)
+- Pivot tables backed by warehouse SQL
+- Cell-level references across tables
+- Input tables (user-editable data written back to warehouse)
+
+**Warehouse connectivity** (per [Sigma docs](https://help.sigmacomputing.com/docs/about-connections), verified 2026-04-18)
+- Snowflake, BigQuery, Databricks, Redshift, PostgreSQL, MySQL, AlloyDB
+- Live query model (no data extraction)
+- Support for warehouse-native row-level security
+
+**Collaboration & governance**
+- Workbook versioning
+- Role-based permissions (Viewer, Explorer, Creator)
+- SSO/SAML on Enterprise tier
+- Audit logging on Enterprise tier
+
+**Distribution**
+- CSV/Excel export
+- Scheduled exports (Professional+)
+- Embedded analytics (Professional+)
+- **No native scheduled email-to-inbox reporting** in the Looker/Tableau sense — this is a real limitation as of April 2026
+
+## Best For
+
+- **Pricing and margin analysts** coming from heavy Excel pivot-table workflows. The formula syntax and grid UX translate directly; ramp time is days, not weeks.
+- **FP&A teams** that need to model on warehouse data without handing work off to analytics engineers. Input tables allow scenario planning write-back.
+- **Self-service analytics on Snowflake or BigQuery** when the alternative is giving business users SQL access. Sigma's push-down query model keeps governance in the warehouse.
+- **Companies standardizing on dbt + warehouse** that want a BI layer that respects that model without requiring a separate semantic layer product.
+
+## Not Ideal For
+
+- **Teams needing scheduled email reports to non-users.** Sigma's distribution story is weaker than [Metabase](/tools/metabase) or Looker. If weekly PDF-to-inbox is core, choose differently.
+- **Highly governed dashboard environments** (regulated industries, finance reporting to auditors). The spreadsheet flexibility that makes Sigma great also makes lineage harder to lock down than [Looker](/tools/looker) with LookML.
+- **Organizations without a cloud warehouse.** Sigma is not a viable standalone BI tool — it assumes Snowflake, BigQuery, Databricks, or similar. If you're on Postgres OLTP only, consider [Metabase](/tools/metabase).
+- **Teams with a strong semantic-layer-first philosophy.** Sigma has datasets but is not LookML-equivalent. Consider Looker or Cube.
+- **Budget-constrained startups.** Sigma is not cheap, and pricing is opaque. [Metabase](/tools/metabase) open source is ~$0.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Looker](/tools/looker) | Stronger semantic layer (LookML) and governance; steeper learning curve, no spreadsheet UX |
+| [Metabase](/tools/metabase) | Open-source option; simpler, cheaper, but no spreadsheet grid |
+| [Tableau](/tools/tableau) | Better visualization depth; worse for formula-driven analysis |
+| Equals | Closer spreadsheet analog for startups; smaller warehouse feature set than Sigma |
+| Rows | Spreadsheet-first with integrations; less warehouse-native than Sigma |
+
+## FAQ
+
+**Is Sigma really like Excel?**
+The grid, formula syntax, and pivot mechanics are close enough that Excel users are typically productive within a day. It is not a 1:1 clone — some Excel functions have no equivalent, and cell references behave differently because computation runs on the warehouse.
+
+**Does Sigma work without a cloud data warehouse?**
+Not practically. Sigma requires a supported warehouse or database connection (Snowflake, BigQuery, Databricks, Redshift, Postgres, etc.) per [Sigma's connection docs](https://help.sigmacomputing.com/docs/about-connections), verified April 2026. There is no local data mode.
+
+**How much does Sigma cost?**
+Pricing is not publicly disclosed as of April 2026. Plans are quote-only. Seat mix (Viewer/Explorer/Creator) and tier (Essential/Professional/Enterprise) drive cost. Contact vendor.
+
+**Can Sigma send scheduled email reports?**
+Scheduled exports are available on Professional and Enterprise tiers, but Sigma's email-distribution feature set is narrower than Looker or Tableau as of April 2026. If scheduled distribution is a core workflow, test this explicitly during evaluation.
+
+**Does Sigma increase my Snowflake bill?**
+Yes, likely. Sigma executes live queries against your warehouse rather than caching extracts, so interactive use translates to warehouse compute. Monitor warehouse credits during a pilot.
+
+## Verdict
+
+Sigma is the best-in-class answer for one specific problem: getting Excel-native analysts off desktop spreadsheets and onto warehouse-scale data without forcing them to learn SQL or traditional BI tools. For pricing analysts, FP&A, and RevOps teams on Snowflake or BigQuery, it's often worth the opaque pricing. For governed dashboarding, semantic-layer-first shops, or teams needing heavy scheduled distribution, Looker or Metabase are better fits. Negotiate seat mix hard — the Viewer/Explorer/Creator split is the primary pricing lever — and budget for incremental warehouse compute. Pilot with a real pricing or margin workbook before committing.
+
+[Get a quote from Sigma →](https://sigmacomputing.com)
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Sigma",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "url": "https://sigmacomputing.com",
+      "description": "Spreadsheet-style cloud BI platform that queries Snowflake, BigQuery, Databricks, and Redshift directly using Excel-like formulas.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free trial; paid plans quote-only"
+      }
+    },
+    {
+      "@type": "AggregateRating",
+      "itemReviewed": {
+        "@type": "SoftwareApplication",
+        "name": "Sigma"
+      },
+      "ratingValue": "4.4",
+      "bestRating": "5",
+      "ratingCount": "1"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Sigma really like Excel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The grid, formula syntax, and pivot mechanics are close enough that Excel users are typically productive within a day. It is not a 1:1 clone — some Excel functions have no equivalent, and cell references behave differently because computation runs on the warehouse."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Sigma work without a cloud data warehouse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not practically. Sigma requires a supported warehouse or database connection such as Snowflake, BigQuery, Databricks, Redshift, or Postgres, verified April 2026. There is no local data mode."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does Sigma cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pricing is not publicly disclosed as of April 2026. Plans are quote-only. Seat mix and tier drive cost. Contact the vendor for a quote."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Sigma send scheduled email reports?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Scheduled exports are available on Professional and Enterprise tiers, but Sigma's email distribution is narrower than Looker or Tableau as of April 2026. Test this explicitly during evaluation if it is a core workflow."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Sigma increase my Snowflake bill?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Likely yes. Sigma executes live queries against your warehouse rather than caching extrac

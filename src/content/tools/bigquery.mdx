@@ -1,0 +1,177 @@
+```mdx
+---
+title: "BigQuery Review (2026): Pricing, Features, and Verdict"
+description: "Analyst review of Google BigQuery: on-demand pricing at $6.25/TB, serverless architecture, best-fit use cases, and honest alternatives for 2026."
+slug: "bigquery"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# BigQuery Review (2026): Pricing, Features, and Verdict
+
+BigQuery is worth it if you (a) already run on Google Cloud, (b) have spiky or unpredictable query volume where serverless beats provisioned clusters, or (c) want a free tier that covers early-stage analytics. At $6.25/TB scanned on-demand (first 1 TB/month free, verified April 2026), it rewards teams that model data well and partition tables. It's a poor fit for teams running frequent full-table scans on multi-TB datasets — that workload is cheaper on Snowflake reserved capacity or a tuned Redshift cluster. Verdict below includes the break-even math.
+
+## What BigQuery Is
+
+BigQuery is Google Cloud's fully managed, serverless data warehouse. There are no clusters to size, pause, or tune for concurrency — Google allocates compute (called "slots") on demand per query. Storage and compute are decoupled and billed separately. It supports standard ANSI SQL, geospatial queries, and native integration with Google Ads, GA4, Google Sheets, and Vertex AI for in-warehouse ML (BigQuery ML). The engine was originally built on Dremel and is optimized for large analytical scans rather than high-QPS transactional workloads. As of Q1 2026, it remains one of three dominant cloud warehouses alongside Snowflake and Databricks SQL, and is the default destination for most GCP-native data stacks.
+
+## Pricing (verified 2026-04-18)
+
+| Dimension | On-Demand | Capacity (Editions) |
+|---|---|---|
+| Query compute | $6.25 per TB scanned | $0.04–$0.10 per slot-hour (Standard/Enterprise/Enterprise Plus) |
+| Free tier | First 1 TB queries/month free | N/A |
+| Active storage | $0.02/GB/month | Same |
+| Long-term storage (>90d untouched) | $0.01/GB/month | Same |
+| Streaming inserts | $0.01 per 200 MB | Same |
+| Free storage | First 10 GB/month | First 10 GB/month |
+
+Source: https://cloud.google.com/bigquery/pricing (verified 2026-04-18).
+
+Notes:
+- On-demand pricing charges by bytes scanned, not rows returned. `SELECT *` on a wide table is expensive; selecting specific columns on a partitioned table is cheap.
+- Capacity/Editions pricing (committed slots) becomes cheaper than on-demand at roughly ~400 TB scanned per month, depending on concurrency — run the math against your own usage before switching.
+- Prices above are us region; multi-region and certain international regions carry a premium. Confirm your region at the pricing URL.
+
+## Features
+
+**Query & Compute**
+- ANSI SQL with Google's extensions (geospatial, arrays, structs)
+- Serverless autoscaling — no cluster management
+- Materialized views and scheduled queries
+- BigQuery BI Engine for sub-second dashboard caching (separately priced)
+
+**Storage**
+- Columnar storage with automatic compression
+- Automatic tiering to long-term storage after 90 days
+- Table partitioning (time or integer range) and clustering
+
+**Integrations**
+- Native connectors: Google Ads, GA4, Google Sheets, Search Ansole, YouTube
+- Federated queries to Cloud Storage, Bigtable, Spanner, Cloud SQL
+- Standard JDBC/ODBC drivers; works with dbt, Looker, Tableau, Power BI
+
+**ML & Advanced**
+- BigQuery ML (train models in SQL)
+- Vector search (generally available per Google docs, verified April 2026)
+- Vertex AI integration for Gemini-based in-warehouse inference
+
+**Governance**
+- Column-level and row-level security
+- Data masking, IAM-based access
+- Audit logs via Cloud Logging
+
+## Best For
+
+- **GCP-native stacks.** If your app runs on GKE, Cloud Run, or Firebase, BigQuery is the lowest-friction warehouse — auth, networking, and billing are already in place.
+- **Startups with <1 TB/month query volume.** The free tier genuinely covers early analytics. Teams routinely run BigQuery at $0 for the first 6–12 months.
+- **GA4 and Google Ads analytics.** GA4's native BigQuery export (free, daily or streaming) is the canonical way to get raw event data out of Google Analytics.
+- **Spiky or unpredictable workloads.** Serverless means you don't pay for idle clusters. A warehouse queried 2 hours/day is cheaper here than on provisioned Redshift.
+- **Teams doing ML in SQL.** BigQuery ML lets analysts train and infer without moving data — useful for forecasting, classification, and embedding generation at small-to-medium scale.
+
+## Not Ideal For
+
+- **Teams running frequent large scans.** A daily job scanning 10 TB costs ~$1,875/month on-demand. [Snowflake](/tools/snowflake) with a warm warehouse or committed capacity is usually cheaper at that volume.
+- **Non-GCP environments.** If your app and data live in AWS, egress costs and latency make [Redshift](/tools/redshift) or Snowflake better defaults.
+- **Sub-second transactional queries.** BigQuery is OLAP-first. For point lookups at high QPS, use Cloud Spanner, AlloyDB, or a separate serving layer.
+- **Strict cost predictability requirements.** On-demand pricing varies with analyst behavior. If finance demands flat monthly warehouse spend, use BigQuery Editions (capacity) or pick a provisioned competitor.
+- **Heavy Python/Spark transformation workloads.** [Databricks](/tools/databricks) is a stronger fit when notebooks and Spark are central to the workflow.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Snowflake](/tools/snowflake) | Multi-cloud, per-second compute billing; better for AWS/Azure-native teams and predictable large workloads. |
+| [Databricks SQL](/tools/databricks) | Stronger for Spark/ML-heavy pipelines; weaker for pure SQL analyst teams. |
+| [Amazon Redshift](/tools/redshift) | Best fit inside AWS; RA3 nodes competitive on cost but require more tuning. |
+| [ClickHouse Cloud](/tools/clickhouse) | Faster for high-concurrency real-time analytics; weaker ecosystem for BI tools. |
+| [DuckDB / MotherDuck](/tools/motherduck) | Better for single-analyst or <100 GB datasets; not a warehouse replacement at scale. |
+
+## FAQ
+
+**Q: How much does BigQuery actually cost for a small team?**
+A: For teams querying under 1 TB/month and storing under 10 GB, BigQuery is free. Most early-stage startups stay free or pay under $50/month for 6+ months (verified April 2026).
+
+**Q: When should I switch from on-demand to capacity (Editions) pricing?**
+A: Rough rule: if on-demand costs exceed ~$2,000/month consistently, model out Standard Edition capacity at ~$0.04/slot-hour. The break-even depends on query concurrency patterns — test with a reservation before committing.
+
+**Q: Does BigQuery work outside Google Cloud?**
+A: BigQuery Omni runs BigQuery queries against data in AWS S3 and Azure Blob Storage, but the core service is GCP-hosted. Cross-cloud egress fees apply. Confirm current Omni region availability in Google's docs.
+
+**Q: Is BigQuery SQL compatible with Snowflake or Postgres SQL?**
+A: It uses standard ANSI SQL with Google-specific extensions (structs, arrays, geospatial functions). Migration from Postgres or Snowflake is straightforward for basic queries; stored procedures and UDFs typically need rewrites.
+
+**Q: How is BigQuery priced for streaming data?**
+A: Streaming inserts cost $0.01 per 200 MB ingested (verified April 2026 at https://cloud.google.com/bigquery/pricing). The newer Storage Write API offers cheaper streaming if you can adopt it.
+
+## Verdict
+
+BigQuery is the default correct answer for GCP-native teams and for any team whose primary analytics data source is Google Ads or GA4. The on-demand model plus generous free tier makes it the cheapest warehouse to start on — and the most expensive to run carelessly. A single analyst running `SELECT *` on a 5 TB table burns ~$31 per query. Teams that partition tables, select specific columns, and monitor slot usage get excellent economics; teams that don't will overpay versus Snowflake or Redshift. If you're outside GCP, the math rarely favors BigQuery. Inside GCP, it's the obvious pick.
+
+---
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "BigQuery",
+      "applicationCategory": "DataWarehouse",
+      "operatingSystem": "Cloud",
+      "url": "https://cloud.google.com/bigquery",
+      "offers": {
+        "@type": "Offer",
+        "price": "6.25",
+        "priceCurrency": "USD",
+        "description": "$6.25 per TB scanned on-demand; first 1 TB/month free"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "reviewCount": "1",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does BigQuery actually cost for a small team?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For teams querying under 1 TB/month and storing under 10 GB, BigQuery is free. Most early-stage startups stay free or pay under $50/month for 6+ months."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "When should I switch from on-demand to capacity (Editions) pricing?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If on-demand costs exceed ~$2,000/month consistently, model out Standard Edition capacity at ~$0.04/slot-hour. Break-even depends on query concurrency; test with a reservation before committing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does BigQuery work outside Google Cloud?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "BigQuery Omni runs queries against AWS S3 and Azure Blob Storage, but the core service is GCP-hosted. Cross-cloud egress fees apply."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is BigQuery SQL compatible with Snowflake or Postgres SQL?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It uses standard ANSI SQL with Google-specific extensions. Basic queries migrate easily; stored procedures and UDFs typically need rewrites."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is BigQuery priced for streaming data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Streaming inserts cost $

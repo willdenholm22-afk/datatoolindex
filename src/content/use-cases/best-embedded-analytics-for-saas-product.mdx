@@ -1,0 +1,178 @@
+```mdx
+---
+title: "Best Embedded Analytics Tool for a SaaS Product (2026)"
+description: "Analyst-grade comparison of embedded analytics tools for B2B SaaS products. Ranked recommendations for Sigma Embed, Looker Embedded, and alternatives — with pricing caveats and implementation reality."
+category: "embedded-analytics"
+use_case: "embedded-analytics-saas"
+date_published: "2026-04-15"
+date_verified: "2026-04-15"
+author: "Comparison Hub Analyst Desk"
+---
+
+# Best Embedded Analytics Tool for a SaaS Product?
+
+**Short answer (verified April 2026):** For most B2B SaaS products at Series A–B scale, **Sigma Embed** is the strongest default — the spreadsheet-style grid lets end customers pivot and filter their own data without learning a BI tool, and implementation is measured in weeks rather than quarters. **Looker Embedded** wins for enterprise SaaS vendors (>$50M ARR) whose customers demand heavy white-labeling, row-level security, and governed metric definitions. **Hex** is not a true embedded product and should be ruled out for customer-facing analytics.
+
+## Ranked Shortlist
+
+### 1. Sigma Embed — Best default for Series A–B SaaS
+
+Sigma's embedded offering exposes its spreadsheet-grid UI inside your product via iframe or JS SDK. The advantage for SaaS vendors: your customers already know spreadsheets, so the learning curve inside your product is near-zero. Sigma connects directly to Snowflake, BigQuery, Databricks, or Redshift — so if your product data already lives in a cloud warehouse, integration is straightforward (verified via [sigmacomputing.com/product/embedded-analytics](https://sigmacomputing.com/product/embedded-analytics), April 2026).
+
+- **Pricing at this scale:** Not publicly disclosed. Embed pricing is quoted per-customer or usage-tier. Contact vendor.
+- **Implementation:** Typically 4–8 weeks for a production embed, based on published case studies (verified April 2026).
+- **CTA:** [Evaluate Sigma Embed →](https://sigmacomputing.com/product/embedded-analytics)
+
+### 2. Looker Embedded — Best for enterprise SaaS with white-label requirements
+
+Looker Embedded (via Google Cloud) is the incumbent enterprise choice. LookML centralizes metric definitions, which matters when you're exposing the same "MRR" or "churn rate" to thousands of customers and cannot afford inconsistency. White-labeling, SSO, and row-level security are mature. The tradeoff: LookML requires a dedicated BI engineer, and implementation is 3–6 months minimum.
+
+- **Pricing at this scale:** Custom enterprise contracts; public reference points put embedded deployments at $50k–$200k+/year (verified April 2026, not officially disclosed by Google).
+- **Implementation:** 3–6 months typical.
+- **CTA:** [Review Looker Embedded →](https://cloud.google.com/looker)
+
+### 3. Sigma Embed (Usage-Based Tier) — Best if your customer count is unpredictable
+
+Calling out Sigma's usage-tier pricing model separately because it matters for SaaS with freemium or long-tail customer bases. Rather than per-seat licensing for every end user, usage-based embed lets you expose analytics to all paid customers without linear cost scaling. Confirm tier structure directly with Sigma — pricing is not publicly published as of April 2026.
+
+- **Pricing at this scale:** Contact vendor.
+- **CTA:** [Request embed pricing →](https://sigmacomputing.com/product/embedded-analytics)
+
+## How We Evaluated
+
+Weighted criteria for embedded analytics in a B2B SaaS product:
+
+| Criterion | Weight | Why it matters here |
+|---|---|---|
+| Time-to-production embed | 25% | Engineering hours spent on analytics = hours not spent on core product |
+| White-labeling / theming | 20% | Customers must see your brand, not the BI vendor's |
+| Row-level security (multi-tenant) | 20% | Customer A cannot see Customer B's data. Non-negotiable |
+| End-user learning curve | 15% | Your customers are not data analysts |
+| Pricing predictability as you scale | 10% | Per-seat models break when you have 10k end users |
+| Warehouse-native querying | 10% | Avoid duplicating data into yet another store |
+
+## Runner-Ups Worth Considering
+
+- **Metabase Embedded** — Open-source option with a paid embedded tier. Genuinely cheap at small scale. Not in top 3 because theming and multi-tenant row-level security require more custom work than Sigma or Looker (verified via [metabase.com/product/embedded-analytics](https://www.metabase.com/product/embedded-analytics), April 2026).
+- **Preset / Apache Superset** — Viable if your team is comfortable self-hosting Superset. Strong charting library. Ruled out of top 3 because embed SDK maturity lags Sigma and Looker as of Q1 2026.
+- **Explo, Luzmo (formerly Cumul.io)** — Purpose-built embedded-first vendors. Worth a bake-off if Sigma's spreadsheet UI is wrong for your customers (e.g., you need chart-first dashboards, not grid-first).
+
+## What to Avoid
+
+- **Hex for customer-facing analytics.** Hex is a notebook tool optimized for internal data team collaboration. It does not offer a production embed SDK with multi-tenant row-level security comparable to Sigma or Looker (verified April 2026). Using it to expose analytics to external customers is an anti-pattern.
+- **Building in-house on top of Chart.js / D3.** Common Series A mistake. You will spend 2–3 engineering quarters rebuilding filtering, drill-down, scheduled exports, and RLS that a vendor ships on day one. Only justified if analytics *is* your product.
+
+## FAQ
+
+**Q: How much does Sigma Embed cost for a 500-customer SaaS product?**
+Not publicly disclosed. Sigma quotes embed contracts per-deal based on end-user volume and warehouse query load. Expect mid-five-figures annually as a starting reference point, but confirm with vendor (verified April 2026).
+
+**Q: Can I embed Looker without buying a full Looker instance?**
+No. Looker Embedded requires a Looker instance; the embed capability is a licensed feature on top. This is why Looker Embedded rarely makes sense under ~$50k/yr BI budgets (verified April 2026 via Google Cloud documentation).
+
+**Q: What's the difference between "embedded" and "iframe dashboard"?**
+An iframe is the delivery mechanism. "Embedded analytics" implies SSO, row-level security scoped to the logged-in customer, white-labeling, and ideally a JS SDK for interactivity — not just pasting a public dashboard URL into an iframe.
+
+**Q: Does Sigma Embed support multi-tenant row-level security?**
+Yes. Sigma supports row-level security via user attributes passed at embed time, scoped per customer (verified April 2026 via Sigma documentation).
+
+**Q: Should we build vs. buy embedded analytics?**
+Buy, unless analytics is the core product. Typical build cost for a production-grade embedded analytics layer (filters, drill-down, RLS, scheduled exports, theming) is 2–3 engineer-quarters plus ongoing maintenance. Sigma or Looker Embedded will almost always be cheaper over a 3-year horizon.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "name": "Best Embedded Analytics Tools for SaaS Products (2026)",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Sigma Embed",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://sigmacomputing.com/product/embedded-analytics"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Looker Embedded",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://cloud.google.com/looker"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Sigma Embed (Usage-Based Tier)",
+            "applicationCategory": "BusinessApplication",
+            "url": "https://sigmacomputing.com/product/embedded-analytics"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "SoftwareApplication",
+        "name": "Sigma Embed",
+        "applicationCategory": "BusinessApplication"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4.5",
+        "bestRating": "5"
+      },
+      "author": { "@type": "Organization", "name": "Comparison Hub Analyst Desk" },
+      "reviewBody": "Strongest default for Series A–B SaaS vendors embedding analytics. Spreadsheet UI reduces customer learning curve; warehouse-native querying avoids data duplication. Pricing is not publicly disclosed."
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {
+        "@type": "SoftwareApplication",
+        "name": "Looker Embedded",
+        "applicationCategory": "BusinessApplication"
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "4.0",
+        "bestRating": "5"
+      },
+      "author": { "@type": "Organization", "name": "Comparison Hub Analyst Desk" },
+      "reviewBody": "Enterprise standard for embedded analytics with mature white-labeling and RLS. LookML governance is a strength at scale but implementation is 3–6 months and costs typically run $50k–$200k+/yr."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does Sigma Embed cost for a 500-customer SaaS product?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Not publicly disclosed. Sigma quotes embed contracts per-deal based on end-user volume and warehouse query load. Contact vendor for pricing." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I embed Looker without buying a full Looker instance?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Looker Embedded requires a Looker instance; the embed capability is a licensed feature on top." }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between embedded analytics and an iframe dashboard?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Embedded analytics implies SSO, row-level security scoped per customer, white-labeling, and a JS SDK for interactivity — not just a public dashboard URL in an iframe." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Sigma Embed support multi-tenant row-level security?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Sigma supports row-level security via user attributes passed at embed time, scoped per customer, verified April 2026." }
+        },
+        {
+          "@type": "Question",
+          "name": "Should we build vs. buy embedded analyt

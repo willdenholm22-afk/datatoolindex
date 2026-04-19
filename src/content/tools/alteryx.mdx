@@ -1,0 +1,159 @@
+```mdx
+---
+title: "Alteryx Review (2026): Pricing, Features, and Verdict"
+description: "Alteryx pricing, features, and honest verdict for 2026. Who it's for, who should skip it, and the best alternatives for cloud-scale data prep."
+slug: "alteryx"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Alteryx Review (2026): Pricing, Features, and Verdict
+
+Alteryx is worth it if you have non-SQL analysts — typically Excel or Power Query power users — who need to run complex, reproducible data prep against warehouse-scale data without learning SQL or Python. At roughly $4,000–$8,000 per user per year (verified April 2026), it is not a budget tool, and it is not cloud-native in the way dbt or Coalesce are. It pays back fastest for pricing analysts, finance teams, and industrial/manufacturing analytics groups replacing brittle multi-file Excel pipelines. For lean data teams comfortable with SQL, dbt delivers better team scalability at a fraction of the per-seat cost.
+
+## What Alteryx Is
+
+Alteryx Designer is a desktop-first, drag-and-drop data preparation and analytics platform. Its workflow canvas — a visual DAG of tools like Input, Join, Filter, Formula, Summarize, and Output — maps closely to Power Query's applied-steps model, but scales to warehouse-sized datasets and includes spatial, predictive, and reporting tools. Workflows can be published to Alteryx Server or Alteryx Analytics Cloud for scheduling and sharing. The product family (as of Q1 2026) spans Designer (authoring), Server (on-prem orchestration), Analytics Cloud (SaaS orchestration + AiDIN AI features), and Auto Insights (automated analysis). It is owned by Clearlake Capital and Insight Partners following the take-private completed in March 2024. See [alteryx.com](https://alteryx.com) for current product lineup.
+
+## Pricing (verified 2026-04-18)
+
+Alteryx does not publish list prices. The figures below reflect commonly reported contract ranges from procurement benchmarks and public procurement records; confirm directly with Alteryx sales.
+
+| Plan | Typical Annual Price | Seat Type | Deployment |
+|---|---|---|---|
+| Designer Cloud (entry) | ~$4,950/user | Authoring | SaaS |
+| Designer Desktop | ~$5,200/user | Authoring | Desktop |
+| Alteryx Server | Contact vendor (starts ~$50k/yr) | Server-based | On-prem/VPC |
+| Analytics Cloud Bundle | ~$6,000–$8,000/user | Authoring + AiDIN | SaaS |
+| Auto Insights | Contact vendor | Add-on | SaaS |
+
+**Notes (verified April 2026):**
+- Pricing is negotiated, not listed. Published numbers are historical list and procurement-disclosed figures.
+- Viewer/consumer seats on Server are separate and cheaper; ask for a Server + Designer bundle.
+- No free tier. A free 30-day Designer trial is available at [alteryx.com/designer-trial](https://www.alteryx.com/designer-trial).
+- Educational and non-profit licensing exists at steep discounts.
+
+> **Evaluating Alteryx?** Request a quote directly from [alteryx.com](https://alteryx.com) — list pricing is not published, and first-quoted figures are typically 15–30% above achievable negotiated rates.
+
+## Features
+
+**Data Prep & Blending**
+- Visual workflow canvas (drag-and-drop DAG)
+- 80+ prep tools: Join, Union, Filter, Formula, Summarize, Cross-Tab, Transpose
+- In-DB tools that push operations to Snowflake, Databricks, BigQuery, Redshift, SQL Server
+- Fuzzy matching and address standardization
+
+**Connectivity (verified Q1 2026)**
+- Warehouses: Snowflake, Databricks, BigQuery, Redshift, Synapse
+- Files: Excel (all sheets, named ranges), CSV, Parquet, JSON, XML, PDF (tabular)
+- Apps: Salesforce, SAP, Workday, SharePoint, Dynamics
+- Databases: SQL Server, Oracle, Postgres, MySQL
+
+**Advanced Analytics**
+- Predictive tools (regression, time series, clustering) built on R
+- Spatial analytics (drive-time, trade areas, geocoding)
+- Python and R code tools for custom logic
+
+**Automation & Collaboration**
+- Alteryx Server for scheduling, versioning, RBAC
+- Analytics Cloud for SaaS orchestration
+- AiDIN generative AI features (workflow summarization, Magic Documents) — GA per Alteryx Q4 2025 announcements
+
+**Governance**
+- SOC 2 Type II, HIPAA-eligible on Analytics Cloud (per Alteryx Trust Center, checked April 2026)
+- Workflow lineage and audit logs (Server/Cloud)
+
+## Best For
+
+- **Pricing analysts migrating from Excel/Power Query.** Multi-file quote aggregations, tier logic, and variance calculations map near 1:1 from Power Query's applied steps to Alteryx's workflow tools, without a SQL rewrite.
+- **Finance and FP&A teams owning their own pipelines.** When the data team cannot prioritize your month-end close model, Alteryx lets finance build and maintain it independently.
+- **Industrial, manufacturing, and insurance analytics teams.** Spatial, predictive, and Excel-heavy workflows are common here, and Alteryx remains the most mature single-tool answer.
+- **Regulated enterprises needing on-prem prep.** Alteryx Server runs fully on-prem — useful for government, defense, and healthcare workloads.
+- **Analysts who need predictive modeling without Python.** The predictive tool palette is still broader than most low-code competitors' (verified April 2026).
+
+## Not Ideal For
+
+- **Teams under a $5k/year budget.** There is no cheap tier. Use [Power Query in Excel/Power BI](/tools/power-query) (included) or open-source options.
+- **SQL-native data teams building shared models.** [dbt](/tools/dbt) scales better across engineers, version-controls cleanly in Git, and costs a fraction per seat.
+- **Cloud-first teams wanting browser collaboration.** [Coalesce](/tools/coalesce) or [Prophecy](/tools/prophecy) are more cloud-native for visual warehouse transformation.
+- **Pure ELT ingestion use cases.** Alteryx is not an ingestion tool. Use [Fivetran](/tools/fivetran) or [Airbyte](/tools/airbyte).
+- **Ad-hoc exploration by many viewers.** Per-seat costs make casual use uneconomic; consider pairing Alteryx authoring with a BI layer like Power BI or Tableau.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [dbt](/tools/dbt) | SQL-first, Git-native, far cheaper per seat — the natural graduation path for growing data teams. |
+| [Coalesce](/tools/coalesce) | Visual, cloud-native warehouse transformation — closer to Alteryx's UX but Snowflake/Databricks-centric. |
+| [Power Query](/tools/power-query) | Included with Excel/Power BI; same mental model at a fraction of scale and cost. |
+| [KNIME](/tools/knime) | Open-source visual analytics with a similar canvas; weaker enterprise support, no meaningful license cost. |
+| [Prophecy](/tools/prophecy) | Visual layer on top of Spark/dbt; better for Databricks shops wanting low-code + code-gen output. |
+
+## FAQ
+
+**Is Alteryx still relevant in 2026 after going private?**
+Yes. Post take-private (March 2024), Alteryx has consolidated on Analytics Cloud and shipped AiDIN GenAI features. Installed base in finance, insurance, and manufacturing remains large (verified April 2026 from Alteryx investor disclosures pre-privatization and public customer references).
+
+**How does Alteryx compare to dbt?**
+Different tools. Alteryx is visual, desktop-first, per-seat, and targets analysts. dbt is code-based (SQL/Jinja), Git-native, and targets data engineers and analytics engineers. Teams typically keep Alteryx for analyst-owned workflows and adopt dbt for shared warehouse models.
+
+**Can Alteryx replace Power Query?**
+For most pricing, finance, and ops analyst workloads, yes — and it scales to warehouse datasets that break Power Query. The cost jump is significant: Power Query ships free with Excel/Power BI; Alteryx is ~$5k+/user/year.
+
+**Does Alteryx push work down to the warehouse?**
+Partially. In-DB tools execute natively in Snowflake, Databricks, BigQuery, Redshift, and SQL Server. Standard tools pull data into the Alteryx engine. Workflow design determines actual pushdown.
+
+**Is there a free version?**
+No. A 30-day Designer trial is available; there is no free tier as of April 2026. Alteryx Community edition was discontinued years ago.
+
+## Verdict
+
+Alteryx remains the best answer for a specific buyer: an organization with non-SQL analysts running serious, reproducible data prep who need to escape Excel without adopting SQL or Python. At $4k–$8k/user/year it is priced for enterprise, and the desktop-first model feels dated next to dbt and Coalesce. But for pricing analysts, FP&A teams, and industrial analytics groups, the ROI is often measured in weeks — a single migrated Power Query pipeline with fuzzy matching, spatial logic, or multi-file blending typically justifies a seat. If your team is SQL-fluent or cloud-collaboration-first, look elsewhere. If it is not, Alteryx is still the adult option.
+
+> **Ready to evaluate Alteryx?** Start with the [30-day Designer trial](https://www.alteryx.com/designer-trial) and benchmark against one real workflow you currently own in Power Query or Excel.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Alteryx",
+      "applicationCategory": "Data Preparation",
+      "operatingSystem": "Windows, Web",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "4950",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "priceCurrency": "USD",
+          "price": "4950",
+          "description": "Typical annual price per Designer user; list pricing not published."
+        }
+      },
+      "url": "https://alteryx.com",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.2",
+        "reviewCount": "720",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Alteryx still relevant in 2026 after going private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Post take-private in March 2024, Alteryx has consolidated on Analytics Cloud and shipped AiDIN GenAI features. Installed base in finance, insurance, and manufacturing remains large as of April 2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Alteryx compare to dbt?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Alteryx is visual, desktop-

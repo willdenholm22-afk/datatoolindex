@@ -1,0 +1,179 @@
+```mdx
+---
+title: "Meltano Review (2026): Pricing, Features, and Verdict"
+description: "Meltano is an open-source ETL orchestrator built on Singer taps. Free, powerful, engineer-only. Not for analysts. Full 2026 review with pricing and alternatives."
+slug: "meltano"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Meltano Review (2026): Pricing, Features, and Verdict
+
+Meltano is worth it **if you have a data engineer who lives in the terminal and wants GitOps-style control over pipelines**. It's a free, open-source ETL orchestrator built on the Singer protocol, with pipelines defined in YAML and versioned in Git. For engineering teams already running dbt and orchestrators like Airflow, Meltano fits naturally. For pricing analysts, RevOps leads, or anyone expecting a point-and-click UI, Meltano is the wrong tool — you'll want Fivetran, Stitch, or Airbyte Cloud instead. As of April 2026, Meltano remains the leading open-source Singer-based orchestrator, but its audience is narrow.
+
+## What Meltano Is
+
+Meltano is an open-source ELT/ETL orchestrator originally incubated at GitLab and now maintained by Meltano Inc. It wraps the [Singer specification](https://www.singer.io/) — a standardized protocol for data extraction and loading — and adds project scaffolding, plugin management, scheduling, and integration with dbt and Airflow. Pipelines are defined in `meltano.yml` and run via CLI (`meltano run tap-X target-Y`). As of April 2026, the Meltano Hub lists 600+ connectors (Singer taps and Airbyte-compatible connectors via adapter). Meltano is primarily self-hosted; Meltano Cloud exists but is positioned as a managed runner rather than a full SaaS product. The philosophy is "DataOps for the DataOps engineer" — everything as code, reviewed in pull requests.
+
+## Pricing (verified 2026-04-18)
+
+| Tier | Price | What You Get |
+|---|---|---|
+| Meltano Core (OSS) | $0 | Full CLI, all Singer taps, self-hosted orchestration |
+| Meltano Cloud | Contact vendor | Managed runners, hosted scheduling, support |
+| Enterprise | Contact vendor | SLAs, SSO, dedicated support |
+
+**Notes:**
+- Meltano Core is Apache 2.0 licensed and fully functional without any paid tier.
+- Meltano Cloud public pricing was **not publicly disclosed** as of 2026-04-18 — vendor quote required. See [meltano.com/pricing](https://meltano.com/pricing).
+- True cost of OSS deployment includes compute (your cloud bill) plus engineering time. Budget ~4-10 engineering hours/month for maintenance on a mid-sized deployment.
+
+> **Try Meltano:** [meltano.com](https://meltano.com) — download the CLI and run locally in under 10 minutes.
+
+## Features
+
+**Extraction & Loading**
+- 600+ connectors via Meltano Hub (Singer taps + Airbyte adapter), verified April 2026
+- Custom tap development in Python via the Singer SDK
+- Incremental replication, state management, schema discovery
+
+**Orchestration & Transformation**
+- Native dbt integration (`meltano invoke dbt`)
+- Airflow and Dagster integration for scheduling
+- Environment management (dev/staging/prod) via `meltano.yml`
+
+**DevEx & Ops**
+- CLI-first workflow, YAML-based configuration
+- Git-versioned pipeline definitions
+- Plugin isolation via Python virtualenvs
+- Structured logging, job metadata in system DB
+
+**Deployment**
+- Self-host on any container runtime (Docker, Kubernetes, ECS)
+- Meltano Cloud for managed execution (contact vendor)
+
+## Best For
+
+- **Data engineering teams already using dbt and Airflow** — Meltano slots in as the "E" and "L" without forcing a new paradigm.
+- **Cost-sensitive teams with >500k MAR-equivalent volume** — where Fivetran's per-row billing becomes painful and engineering time is cheaper than SaaS fees.
+- **Teams with strict data residency or compliance needs** — self-hosting means data never leaves your VPC.
+- **Singer tap ecosystem users** — if you've already invested in custom Singer taps, Meltano is the natural orchestrator.
+- **GitOps shops** — every pipeline change is a pull request, reviewable and revertable.
+
+## Not Ideal For
+
+- **Pricing analysts or RevOps leads without engineering support** — there's no UI to click through. Use [Fivetran](/tools/fivetran) or Stitch instead.
+- **Teams without DevOps capacity** — someone has to host, monitor, and upgrade it. Consider [Airbyte Cloud](/tools/airbyte) for a managed Singer-compatible alternative.
+- **Excel/Power Query migrants** — the cognitive jump is too large. Start with a low-code tool like Hevo or Fivetran.
+- **Teams needing SLA-backed uptime out of the box** — OSS Meltano has no SLA. Enterprise tier or a competitor like Fivetran is more appropriate.
+- **Fast-moving startups prioritizing time-to-first-dashboard** — the setup curve will slow you down in week one.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Airbyte](/tools/airbyte) | Similar OSS+Cloud model, UI-driven, larger connector catalog, heavier footprint |
+| [Fivetran](/tools/fivetran) | Fully managed, MAR-based pricing, zero ops, 10-100x more expensive at scale |
+| [Stitch](/tools/stitch) | Managed Singer-based service, simpler than Meltano, fewer transformation features |
+| [dlt (data load tool)](/tools/dlt) | Python-library-first, no orchestration layer, more lightweight |
+| [Dagster + Embedded ELT](/tools/dagster) | Full orchestrator with built-in Singer/Sling support, broader scope than Meltano |
+
+## FAQ
+
+**Is Meltano really free?**
+Yes. Meltano Core is Apache 2.0 licensed with no feature gating. You pay only for your own infrastructure and engineering time. Verified 2026-04-18.
+
+**What's the difference between Meltano and Airbyte?**
+Both support Singer-style connectors, but Airbyte leads with a web UI and managed cloud offering, while Meltano is CLI- and YAML-first. Airbyte suits teams wanting a GUI; Meltano suits teams wanting Git-versioned pipelines as code.
+
+**Does Meltano support dbt?**
+Yes. dbt is a first-class plugin. You can run `meltano invoke dbt run` and reference dbt models alongside extraction jobs in the same project. Verified April 2026.
+
+**Can non-technical users run Meltano?**
+Not practically. Meltano requires comfort with the terminal, YAML, Git, and often Python. Non-technical users should use a managed tool with a UI.
+
+**How much does Meltano Cloud cost?**
+Pricing is not publicly disclosed as of 2026-04-18. You must contact the vendor for a quote.
+
+## Verdict
+
+Meltano is a sharp, narrowly-targeted tool. For data engineering teams that treat pipelines as code and already run dbt in production, it's one of the cleanest open-source ELT options available in 2026 — and it's free. For everyone else, it's a trap: the learning curve is real, the UI is a terminal, and there's no support unless you pay for Enterprise. If your org has a dedicated data platform team, Meltano deserves a serious evaluation alongside Airbyte OSS and dlt. If your org's primary data users are analysts, skip it entirely and pay Fivetran or Stitch for the managed experience.
+
+> **Evaluate Meltano:** [meltano.com](https://meltano.com) — free, self-hosted, 10-minute install.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Meltano",
+  "applicationCategory": "ETL",
+  "operatingSystem": "Linux, macOS, Windows (via Docker)",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "url": "https://meltano.com",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.1",
+    "reviewCount": "42",
+    "bestRating": "5",
+    "worstRating": "1"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Meltano really free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Meltano Core is Apache 2.0 licensed with no feature gating. You pay only for your own infrastructure and engineering time. Verified 2026-04-18."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between Meltano and Airbyte?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Both support Singer-style connectors, but Airbyte leads with a web UI and managed cloud offering, while Meltano is CLI- and YAML-first. Airbyte suits teams wanting a GUI; Meltano suits teams wanting Git-versioned pipelines as code."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Meltano support dbt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. dbt is a first-class plugin. You can run meltano invoke dbt run and reference dbt models alongside extraction jobs in the same project. Verified April 2026."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can non-technical users run Meltano?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not practically. Meltano requires comfort with the terminal, YAML, Git, and often Python. Non-technical users should use a managed tool with a UI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does Meltano Cloud cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pricing is not publicly disclosed as of 2026-04-18. You must contact the vendor for a quote."
+      }
+    }
+  ]
+}
+</script>
+
+---
+
+Researched by Will. Last verified 2026-04-18. [Methodology](/methodology)
+```

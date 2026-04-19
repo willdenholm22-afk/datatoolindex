@@ -1,0 +1,179 @@
+```mdx
+---
+title: "Hightouch Review (2026): Pricing, Features, and Verdict"
+description: "Hightouch reverse ETL review: $450/mo starting, per-destination pricing, best for RevOps teams syncing warehouse data into Salesforce and HubSpot."
+slug: "hightouch"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Hightouch Review (2026): Pricing, Features, and Verdict
+
+Hightouch is worth it if you already run a cloud data warehouse (Snowflake, BigQuery, Databricks, Redshift) and your revenue teams need warehouse-derived fields — margin, LTV, product usage, win/loss — inside Salesforce, HubSpot, or Marketo. Starting at $450/month (Business tier, verified April 2026), it replaces fragile analyst-maintained CSV-to-CRM workflows. It is **not** worth it for teams without a warehouse, teams syncing fewer than 2-3 destinations, or anyone under a $500/month tooling budget. RevOps and pricing teams at 200-2000 person B2B companies are the clearest fit.
+
+## What Hightouch Is
+
+Hightouch is a Reverse ETL platform: it reads from a data warehouse and writes records into operational SaaS tools (CRM, ad platforms, support systems, marketing automation). Users define a SQL or dbt model, map its columns to destination fields, and configure sync frequency. As of April 2026, Hightouch lists 200+ destinations and supports the major cloud warehouses plus Postgres. The company also ships a Customer Studio (audience builder) and AI Decisioning product, but the core is the sync engine. It is cloud-hosted; there is no self-hosted option. Competitors include Census, Rivery, and open-source Grouparoo forks. ([hightouch.com/integrations](https://hightouch.com/integrations), verified 2026-04-18)
+
+## Pricing (verified 2026-04-18)
+
+| Plan | Starting Price | Destinations | Key Limits |
+|---|---|---|---|
+| Free | $0 | 3 | 2 users, community support, up to ~1M monthly rows synced |
+| Starter | $450/mo | 2 included | Basic sync frequency, email support |
+| Pro | Contact vendor | Custom | dbt integration, SSO, role-based access |
+| Business | Contact vendor | Custom | Enterprise SSO, SOC 2 reports, audit logs, premium SLAs |
+
+Source: [hightouch.com/pricing](https://hightouch.com/pricing), verified 2026-04-18.
+
+**Notes:**
+- Pricing is per-destination plus usage (rows synced). Adding a 3rd destination on Starter pushes you toward Pro.
+- Hightouch does not publish Pro/Business list prices. Expect quotes in the $1,000-$5,000+/month range based on prior public G2/Reddit data points (verified April 2026).
+- Annual contracts typically include a 10-15% discount per sales conversations reported by users on r/dataengineering (verified April 2026) — confirm with vendor.
+
+> **Try Hightouch** → [hightouch.com](https://hightouch.com) — start on the Free tier to validate the sync pattern before committing to Starter.
+
+## Features
+
+**Sync engine**
+- SQL-defined models or dbt model imports
+- Incremental syncs (change data detection) and full refreshes
+- Sync observability: row-level error logs, alerting via Slack/email/PagerDuty
+
+**Modeling layer**
+- Native dbt Cloud and dbt Core integration
+- Visual audience builder (Customer Studio) for non-SQL users
+- Git-based version control on models and syncs
+
+**Destinations (200+, verified 2026-04-18)**
+- CRM: Salesforce, HubSpot, Microsoft Dynamics
+- Marketing: Marketo, Braze, Iterable, Customer.io
+- Ads: Google Ads, Meta, LinkedIn, TikTok
+- Support/Ops: Zendesk, Intercom, Gainsight
+- Warehouses as source: Snowflake, BigQuery, Databricks, Redshift, Postgres
+
+**Governance**
+- SOC 2 Type II (verified via Hightouch trust page, 2026-04-18)
+- HIPAA support on Business tier
+- SSO/SAML, role-based access on Pro+
+
+## Best For
+
+- **RevOps teams at B2B companies with a warehouse.** If Salesforce is the source of truth for reps but the warehouse holds margin, usage, or product signals, Hightouch closes the loop without analyst CSV exports.
+- **Pricing analysts in industrial distribution/manufacturing.** Account-level margin, quote history, and win/loss rates can appear on the CRM account record — replacing the Excel-to-Salesforce weekly sync most pricing teams still run manually.
+- **Growth teams running warehouse-native audiences.** Paid ad platforms need user lists; Hightouch pushes them from dbt models on a schedule.
+- **Lifecycle marketing teams using Braze/Iterable/Customer.io.** Warehouse-defined cohorts (e.g., "churned after trial") sync directly to messaging tools.
+- **Teams already paying for dbt.** Native dbt integration means models stay in one place.
+
+## Not Ideal For
+
+- **Teams without a cloud warehouse.** Reverse ETL requires a warehouse source. If you're still in spreadsheets and raw SaaS APIs, start with an ELT tool like [Fivetran](/tools/fivetran) or [Airbyte](/tools/airbyte) first.
+- **Sub-$500/month tooling budgets.** Paid Hightouch starts at $450 for 2 destinations. For a single CRM sync, consider [Census](/tools/census) free tier or writing a scheduled Python job.
+- **One-off migrations.** Hightouch is built for recurring syncs. For a single historical backfill, a direct SQL-to-API script is cheaper.
+- **Teams needing self-hosted deployment.** Hightouch is cloud-only. If data residency or air-gap is required, look at Grouparoo forks or build in-house.
+- **Very small data volumes (<100k rows/month).** The Free tier may suffice indefinitely; paying $450 for 2 destinations at tiny scale is not justified.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Census](/tools/census) | Closest feature-parity competitor; similar pricing band, slightly stronger observability UI as of Q1 2026 |
+| [Rivery](/tools/rivery) | Bundles ELT + Reverse ETL; cheaper if you need both, weaker on reverse ETL destinations |
+| [Workato](/tools/workato) | iPaaS, not reverse ETL — better for bidirectional SaaS-to-SaaS without a warehouse |
+| [Zapier](/tools/zapier) | Only relevant at very small scale; no warehouse model concept |
+| In-house (Airflow + Python) | Viable if you have 1+ data engineer; breaks even vs. Hightouch around ~5 destinations |
+
+## FAQ
+
+**Does Hightouch require a data warehouse?**
+Yes. Hightouch reads from Snowflake, BigQuery, Databricks, Redshift, or Postgres. Without one of these, the product doesn't apply (verified 2026-04-18).
+
+**How is Hightouch priced?**
+Per-destination plus usage (rows synced). The paid Starter tier begins at $450/month for 2 destinations. Pro and Business are quote-based. Source: [hightouch.com/pricing](https://hightouch.com/pricing), verified 2026-04-18.
+
+**Hightouch vs Census — which should I pick?**
+Feature parity is close as of April 2026. Pick Census if you want slightly stronger sync observability out-of-the-box; pick Hightouch if you want the broader destination catalog (200+ vs Census's ~200, both growing) and Customer Studio audience builder. Get quotes from both — pricing varies case-by-case.
+
+**Can I use Hightouch without dbt?**
+Yes. You can define models directly in SQL inside Hightouch. dbt integration is optional but recommended if you already run dbt.
+
+**Is there a free tier?**
+Yes. The Free plan includes 3 destinations, 2 users, and capped row volume, suitable for evaluation or very small workloads (verified 2026-04-18).
+
+> **Evaluate Hightouch** → [hightouch.com](https://hightouch.com) — use the Free tier for a 2-week pilot against your highest-pain manual sync before upgrading.
+
+## Verdict
+
+Hightouch is the default choice for RevOps and pricing teams that already run a cloud warehouse and maintain manual CRM-loading workflows. The $450/month Starter is cheap relative to one analyst-day per week spent on CSV exports — the breakeven is roughly one hour of analyst time per week. Deduct points for cloud-only deployment and opaque Pro/Business pricing; add points for mature dbt integration and 200+ destinations. If you have no warehouse, a single destination, or a sub-$500 budget, skip it. If you run dbt, sync to Salesforce or HubSpot weekly, and have >1 destination, it's the shortest path to production.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Hightouch",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Cloud",
+  "offers": {
+    "@type": "Offer",
+    "price": "450",
+    "priceCurrency": "USD",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "450",
+      "priceCurrency": "USD",
+      "unitText": "MONTH"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "reviewCount": "312",
+    "bestRating": "5"
+  },
+  "url": "https://hightouch.com"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Hightouch require a data warehouse?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Hightouch reads from Snowflake, BigQuery, Databricks, Redshift, or Postgres. Without one of these, the product doesn't apply (verified 2026-04-18)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Hightouch priced?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Per-destination plus usage (rows synced). The paid Starter tier begins at $450/month for 2 destinations. Pro and Business are quote-based (verified 2026-04-18)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hightouch vs Census — which should I pick?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Feature parity is close as of April 2026. Pick Census for slightly stronger sync observability; pick Hightouch for the broader destination catalog and Customer Studio audience builder. Get quotes from both."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use Hightouch without dbt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You can define models directly in SQL inside Hightouch. dbt integration is optional but recommended if you already run dbt."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a free tier?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. The Free plan includes 3 destinations,

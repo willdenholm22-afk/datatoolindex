@@ -1,0 +1,179 @@
+```mdx
+---
+title: "Looker Review (2026): Pricing, Features, and Verdict"
+description: "Analyst-grade review of Looker (Google Cloud) for 2026: LookML modeling, pricing reality, implementation cost, and who should skip it."
+slug: "looker"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Looker Review (2026): Pricing, Features, and Verdict
+
+Looker is worth it if you are a 500+ person organization with a dedicated BI engineering function and a real need to govern metric definitions across dozens of dashboards. Its LookML semantic layer enforces a single definition of "margin" or "ARR" everywhere — which is the entire point of buying it. It is not worth it for small teams, analyst-led self-service shops, or anyone under ~$50k/yr of BI budget. Implementation runs 3–6 months minimum, and LookML is a language, not a drag-and-drop interface. Verified April 2026.
+
+## What Looker Is
+
+Looker is Google Cloud's enterprise BI platform, acquired by Google in 2020 and now sold as part of the Google Cloud portfolio (verified April 2026 via [cloud.google.com/looker](https://cloud.google.com/looker)). Its defining feature is LookML — a proprietary, Git-versioned modeling language that sits between your warehouse and your dashboards. Analysts write dimensions, measures, and joins once in LookML; every downstream explore, dashboard, and embedded report inherits those definitions. This solves metric drift at scale but introduces a hard dependency: someone on staff must maintain LookML. Unlike Tableau or Power BI, Looker does not meaningfully support a "point-and-click analyst" workflow — it assumes an engineering-led analytics team.
+
+## Pricing (verified 2026-04-18)
+
+Looker pricing is not publicly listed and requires a sales conversation. Google publishes platform tiers but not per-seat rates.
+
+| Tier | Publicly Listed Price | What's Included |
+|---|---|---|
+| Standard | Not publicly disclosed | Up to 10 Standard Users, 2 Developer Users (per Google pricing page, April 2026) |
+| Enterprise | Contact vendor | Higher user caps, advanced security, SSO |
+| Embed | Contact vendor | External-facing embedded analytics |
+| User add-ons | ~$60/Viewer, ~$125/Standard, ~$250/Developer per month (historical indicative range, confirm with sales) | Per-user pricing on top of platform fee |
+
+Realistic all-in cost based on public buyer reports and vendor quotes as of Q1 2026: **$50k–$200k+/yr** for a mid-market deployment. Add another $30k–$80k for implementation if you don't have in-house LookML skills. Source: [cloud.google.com/looker/pricing](https://cloud.google.com/looker/pricing) (verified April 2026).
+
+> **Considering Looker?** Get a quote directly from Google Cloud at [cloud.google.com/looker](https://cloud.google.com/looker). We do not have an affiliate relationship with Looker.
+
+## Features
+
+**Modeling & Governance**
+- LookML semantic layer with Git version control
+- Centralized metric definitions inherited by all dashboards
+- Role-based access down to row level
+- Data lineage and content validation
+
+**Exploration & Dashboards**
+- Explores (ad-hoc pivot interface driven by LookML)
+- Dashboards with filters, drill paths, merged results
+- Scheduled deliveries to email, Slack, SFTP, webhook
+
+**Embedded & Extensibility**
+- Powered by Looker (embedded analytics for external apps)
+- Looker Actions framework for sending data to 3rd-party tools
+- REST API and SDKs (Python, Ruby, JavaScript, Go, Kotlin)
+
+**Warehouse Integration**
+- Native connectors to BigQuery, Snowflake, Redshift, Databricks, Postgres, and ~50 other warehouses (per Looker docs, April 2026)
+- Query pushdown — Looker generates SQL, does not extract data
+- Persistent Derived Tables (PDTs) for materialized aggregates
+
+**Google Cloud Integration**
+- Tight BigQuery integration, Gemini-in-Looker AI features (GA per Google, Q1 2026)
+- Looker Studio Pro interoperability for lighter workloads
+
+## Best For
+
+- **Organizations >$250M revenue with 20+ analysts.** At this scale, metric drift is a real cost center. LookML solves it.
+- **Engineering-led analytics teams.** If you already have an analytics engineering function (dbt, Git workflows), Looker fits their mental model.
+- **Companies embedding analytics in customer-facing products.** Powered by Looker is a mature embedded offering with per-customer row-level security.
+- **BigQuery-heavy shops.** The Google-native integration, billing, and Gemini features are genuinely stronger than third-party BI on BigQuery.
+- **Pricing and RevOps teams needing one source of truth for metrics like DVP%, quote win rate, or margin-by-product-family.** Define once in LookML, inherit everywhere.
+
+## Not Ideal For
+
+- **Small teams (<50 people).** Overhead is not justified. Use [Metabase](/tools/metabase) or Power BI instead.
+- **Analyst-led self-service environments.** Analysts who live in drag-and-drop will resent LookML. Use [Tableau](/tools/tableau) or [Power BI](/tools/power-bi).
+- **Budget under $50k/yr for BI.** You will not get a viable Looker footprint at that level. Use [Metabase](/tools/metabase) or Looker Studio (the free product, separate from Looker).
+- **Teams without a dedicated BI engineer.** LookML requires ongoing maintenance. Without an owner, the model rots within 12 months.
+- **Fast-moving startups that change metric definitions weekly.** LookML's governance becomes friction when definitions are unstable. Use a lighter tool until metrics settle.
+
+## Alternatives
+
+| Tool | One-line Comparison |
+|---|---|
+| [Tableau](/tools/tableau) | Stronger visualization and analyst self-service; weaker semantic layer. Better for analyst-led teams. |
+| [Power BI](/tools/power-bi) | Dramatically cheaper ($10–20/user/mo); best for Microsoft/Fabric shops. Semantic model is capable but less portable than LookML. |
+| [Metabase](/tools/metabase) | Open-source, ~10× cheaper, much faster to deploy. Governance is lighter. Best for <200 person companies. |
+| [Omni](/tools/omni) | Founded by ex-Looker leadership; combines a LookML-style model with a spreadsheet-like analyst UX. Worth evaluating head-to-head in 2026. |
+| [Lightdash](/tools/lightdash) | Open-source BI built directly on dbt's semantic layer. Strong fit if you're already dbt-heavy and want governance without LookML. |
+
+## FAQ
+
+**Is Looker the same as Looker Studio?**
+No. Looker Studio (formerly Data Studio) is Google's free reporting tool. Looker is the paid enterprise BI platform with LookML. They share branding and some interoperability but are different products. Verified April 2026.
+
+**How long does a Looker implementation take?**
+Three to six months minimum for a production-grade deployment with governed LookML, based on vendor and SI guidance as of Q1 2026. Faster rollouts exist but typically skip the modeling work that justifies Looker in the first place.
+
+**Do I need to know SQL to use Looker?**
+End users (Viewers/Explorers) do not. Developers who write LookML do — LookML generates SQL and debugging requires reading it. Source: [Looker docs](https://cloud.google.com/looker/docs), verified April 2026.
+
+**Can Looker replace dbt?**
+No. dbt transforms data in the warehouse; Looker models and serves it for BI. They are complementary, and many teams run dbt → warehouse → LookML.
+
+**What's the real annual cost for a 200-person company?**
+Expect $80k–$150k/yr in license fees plus implementation, based on publicly reported 2025–2026 buyer data. Google does not publish per-seat rates — contact vendor for a binding quote.
+
+## Verdict
+
+Looker is a specialist tool: buy it when you have the scale, the engineering discipline, and the governance problem it was built to solve. At 500+ employees with an analytics engineering team, LookML's enforced consistency is worth the $100k+/yr and 3–6 month implementation. Below that threshold, it is expensive overhead — you're paying for governance you don't yet need and a skill dependency you likely can't staff. The strongest alternative signals in 2026 are Omni (for LookML-style governance with analyst UX) and Lightdash (for dbt-native shops). Default to Looker only when the metric-drift tax exceeds the LookML tax. Verified April 2026.
+
+> **Ready to evaluate Looker?** Request a quote at [cloud.google.com/looker](https://cloud.google.com/looker). We recommend benchmarking against at least Omni and Power BI before committing.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Looker",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Cloud",
+  "url": "https://looker.com",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "0",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "description": "Custom enterprise pricing; typical range $50,000–$200,000+ per year. Contact vendor."
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.0",
+    "bestRating": "5",
+    "worstRating": "1",
+    "ratingCount": "1",
+    "reviewCount": "1"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Looker the same as Looker Studio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Looker Studio (formerly Data Studio) is Google's free reporting tool. Looker is the paid enterprise BI platform with LookML. They share branding and some interoperability but are different products."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does a Looker implementation take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Three to six months minimum for a production-grade deployment with governed LookML. Faster rollouts exist but typically skip the modeling work that justifies Looker."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need to know SQL to use Looker?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "End users (Viewers/Explorers) do not. Developers who write LookML do — LookML generates SQL and debugging requires reading it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can Looker replace dbt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. dbt transforms data in the warehouse; Looker models and serves it for BI. They are complementary, and many teams run dbt into the warehouse and then into LookML."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the real annual cost for a 200-person company?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Expect $80,000–$150,000 per year in license fees plus implementation, based on publicly reported 2

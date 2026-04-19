@@ -1,0 +1,175 @@
+```mdx
+---
+title: "Best Power Query Alternative for Cloud Warehouse Workflows (2026)"
+description: "Analyst-grade comparison of dbt, Coalesce, and Alteryx as Power Query replacements for cloud warehouse transformation. Ranked by skill fit, cost, and scale."
+slug: "power-query-alternatives-cloud-warehouse"
+category: "use-case"
+date_published: "2026-04-15"
+date_verified: "2026-04-15"
+author: "Data Tooling Editorial"
+---
+
+# Best Power Query Alternative for Cloud Warehouse Workflows?
+
+**Short answer (verified April 2026):** If you or your team can write SQL, **dbt** is the default choice — free OSS core, warehouse-native, and the industry standard for version-controlled transformation. If you need the Power Query drag-and-drop experience in the cloud and you're on Snowflake, **Coalesce** is the closest visual equivalent. If your analysts don't write SQL and you have a $5k+/user/year budget, **Alteryx** is the most direct conceptual port. Your choice is mostly determined by SQL fluency, not features.
+
+## Ranked Shortlist
+
+### 1. dbt — Best for SQL-comfortable teams
+
+dbt replaces Power Query's "applied steps" model with modular SQL files, each representing a transformation stage. You get version control (Git), automated lineage, and documentation — none of which Power Query offers. The trade-off is real: Power Query's GUI does not translate to Jinja-SQL, and an analyst with solid SQL skills should budget 1–2 weeks of ramp. Below the threshold where Power Query refresh failures cost analyst hours weekly, this investment pays back quickly.
+
+- **Pricing (verified April 2026):** dbt-core is OSS/free. dbt Cloud Developer starts at ~$100/developer/month per [getdbt.com/pricing](https://getdbt.com/pricing).
+- **Deployment:** Hybrid (OSS self-host or dbt Cloud).
+- **CTA:** [Review dbt pricing →](https://getdbt.com/pricing)
+
+### 2. Coalesce — Best for Snowflake teams avoiding SQL
+
+Coalesce is the tool Power Query users usually want: a visual, column-level UI that generates SQL under the hood on Snowflake. Pricing analysts who build multi-step Power Query models (join quote data to backlog, calculate DVP%, group by region) get a conceptually similar workflow canvas without needing SQL fluency on day one. Snowflake-only as of April 2026, and the product is still maturing relative to dbt's ecosystem.
+
+- **Pricing (verified April 2026):** Custom / not publicly disclosed. Contact vendor via [coalesce.io](https://coalesce.io).
+- **Deployment:** Cloud (Snowflake-native).
+- **CTA:** [Request Coalesce pricing →](https://coalesce.io)
+
+### 3. Alteryx — Best for non-SQL analysts with budget
+
+Alteryx Designer's drag-and-drop canvas maps almost concept-for-concept to Power Query's applied steps — merge, filter, group by, pivot, custom formula — on warehouse-scale data without SQL. This is the right bridge tool for pricing/finance analysts with sophisticated Power Query pipelines who cannot wait for SQL training. The trade-offs: desktop-first workflows (not collaborative cloud-native), and pricing in the $4k–$8k/user/year band on contract. Teams typically graduate to dbt once SQL skills mature.
+
+- **Pricing (verified April 2026):** Per-user, typically $4k–$8k/user/year on contract per public procurement data. Confirm with vendor at [alteryx.com](https://alteryx.com).
+- **Deployment:** Hybrid (desktop + server/cloud).
+- **CTA:** [Get Alteryx quote →](https://alteryx.com)
+
+## Comparison Table
+
+| Dimension | dbt | Coalesce | Alteryx |
+|---|---|---|---|
+| Interface | SQL + Jinja | Visual (SQL generated) | Drag-and-drop canvas |
+| SQL required | Yes | No (optional) | No |
+| Starting price | $0 (OSS) / $100/dev/mo | Not disclosed | ~$4k–8k/user/yr |
+| Warehouse support | Snowflake, BigQuery, Redshift, Databricks, Postgres, + | Snowflake only | Snowflake, BigQuery, Redshift, + |
+| Version control | Native (Git) | Built-in | Limited |
+| Cloud-native collaboration | Yes | Yes | No (desktop-first) |
+| Ramp time for Power Query user | 1–2 weeks (w/ SQL) | 2–5 days | 2–5 days |
+
+## How We Evaluated
+
+Criteria weighted for this specific use case — replacing Power Query in a cloud warehouse:
+
+1. **Conceptual fit with Power Query's applied-steps model (25%)** — Can an analyst map existing Power Query logic without rebuilding from scratch?
+2. **SQL skill requirement (20%)** — Most Power Query users are not SQL-fluent. How steep is the curve?
+3. **Warehouse scale handling (15%)** — Power Query chokes above a few million rows; the replacement must not.
+4. **Cost at 1–5 analyst seats (15%)** — Small team economics.
+5. **Version control and lineage (15%)** — Power Query's critical weakness; the replacement should fix it.
+6. **Team scalability (10%)** — Does it survive a data team growing from 2 to 20?
+
+## Runner-Ups Worth Considering
+
+- **Matillion** — Visual ETL with warehouse pushdown; closer to a full ELT platform than a Power Query replacement. Pricing starts around $2/credit (verified April 2026 via [matillion.com](https://matillion.com/pricing)). Worth evaluating if you also need ingestion, not just transformation.
+- **Dataform (Google Cloud)** — SQL-first, similar to dbt, free within GCP. Reasonable fit if you're a BigQuery shop already in Google Cloud, but the community and package ecosystem trail dbt significantly as of Q1 2026.
+
+Both are excluded from the main ranking because neither is a direct Power Query substitute — Matillion is broader, Dataform is narrower in cloud coverage.
+
+## What to Avoid
+
+- **Lifting Power Query .pq files into Power BI dataflows and calling it "cloud."** Dataflows run on Power BI capacity, not your warehouse, and hit the same scale ceilings as desktop Power Query. This is a migration in name only.
+- **Buying Alteryx as a permanent solution for a growing data team.** At 5+ analysts, the per-seat licensing and desktop-first model become a tax on collaboration. Use it as a 12–24 month bridge while building SQL skills, then migrate models to dbt.
+
+## FAQ
+
+**Q: Can I migrate Power Query M code directly to dbt?**
+A: No. M is a functional language; dbt uses SQL + Jinja. Expect to rewrite logic, not translate it. Plan 0.5–1 day per moderately complex query (verified April 2026 based on field reports).
+
+**Q: Is dbt-core really free forever?**
+A: Yes. dbt-core is Apache 2.0 licensed and free to self-host. dbt Cloud (scheduling, IDE, CI) is the paid layer. Verified at [github.com/dbt-labs/dbt-core](https://github.com/dbt-labs/dbt-core), April 2026.
+
+**Q: Does Coalesce work with BigQuery or Redshift?**
+A: Not as of April 2026 — Snowflake only. Confirm roadmap with vendor.
+
+**Q: We're non-SQL analysts on Snowflake. dbt or Coalesce?**
+A: Coalesce, if budget allows. dbt's value is maximized when the team is already comfortable with SQL and Git. Forcing SQL adoption and tool adoption simultaneously is the most common failure mode for Power-Query-to-dbt migrations.
+
+**Q: What about Power BI dataflows Gen2 with compute on Fabric?**
+A: It solves the scale problem on Microsoft's stack but not the version-control, lineage, or warehouse-portability problems. Reasonable if you're fully committed to Fabric; not a serious option if your analytics stack spans Snowflake, BigQuery, or Databricks.
+
+## Author
+
+Written by the Data Tooling editorial team. All pricing, deployment, and feature claims verified against vendor documentation on 2026-04-15. We hold no affiliate relationships with dbt Labs, Coalesce, or Alteryx at time of publication.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ItemList",
+      "name": "Best Power Query Alternatives for Cloud Warehouse Workflows",
+      "itemListOrder": "https://schema.org/ItemListOrderAscending",
+      "numberOfItems": 3,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "dbt",
+            "applicationCategory": "DataTransformation",
+            "url": "https://getdbt.com",
+            "offers": {
+              "@type": "Offer",
+              "price": "100",
+              "priceCurrency": "USD",
+              "description": "dbt Cloud Developer, per developer per month. dbt-core OSS is free."
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Coalesce",
+            "applicationCategory": "DataTransformation",
+            "url": "https://coalesce.io",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "description": "Custom pricing — contact vendor."
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "SoftwareApplication",
+            "name": "Alteryx",
+            "applicationCategory": "DataPreparation",
+            "url": "https://alteryx.com",
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "description": "Per-user, typically $4,000–$8,000/user/year on contract."
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {"@type": "SoftwareApplication", "name": "dbt"},
+      "reviewRating": {"@type": "Rating", "ratingValue": "5", "bestRating": "5"},
+      "author": {"@type": "Organization", "name": "Data Tooling Editorial"},
+      "reviewBody": "Best Power Query replacement for SQL-comfortable teams. Free OSS core, warehouse-native, version-controlled."
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {"@type": "SoftwareApplication", "name": "Coalesce"},
+      "reviewRating": {"@type": "Rating", "ratingValue": "4", "bestRating": "5"},
+      "author": {"@type": "Organization", "name": "Data Tooling Editorial"},
+      "reviewBody": "Closest visual equivalent to Power Query in the cloud, but Snowflake-only as of April 2026."
+    },
+    {
+      "@type": "Review",
+      "itemReviewed": {"@type": "SoftwareApplication", "name": "Alteryx"},
+      "reviewRating": {"@type": "Rating", "ratingValue": "3", "bestRating": "5"},
+      "author": {"@type": "Organization", "name": "Data Tooling Editorial"},
+      "reviewBody": "Direct conceptual port of Power Query

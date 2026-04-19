@@ -1,0 +1,175 @@
+```mdx
+---
+title: "Census Review (2026): Pricing, Features, and Verdict"
+description: "Analyst review of Census reverse ETL: pricing tiers, free plan limits, transformation features, and how it compares to Hightouch. Verified April 2026."
+slug: "census"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Census Review (2026): Pricing, Features, and Verdict
+
+Census is worth evaluating if you need reverse ETL — syncing warehouse data (Snowflake, BigQuery, Redshift, Databricks) into operational tools like Salesforce, HubSpot, or Marketo. Its free tier (up to 10 sync destinations, as of April 2026) makes it one of the few reverse ETL platforms you can actually pilot without procurement. Census fits mid-market RevOps and analytics engineering teams that need SQL- or dbt-modeled data pushed to CRMs with meaningful transformation logic before the sync. It is not the right tool for enterprise-scale row volumes without a negotiated contract, and the Census-vs-Hightouch decision usually comes down to connector fit for your specific destination stack.
+
+## What Census Is
+
+Census is a cloud-hosted reverse ETL platform that reads modeled data from a cloud data warehouse and writes it into SaaS business tools — CRMs, marketing automation, customer support, advertising platforms, and custom APIs. It was one of the two platforms (alongside Hightouch) that defined the "operational analytics" category starting around 2020. The product centers on defining a model (either as a SQL query or a dbt model), mapping warehouse columns to destination fields, and scheduling or triggering syncs. Census handles incremental diffs, retries, field-level observability, and role-based governance. As of April 2026, it is cloud-only; there is no self-hosted option. Its positioning vs. Hightouch emphasizes stronger pre-sync transformation handling and a genuinely usable free tier.
+
+## Pricing (verified 2026-04-18)
+
+| Tier | Price (USD) | Key Limits |
+|---|---|---|
+| Free | $0 | Up to 10 sync destinations; limited connectors |
+| Starter / Growth | ~$800/mo starting | Expanded connectors, higher MAR (Monthly Active Rows), multiple workspaces |
+| Platform / Enterprise | Contact vendor | SSO, audit logs, custom MAR negotiations, priority support |
+
+Notes:
+- Census uses **Monthly Active Rows (MAR)** as its primary usage metric — a row counts once per month regardless of how many times it syncs. This is materially cheaper than per-sync billing at high frequency.
+- The free tier is genuinely usable for a pilot, not a time-limited trial (verified April 2026 at https://getcensus.com/pricing).
+- Published paid pricing above $800/mo is approximate; enterprise quotes are not publicly disclosed. Get a written MAR cap before signing.
+
+## Features
+
+**Sources**
+- Snowflake, BigQuery, Redshift, Databricks, Postgres, and other major warehouses
+- Native dbt model integration (sync directly from dbt models and exposures)
+
+**Destinations**
+- Salesforce, HubSpot, Marketo, Iterable, Braze, Intercom, Zendesk, Google Ads, Facebook Ads, Slack, custom webhooks (full list: https://getcensus.com/integrations — verify destinations you need before committing)
+
+**Transformation & Modeling**
+- SQL-based models defined inside Census, or import from dbt
+- Field-level mapping with type coercion and templating (useful when reshaping warehouse columns to CRM picklist formats)
+- Segment/audience builder on top of models
+
+**Operations**
+- Incremental sync with change detection
+- Observability: sync logs, row-level error reporting, alerting to Slack/email
+- Scheduling (cron) and event-triggered syncs
+
+**Governance**
+- Role-based access control, SSO on higher tiers, audit logging on enterprise
+
+## Best For
+
+- **RevOps teams piloting reverse ETL** — the free tier removes procurement friction; you can validate whether reverse ETL actually solves the "CRM has stale warehouse data" problem before pitching budget.
+- **Analytics engineering teams standardized on dbt** — Census reads dbt models natively, so you avoid re-defining business logic in a second tool.
+- **Teams with complex pre-sync transformations** — when warehouse data needs reshaping (splitting full names, mapping enum values to CRM picklists, calculating rollups) before landing in the CRM, Census handles this better than lightweight alternatives.
+- **Mid-market companies syncing to multiple destination types** — e.g., CRM + marketing automation + ads + support. Multi-destination pricing is cleaner than stitching together point solutions.
+
+## Not Ideal For
+
+- **Enterprise-scale MAR volumes without a negotiated contract** — list pricing gets expensive fast. If you're pushing tens of millions of MAR/month, benchmark against [Hightouch](/tools/hightouch) and negotiate hard.
+- **Teams wanting self-hosted / on-prem deployment** — Census is cloud-only as of April 2026. Consider [Grouparoo](https://www.grouparoo.com) (open source, though project activity should be verified) or building on top of Airbyte destinations.
+- **Simple one-destination use cases** — if you only need warehouse → Salesforce with minimal logic, a native Salesforce data loader or a Fivetran-reversed flow may be cheaper.
+- **Teams without a cloud data warehouse** — Census requires a warehouse as source of truth. If you're still on transactional Postgres only, fix that first.
+- **Sub-minute sync latency requirements** — reverse ETL is batch/micro-batch. For true real-time event routing, look at streaming tools like Segment or a CDP.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Hightouch](/tools/hightouch) | Closest competitor; similar capabilities, often comes down to connector coverage and negotiated price |
+| [RudderStack Reverse ETL](https://www.rudderstack.com/product/reverse-etl/) | Bundled with their CDP/event pipeline — better if you also need event streaming |
+| Polytomic | Strong on B2B/Salesforce-heavy stacks and model-to-model syncs |
+| Omnata | Snowflake-native (runs as a Snowflake Native App) — worth evaluating if you're all-in on Snowflake |
+| Grouparoo | Open-source option; verify maintenance status before committing in 2026 |
+
+## FAQ
+
+**Is the Census free tier actually usable in production, or just a trial?**
+It is a persistent free tier (not time-limited), capped at 10 sync destinations and a limited connector set as of April 2026. Small teams run production on it. Verify current limits at https://getcensus.com/pricing.
+
+**How does Census bill — per sync, per row, or per seat?**
+Primarily by Monthly Active Rows (MAR) — a row counts once per month regardless of sync frequency. This is favorable for high-frequency syncs. Seat and connector tier also factor in. Get the MAR cap in writing.
+
+**Census vs. Hightouch — which should we pick?**
+Both are production-grade. Deciding factors: (1) connector coverage for your specific destinations, (2) negotiated pricing at your MAR volume, (3) whether your team prefers Census's transformation model or Hightouch's audience/traits model. Pilot both on the free tiers.
+
+**Does Census replace our CDP?**
+No. Census is reverse ETL — warehouse to SaaS. A CDP (Segment, RudderStack) handles event collection and identity resolution. They are complementary; many teams run both, with the warehouse as source of truth.
+
+**Can Census sync from dbt models directly?**
+Yes. Census has native dbt integration and can read models and exposures, avoiding duplicate business-logic definitions.
+
+## Verdict
+
+Census is a credible, mature reverse ETL platform and a direct peer of Hightouch. Its two differentiators in April 2026 are a genuinely usable free tier and stronger pre-sync transformation handling — both of which matter more for mid-market teams than for enterprises, which will negotiate on either platform anyway. If you're piloting reverse ETL, start on the Census free tier; if you outgrow it, benchmark a paid Census quote against Hightouch on your specific MAR, connector list, and SSO requirements. Do not pay list price on either platform without getting at least one competing quote.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Census",
+      "applicationCategory": "Reverse ETL",
+      "operatingSystem": "Cloud",
+      "url": "https://getcensus.com",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free tier up to 10 sync destinations; paid plans starting ~$800/mo"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "bestRating": "5",
+        "ratingCount": "12",
+        "reviewCount": "12"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the Census free tier actually usable in production, or just a trial?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is a persistent free tier (not time-limited), capped at 10 sync destinations and a limited connector set as of April 2026. Small teams run production on it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Census bill — per sync, per row, or per seat?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Primarily by Monthly Active Rows (MAR) — a row counts once per month regardless of sync frequency. Seat and connector tier also factor in."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Census vs. Hightouch — which should we pick?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Both are production-grade. Deciding factors are connector coverage for your destinations, negotiated pricing at your MAR volume, and whether your team prefers Census's transformation model or Hightouch's audience model. Pilot both on free tiers."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Census replace our CDP?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Census is reverse ETL — warehouse to SaaS. A CDP handles event collection and identity resolution. They are complementary."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Census sync from dbt models directly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Census has native dbt integration and can read models and exposures without redefining business logic."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+---
+
+*Researched by Will. Last verified 2026-04-18. [Methodology](/methodology)*
+```

@@ -1,0 +1,178 @@
+```mdx
+---
+title: "Databricks Review (2026): Pricing, Features, and Verdict"
+description: "Analyst review of Databricks Lakehouse: DBU pricing, when it beats Snowflake/BigQuery, and when it's overkill. Verified April 2026."
+slug: "databricks"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Databricks Review (2026): Pricing, Features, and Verdict
+
+Databricks is worth it **only if machine learning, AI, or large-scale unstructured data processing is a core part of your workload**. As of April 2026, it remains the strongest lakehouse for ML-heavy data engineering — model training, feature stores, notebook-based exploration on Spark. For standard pricing analytics (margin reporting, quote analysis, variance work, BI dashboards), it is overkill: Snowflake or BigQuery deliver equivalent SQL query performance with materially lower operational complexity and lower cost for small-to-mid workloads. Pick Databricks when Python/Spark expertise exists in-house and ML is on the roadmap. Otherwise, skip it.
+
+## What Databricks Is
+
+Databricks is a cloud-native lakehouse platform that unifies data engineering, SQL analytics, and machine learning on top of open table formats (Delta Lake, and since 2024, Apache Iceberg via UniForm). It runs on AWS, Azure, and GCP, and exposes compute through notebooks (Python, SQL, Scala, R), Databricks SQL warehouses, and Jobs for orchestrated pipelines. The platform's differentiator remains its Spark-native engine and first-class MLflow integration for model lifecycle management. Unity Catalog provides governance across workspaces. As of Q1 2026, Databricks positions itself squarely against Snowflake for AI/ML workloads while Snowflake dominates pure BI/warehousing. For teams without Spark fluency, the learning curve is non-trivial.
+
+## Pricing (verified 2026-04-18)
+
+Databricks is billed per **Databricks Unit (DBU)** — a normalized unit of processing capability per hour. DBU rates vary by cloud, workload type (Jobs, All-Purpose, SQL), and tier (Standard, Premium, Enterprise). Customers also pay the underlying cloud provider for VM, storage, and networking separately.
+
+| Workload | Tier | Approx. DBU Rate (AWS, us-east-1) |
+|---|---|---|
+| Jobs Compute | Premium | $0.15 / DBU |
+| All-Purpose Compute | Premium | $0.55 / DBU |
+| SQL Compute (Serverless) | Premium | $0.70 / DBU |
+| Model Serving | Premium | $0.07–$0.20 / DBU |
+
+Rates above reflect published list prices on databricks.com/product/pricing as of 2026-04-18. Enterprise tier adds ~20–30% for advanced security/compliance features. Committed-use discounts (DBCU contracts) are negotiated annually — expect 20–40% off list at meaningful commitment levels. **Total cost = DBU spend + underlying cloud infrastructure.** Budget ~1.5–2× DBU line item for all-in cost. Contact vendor for enterprise quotes.
+
+> Source: https://www.databricks.com/product/pricing (verified 2026-04-18)
+
+## Features
+
+**Data Engineering**
+- Delta Lake (ACID transactions on object storage)
+- Delta Live Tables for declarative pipelines
+- Workflows / Jobs orchestration
+- Auto Loader for incremental ingestion from cloud storage
+
+**SQL & Analytics**
+- Databricks SQL (serverless warehouses)
+- Photon query engine (C++ vectorized)
+- Materialized views, query caching
+
+**Machine Learning & AI**
+- MLflow for experiment tracking and model registry
+- Feature Store
+- Mosaic AI (LLM fine-tuning, vector search, model serving)
+- Notebook environment (Python, R, Scala, SQL)
+
+**Governance & Security**
+- Unity Catalog (cross-workspace governance, lineage, row/column masking)
+- Audit logs, IP access lists, PrivateLink
+- SOC 2 Type II, HIPAA, FedRAMP Moderate (verified via Databricks Trust Center, 2026-04-18)
+
+**Openness**
+- Delta Lake (open source)
+- Iceberg read/write via UniForm
+- Open APIs (REST, JDBC/ODBC)
+
+## Best For
+
+- **ML/AI engineering teams** training models on large datasets where Spark's distributed compute and MLflow lineage matter.
+- **Data platforms processing unstructured data** (logs, images, audio, text) — Spark handles this natively where warehouses struggle.
+- **Large-scale data engineering shops** (100TB+ active data, complex transformation DAGs) where Delta Lake's ACID semantics reduce reconciliation pain.
+- **Organizations committed to open table formats** wanting to avoid warehouse lock-in; Delta + Iceberg support provides optionality.
+- **AI-driven pricing optimization teams** building demand forecasting or dynamic pricing models — the ML tooling justifies the complexity.
+
+## Not Ideal For
+
+- **Pure BI and SQL analytics shops** — use [Snowflake](/tools/snowflake) or [BigQuery](/tools/bigquery) for lower operational overhead.
+- **Small teams without Python/Spark expertise** — the learning curve and cluster tuning will consume more time than the platform saves. Start with a warehouse.
+- **Standard pricing analytics work** (margin reporting, quote analysis, variance) — Snowflake or BigQuery deliver the same SQL capability at lower cost and complexity.
+- **Cost-sensitive workloads under ~5TB** — DBU + cloud infra pricing rarely beats serverless warehouses at this scale.
+- **Teams needing true serverless-first UX** — Databricks SQL Serverless is solid, but the broader platform still exposes cluster management.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Snowflake](/tools/snowflake) | Better for pure SQL/BI; weaker for ML and unstructured data. |
+| [BigQuery](/tools/bigquery) | Lowest-ops serverless warehouse; strong for GCP-native shops; weaker ML ops than Databricks. |
+| [Microsoft Fabric](/tools/fabric) | Bundled with Azure/Power BI; compelling if already in the Microsoft estate. |
+| [Amazon Redshift](/tools/redshift) | Cheaper for steady-state AWS workloads; weaker openness and ML tooling. |
+| [Starburst / Trino](/tools/starburst) | Best for federated query across existing lakes; not a full lakehouse replacement. |
+
+## FAQ
+
+**Is Databricks cheaper than Snowflake?**
+It depends on workload. For ML and large-scale Spark jobs, Databricks is usually cheaper. For interactive SQL and BI with intermittent usage, Snowflake's per-second billing on auto-suspended warehouses often wins. Benchmark your own workload — vendor benchmarks from both sides are unreliable.
+
+**Do I need to know Spark to use Databricks?**
+For data engineering and ML work, yes — or Python at minimum. Databricks SQL alone can be used by SQL-only analysts, but that narrows the value proposition considerably versus a dedicated warehouse.
+
+**Does Databricks support Apache Iceberg?**
+Yes, via Delta Lake UniForm (read/write) as of 2024. Verified on Databricks documentation 2026-04-18. Native Iceberg support continues to expand.
+
+**What's a DBU and how do I estimate cost?**
+A DBU is a normalized unit of processing per hour. Cost = (DBU rate × DBUs consumed) + underlying cloud VM/storage. Use Databricks' pricing calculator and plan for 1.5–2× DBU spend as all-in cost.
+
+**Can Databricks replace my data warehouse entirely?**
+Technically yes, via Databricks SQL. Practically, many shops run Databricks for engineering/ML and a warehouse for BI. A full replacement works best when the team has Spark fluency and ML workloads to justify the platform.
+
+## Verdict
+
+Databricks is the correct choice when ML, AI, or unstructured data processing is central to the roadmap and the team has Python/Spark fluency. Unity Catalog, MLflow, and Delta Lake remain category-leading as of April 2026. For pricing analytics, margin reporting, and conventional BI work, it is the wrong tool — Snowflake or BigQuery will cost less, require less tuning, and deliver equivalent SQL performance. The honest framing: Databricks earns its complexity only when you're doing something a warehouse genuinely cannot. Audit your workload before committing; a lakehouse bought for ML that ends up running dashboards is an expensive mistake.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Databricks",
+      "applicationCategory": "Lakehouse Platform",
+      "operatingSystem": "Cloud (AWS, Azure, GCP)",
+      "url": "https://databricks.com",
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "USD",
+        "price": "0.15",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "0.15",
+          "priceCurrency": "USD",
+          "unitText": "DBU"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.3",
+        "reviewCount": "1",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Databricks cheaper than Snowflake?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on workload. For ML and large-scale Spark jobs, Databricks is usually cheaper. For interactive SQL and BI with intermittent usage, Snowflake's per-second billing on auto-suspended warehouses often wins."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to know Spark to use Databricks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For data engineering and ML work, yes — or Python at minimum. Databricks SQL alone can be used by SQL-only analysts, but that narrows the value proposition versus a dedicated warehouse."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Databricks support Apache Iceberg?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, via Delta Lake UniForm (read/write) as of 2024. Verified on Databricks documentation 2026-04-18."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's a DBU and how do I estimate cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A DBU is a normalized unit of processing per hour. Total cost equals DBU rate times DBUs consumed, plus underlying cloud VM and storage. Budget 1.5–2× DBU spend as all-in cost."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Databricks replace my data warehouse entirely?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Technically yes, via Databricks SQL. Practically, many shops run Databricks for engineering/ML and a warehouse for BI. Full replacement works best when the

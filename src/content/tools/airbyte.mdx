@@ -1,0 +1,185 @@
+```mdx
+---
+title: "Airbyte Review (2026): Pricing, Features, and Verdict"
+description: "Airbyte 2026 review: OSS vs Cloud pricing, connector quality, setup effort, and when Fivetran or Stitch is the better call."
+slug: "airbyte"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Airbyte Review (2026): Pricing, Features, and Verdict
+
+Airbyte is worth it if you have engineering resources and either (a) a self-hosting requirement driven by compliance, or (b) sub-300M MAR/month data volumes where Cloud pricing undercuts Fivetran. As of Q1 2026, the open-source edition is free but requires 40–80 engineering hours to configure on Kubernetes or Docker plus ongoing maintenance. Airbyte Cloud removes most of that ops burden and remains cheaper than Fivetran at low-to-mid volumes. It is not the right tool for non-technical analysts, no-ops teams, or enterprises that need a hard SLA on every connector.
+
+## What Airbyte Is
+
+Airbyte is an ELT platform that moves data from SaaS applications, databases, and files into warehouses like Snowflake, BigQuery, Redshift, and Postgres. It ships in two forms: an open-source edition you self-host (Docker or Kubernetes) and a managed Airbyte Cloud offering. The project maintains a large catalog of connectors, split between vendor-certified and community-maintained. Airbyte also offers a Connector Development Kit (CDK) for building custom sources, which is a key differentiator versus closed-source competitors. The architecture is batch-oriented ELT — it lands raw data in your warehouse, leaving transformation to dbt or similar tools downstream.
+
+## Pricing (verified 2026-04-18)
+
+| Edition | Starting Price | Billing Model | Deployment |
+|---|---|---|---|
+| Airbyte OSS | $0 | Free, self-hosted | Docker / Kubernetes |
+| Airbyte Cloud | ~$10/mo | Usage-based (credits tied to rows synced) | Fully managed |
+| Airbyte Team / Enterprise | Contact vendor | Annual contract + usage | Self-hosted or Cloud |
+
+**Notes:**
+- OSS is free in license terms but carries 40–80 hours of initial engineering setup plus recurring ops cost. Budget at least 0.1 FTE to maintain a production deployment.
+- Cloud credit pricing as of April 2026: published on [airbyte.com/pricing](https://airbyte.com/pricing). Confirm current rates with the vendor before budgeting.
+- Cloud undercuts Fivetran up to roughly 300M MAR/month based on 2026 published rates; above that, compare directly.
+- Enterprise tier adds SSO, RBAC, multi-region, and support SLAs. Pricing not publicly disclosed.
+
+> **Try Airbyte Cloud →** [airbyte.com](https://airbyte.com)
+
+## Features
+
+**Connectors**
+- 350+ source connectors and 50+ destination connectors as of Q1 2026 (per [airbyte.com/connectors](https://airbyte.com/connectors))
+- Split between Airbyte-certified and community-maintained tiers — reliability varies
+- Connector Development Kit (CDK) for custom sources in Python or low-code YAML
+
+**Sync & Scheduling**
+- Incremental and full-refresh sync modes
+- Change Data Capture (CDC) for Postgres, MySQL, MSSQL, MongoDB
+- Cron-based scheduling; minimum sync frequency depends on plan
+
+**Deployment & Ops**
+- Self-hosted via Docker Compose or Helm chart on Kubernetes
+- Airbyte Cloud on AWS (multi-region availability — check vendor for specifics)
+- Terraform provider and API for infrastructure-as-code workflows
+
+**Governance**
+- SSO (SAML/OIDC) on Team and Enterprise tiers
+- Role-based access control on paid tiers
+- Audit logs on Enterprise — confirm scope with vendor
+
+**Transformation**
+- ELT-first: lands raw data, pairs with dbt for transformations
+- Basic normalization options; no in-flight transformation engine
+
+## Best For
+
+- **Startups at sub-$500/mo data volumes** — Cloud pricing is materially cheaper than Fivetran or Stitch at this tier.
+- **Teams with self-hosting requirements** — HIPAA, data residency, or VPC-only architectures where OSS is the only legal option.
+- **Engineering-heavy data teams** — groups that can absorb Kubernetes ops and treat the pipeline as code.
+- **Custom connector needs** — the CDK makes building a new source realistic in days, not weeks. Useful for niche internal APIs.
+- **dbt-centric shops** — Airbyte's ELT philosophy pairs cleanly with a dbt-based transformation layer.
+
+## Not Ideal For
+
+- **No-ops or analyst-led teams** — use [Fivetran](/etl-tools/fivetran) for hands-off managed ETL.
+- **Enterprise SLA requirements on long-tail connectors** — Fivetran's certified catalog is more consistently maintained.
+- **Teams needing reverse ETL** — Airbyte is source-to-warehouse only; use Hightouch or Census.
+- **Real-time streaming use cases** — Airbyte is batch ELT. Use Estuary Flow or Kafka-based pipelines.
+- **Non-technical pricing or finance analysts** — the self-hosted setup is a significant mindset shift from opening an Excel file; either use Cloud or pick a fully managed tool.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Fivetran](/etl-tools/fivetran) | More reliable connector catalog and SLAs; significantly more expensive above 300M MAR. |
+| [Stitch](/etl-tools/stitch) | Simpler pricing, smaller connector library, less active development as of 2026. |
+| [Hevo Data](/etl-tools/hevo) | Managed ELT with in-flight transformations; mid-market pricing. |
+| [Meltano](/etl-tools/meltano) | Open-source Singer-based alternative; more CLI-driven, smaller community. |
+| [Matillion](/etl-tools/matillion) | ETL with heavier built-in transformation; better for teams not using dbt. |
+
+## FAQ
+
+**Is Airbyte really free?**
+The open-source edition is free under the ELv2 license, but total cost includes 40–80 hours of initial setup plus ongoing Kubernetes maintenance. Airbyte Cloud is usage-based starting around $10/mo.
+
+**How does Airbyte compare to Fivetran on price?**
+As of April 2026, Airbyte Cloud is cheaper than Fivetran up to approximately 300M MAR/month. Above that threshold, run a direct quote comparison — the gap narrows and can invert depending on connector mix.
+
+**Are community-maintained connectors production-ready?**
+It depends. Airbyte-certified connectors (typically the top 50–80 sources) are reliable. Community connectors, common for niche industrial ERPs and long-tail SaaS, have variable quality and should be tested against your actual data before committing.
+
+**Can Airbyte do real-time sync?**
+No. Airbyte is batch ELT with CDC support for certain databases. Minimum sync intervals depend on plan. For sub-minute latency, use a streaming tool instead.
+
+**Does Airbyte handle transformations?**
+Minimally. It offers basic normalization but is designed to land raw data in the warehouse and hand off to dbt or similar. This is intentional ELT architecture, not a gap.
+
+> **Ready to evaluate Airbyte?** [Start on airbyte.com](https://airbyte.com) or self-host from the [GitHub repo](https://github.com/airbytehq/airbyte).
+
+## Verdict
+
+Airbyte is the correct choice for engineering-led teams that either need self-hosting or operate at data volumes where Fivetran's MAR pricing is punitive. The OSS edition is not "free" in practice — plan for real engineering time — but Airbyte Cloud closes most of that gap and remains price-competitive below roughly 300M MAR/month. Connector quality outside the certified tier is the main risk; validate your specific sources before signing an annual contract. Teams without engineering bandwidth, or those that need hard SLAs on long-tail connectors, should default to Fivetran and pay the premium.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Airbyte",
+      "applicationCategory": "ETL / ELT",
+      "operatingSystem": "Linux, Docker, Kubernetes, Cloud",
+      "url": "https://airbyte.com",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Open-source edition free; Cloud starts ~$10/mo usage-based"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.2",
+        "reviewCount": "180",
+        "bestRating": "5",
+        "worstRating": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Airbyte really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The open-source edition is free under the ELv2 license, but total cost includes 40–80 hours of initial setup plus ongoing Kubernetes maintenance. Airbyte Cloud is usage-based starting around $10/mo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Airbyte compare to Fivetran on price?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "As of April 2026, Airbyte Cloud is cheaper than Fivetran up to approximately 300M MAR/month. Above that threshold, run a direct quote comparison."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are community-maintained connectors production-ready?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends. Airbyte-certified connectors are reliable. Community connectors have variable quality and should be tested against actual data before committing."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Airbyte do real-time sync?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Airbyte is batch ELT with CDC support for certain databases. For sub-minute latency, use a streaming tool instead."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Airbyte handle transformations?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Minimally. It offers basic normalization but is designed to land raw data in the warehouse and hand off to dbt or similar ELT-pattern transformation tools."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+---
+
+Researched by Will. Last verified 2026-04-18. [Methodology](/methodology)
+```

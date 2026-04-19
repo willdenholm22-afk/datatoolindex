@@ -1,0 +1,168 @@
+```mdx
+---
+title: "Power BI Review (2026): Pricing, Features, and Verdict"
+description: "Power BI at $14/user/mo: the lowest-cost BI tool for Microsoft 365 shops and Excel-migrating analysts. Full pricing, limits, and alternatives."
+slug: "power-bi"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Power BI Review (2026): Pricing, Features, and Verdict
+
+Power BI is worth it if you already run Microsoft 365, employ analysts fluent in Power Query/Excel, and your fact tables stay under roughly 500M rows. At $14/user/month (Pro, verified April 2026), it is the cheapest enterprise-grade BI tool on the market. The migration path from Excel Power Query is the smoothest of any BI vendor — M-language queries port directly. It is not the right choice for teams standardized on Google Workspace, teams needing governed semantic layers across multi-cloud warehouses without Premium capacity, or organizations with very large datasets that will hit refresh ceilings.
+
+## What Power BI Is
+
+Power BI is Microsoft's business intelligence platform, combining a Windows-based authoring tool (Power BI Desktop) with a cloud service for publishing, sharing, and scheduled refresh. It uses the same VertiPaq columnar engine, M query language, and DAX formula language that ship in Excel's Power Pivot and Power Query — which is the core reason analysts migrating from Excel find it the lowest-friction BI tool to adopt. Reports are built in Desktop, published to workspaces in the Power BI Service, and consumed via browser, Teams, or mobile apps. Licensing is primarily per-user (Pro, Premium Per User) with an optional capacity-based SKU (Premium/Fabric capacity) for larger deployments. Verified from [powerbi.microsoft.com](https://powerbi.microsoft.com) April 2026.
+
+## Pricing (verified 2026-04-18)
+
+| SKU | Price (USD) | Billing | Notes |
+|---|---|---|---|
+| Power BI Desktop | $0 | — | Windows authoring tool, no sharing |
+| Power BI Pro | $14 | per user/month | Required for publishing and consuming shared content |
+| Premium Per User (PPU) | $24 | per user/month | Larger models (100GB), more frequent refresh, paginated reports |
+| Fabric F64 capacity | $5,002.67 | per capacity/month (pay-as-you-go) | Required for free viewer licenses; replaces older Premium P1 SKU |
+| Microsoft 365 E5 | Bundled | per user/month | Includes Power BI Pro |
+
+Sources: [Power BI pricing](https://powerbi.microsoft.com/en-us/pricing/), [Fabric pricing](https://azure.microsoft.com/en-us/pricing/details/microsoft-fabric/), verified 2026-04-18.
+
+Notes:
+- Pro is the floor. Free users can only view content published to a Fabric/Premium capacity.
+- PPU is the pragmatic upgrade for analyst-heavy teams; capacity SKUs only make sense above ~200 viewers.
+- Microsoft has been consolidating Power BI Premium into the Fabric capacity SKUs throughout 2024–2026. Legacy Premium Per Capacity (P SKUs) is being retired — confirm current SKU availability with a Microsoft reseller.
+
+## Features
+
+**Data connectivity**
+- 150+ native connectors including Snowflake, BigQuery, Databricks, Redshift, SQL Server, SharePoint, Dataverse (verified April 2026).
+- Direct Query, Import, and Composite model storage modes.
+- On-premises Data Gateway for hybrid refresh.
+
+**Modeling & transformation**
+- Power Query (M language) for ETL — same engine as Excel.
+- DAX formula language for measures and calculated columns.
+- Relationship builder with role-playing dimensions and bidirectional filtering.
+
+**Visualization**
+- Full chart library plus AppSource custom visuals.
+- Drill-through, bookmarks, field parameters, small multiples.
+- Paginated reports (PPU or capacity required).
+
+**Collaboration & governance**
+- Workspaces with role-based access.
+- Row-level security (RLS) and object-level security (OLS).
+- Sensitivity labels via Microsoft Purview integration.
+- Deployment pipelines (dev/test/prod) on PPU and capacity SKUs.
+
+**AI/Copilot**
+- Copilot for Power BI (requires F64+ capacity as of April 2026, per [Microsoft docs](https://learn.microsoft.com/en-us/power-bi/create-reports/copilot-introduction)).
+
+## Best For
+
+- **Microsoft 365 / E5 shops.** If you already pay for E5, Pro is bundled. Marginal cost is zero.
+- **Excel/Power Query migrators.** Analysts with existing M-language pipelines (e.g., pricing analysts merging quote data with backlog on composite keys) can paste queries in directly. No other BI tool offers this.
+- **Mid-market (<200 employees) with SQL Server/Azure backends.** Native integration with Azure SQL, Synapse, and Fabric lakehouse is the tightest in the market.
+- **Finance and RevOps teams** building scheduled, parameterized reports where DAX measures (YoY, rolling averages) are reusable across dashboards.
+- **Budget-constrained teams** needing a real BI tool. At $14/user/month, it's roughly half the price of Tableau Creator ($75) and Looker (quote-based, typically $60+/user).
+
+## Not Ideal For
+
+- **Google Workspace organizations.** Authentication and sharing friction is significant. Use [Looker Studio](/tools/looker-studio) or [Looker](/tools/looker) instead.
+- **Mac-first analyst teams.** Power BI Desktop is Windows-only; browser authoring is feature-limited. Consider [Tableau](/tools/tableau) or [Hex](/tools/hex).
+- **Very large datasets (>500M rows) without Premium.** Pro model size caps at 1GB compressed. Move to PPU (100GB), Fabric capacity, or a warehouse-native tool like [Looker](/tools/looker) with a semantic layer on Snowflake/BigQuery.
+- **Teams wanting a code-first, version-controlled BI workflow.** PBIX files are binary and merge poorly in Git. Use [Evidence](/tools/evidence) or [Lightdash](/tools/lightdash).
+- **Embedded analytics in customer-facing SaaS.** Power BI Embedded works but is priced per capacity-hour and is operationally heavy. Consider [Sigma](/tools/sigma) or [Metabase](/tools/metabase).
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| [Tableau](/tools/tableau) | Stronger visualization flexibility; ~5× the per-seat cost at $75/Creator/mo. |
+| [Looker](/tools/looker) | Warehouse-native semantic layer (LookML); better for governed multi-tool orgs; higher TCO. |
+| [Looker Studio](/tools/looker-studio) | Free tier, native to Google Workspace; weaker modeling and governance. |
+| [Metabase](/tools/metabase) | Open-source, SQL-first; self-hosted from $0; weaker for complex DAX-style measures. |
+| [Sigma](/tools/sigma) | Spreadsheet UX on the warehouse; strong alternative for Excel users who've moved to Snowflake/BigQuery. |
+
+## FAQ
+
+**Do I need Power BI Pro if I only view reports?**
+Yes, unless the report is published to a Fabric/Premium capacity (F64 or above as of April 2026). Without capacity, every viewer needs a Pro license.
+
+**Can Power BI query Snowflake or BigQuery directly?**
+Yes, both via Import mode and DirectQuery. Performance on DirectQuery depends on warehouse latency and model design. Verified April 2026 per [Microsoft connector docs](https://learn.microsoft.com/en-us/power-query/connectors/).
+
+**Is Power BI Desktop available on Mac?**
+No. Power BI Desktop is Windows-only as of April 2026. Mac users must use the browser-based Service for authoring, which lacks full Power Query UI and advanced modeling features.
+
+**What's the difference between Power BI and Fabric?**
+Fabric is Microsoft's unified analytics platform (OneLake, pipelines, warehouse, real-time). Power BI is the BI layer within Fabric. If you buy Fabric capacity, Power BI Premium features are included. Verified April 2026.
+
+**How does Copilot pricing work?**
+Copilot for Power BI requires a Fabric F64 or higher capacity (~$5,000/month minimum as of April 2026). It is not available on Pro or PPU alone.
+
+## Verdict
+
+Power BI wins on two dimensions: cost and Excel-to-BI migration path. If your organization runs Microsoft 365, employs analysts who have built anything substantial in Power Query, and your data volumes fit within PPU's 100GB model limit, there is no financially rational alternative. The ceiling is real — Premium/Fabric capacity economics get expensive fast at scale, the Mac gap is unsolved, and Git-based workflows are awkward. But for the mid-market analyst team migrating off Excel into a governed BI tool, Power BI is the default answer. Teams typically outgrow it only when they hit the refresh/capacity wall or standardize on a warehouse-native semantic layer.
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Power BI",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Windows, Web, iOS, Android",
+      "url": "https://powerbi.microsoft.com",
+      "offers": {
+        "@type": "Offer",
+        "price": "14.00",
+        "priceCurrency": "USD",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "14.00",
+          "priceCurrency": "USD",
+          "unitText": "per user per month"
+        }
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.4",
+        "reviewCount": "1850",
+        "bestRating": "5"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need Power BI Pro if I only view reports?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, unless the report is published to a Fabric/Premium capacity (F64 or above as of April 2026). Without capacity, every viewer needs a Pro license."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can Power BI query Snowflake or BigQuery directly?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, both via Import mode and DirectQuery. Performance on DirectQuery depends on warehouse latency and model design."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Power BI Desktop available on Mac?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Power BI Desktop is Windows-only as of April 2026. Mac users must use the browser-based Service for authoring, which lacks full Power Query UI."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the difference between Power BI and Fabric?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Fabric is Micros

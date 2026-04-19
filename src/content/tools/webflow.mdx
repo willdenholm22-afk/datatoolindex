@@ -1,0 +1,201 @@
+```mdx
+---
+title: "Webflow Review (2026): Pricing, Features, and Verdict"
+description: "Analyst review of Webflow pricing, features, and alternatives for marketing sites. Verified April 2026. Honest take on where it wins and where Astro beats it."
+slug: "webflow"
+last_verified: "2026-04-18"
+author: "Will"
+---
+
+# Webflow Review (2026): Pricing, Features, and Verdict
+
+Webflow is worth it if you need a designer-controlled marketing site with a CMS, and you do not have a front-end developer on staff. As of April 2026, it is the strongest visual builder for producing clean semantic HTML/CSS without code. It is not worth it if you are running a large e-commerce catalog, need open-source control, or are publishing 500+ programmatic SEO pages — Astro or Next.js with a headless CMS will be cheaper and more flexible. For a 5-50 page marketing site built by a design-led team, Webflow pays for itself in saved developer hours.
+
+## What Webflow Is
+
+Webflow is a cloud-based visual website builder that generates production HTML, CSS, and JavaScript through a designer-style canvas mapped to the CSS box model. Unlike template-based builders (Wix, Squarespace), it exposes flexbox, grid, classes, and custom breakpoints directly, so the output is close to what a front-end developer would hand-code. It bundles hosting (on AWS/Fastly as of April 2026 per Webflow's infrastructure docs), a visual CMS with reference fields, forms, and native e-commerce. Code export is available on higher plans. The product's core trade-off, verified April 2026: you get rapid design iteration and a real CMS without developers, but you are locked into Webflow's hosting and pricing model per site.
+
+## Pricing (verified 2026-04-18)
+
+Webflow separates **Site plans** (per published site) from **Workspace plans** (per team/seat). Most buyers need both.
+
+### Site Plans (per site, billed annually)
+
+| Plan | Price/mo | CMS Items | Bandwidth | Use Case |
+|---|---|---|---|---|
+| Basic | $14 | 0 | 50 GB | Static brochure site |
+| CMS | $23 | 2,000 | 200 GB | Blog / marketing site |
+| Business | $39 | 10,000 | 400 GB | High-traffic marketing site |
+| Enterprise | Contact vendor | Custom | Custom | SSO, SLA, custom CDN |
+
+### Workspace Plans (per team)
+
+| Plan | Price | Seats | Unhosted sites |
+|---|---|---|---|
+| Starter | $0 | 1 | 2 |
+| Core | $19/seat/mo | Unlimited | 10 |
+| Growth | $49/seat/mo | Unlimited | Unlimited |
+| Enterprise | Contact vendor | Unlimited | Unlimited |
+
+**Notes (verified April 2026 from webflow.com/pricing):**
+- E-commerce plans are separate and start at $29/mo (Standard) with 2% transaction fees.
+- Monthly billing is ~20% more than annual.
+- Localization (multi-language) is a paid add-on, priced per locale as of April 2026.
+- The published $14 Basic plan has **no CMS** — most buyers end up on CMS ($23) or Business ($39).
+
+> **Try Webflow →** Start on the free Starter workspace; upgrade when you publish. [webflow.com](https://webflow.com)
+
+## Features
+
+**Design & Build**
+- Visual canvas with direct flexbox/grid control
+- Class-based styling (reusable like CSS)
+- Responsive breakpoints including custom breakpoints (verified April 2026)
+- Interactions & animations without JS
+- Custom code embeds (head/body/page-level)
+
+**CMS**
+- Visual collection modeling with reference and multi-reference fields
+- Up to 10,000 items on Business plan
+- CMS API for read/write (rate-limited; see developers.webflow.com)
+
+**Hosting & Performance**
+- Global CDN via Fastly/AWS (per Webflow docs, April 2026)
+- Automatic SSL, asset compression, HTTP/2
+- 99.99% uptime SLA on Enterprise only
+
+**Collaboration**
+- Editor mode for non-designers to edit copy
+- Page branching and staging (Growth/Enterprise workspaces, April 2026)
+- Role-based permissions
+
+**E-commerce** (separate plan)
+- Native cart, checkout, Stripe/PayPal
+- Not recommended above ~1,000 SKUs
+
+## Best For
+
+- **Design-led marketing teams (10-200 employees)** — the visual fidelity and class system let one designer ship what would otherwise need a designer + front-end dev.
+- **Agencies building 5-50 client sites/year** — the Workspace model and client billing transfer are purpose-built for this.
+- **Founders launching a polished marketing site pre-Series A** — faster to a good-looking production site than Next.js + headless CMS, with no ops.
+- **Content teams that need a real CMS without Git** — editors can publish without touching a deploy pipeline.
+
+## Not Ideal For
+
+- **Large e-commerce (>1,000 SKUs or complex catalogs)** — use [Shopify](/tools/shopify) instead.
+- **Programmatic SEO sites with 500+ pages or dynamic data** — Astro + a structured data source (D1, Supabase) is 5-10x cheaper at scale and more flexible. Webflow CMS API rate limits become a bottleneck.
+- **Teams wanting open-source or self-hosted** — consider Astro, Next.js, or Payload CMS.
+- **Apps with authenticated users or dashboards** — Webflow is a site builder, not an app framework. Use Next.js.
+- **Budget-constrained solo projects** — a static Astro site on Cloudflare Pages costs ~$0/mo vs. $23-39/mo for Webflow CMS.
+
+## Alternatives
+
+| Tool | One-line comparison |
+|---|---|
+| **Astro** | Open-source, free hosting on Cloudflare/Vercel, best for content-heavy sites; requires dev skills. |
+| **Framer** | Closer design parity to Figma, weaker CMS than Webflow as of April 2026. |
+| **WordPress** | More plugins and cheaper, but you own the maintenance and security patches. |
+| **Squarespace** | Simpler and cheaper ($16-49/mo April 2026), but far less design control. |
+| **Next.js + Sanity** | Most flexible; requires a developer and ~2-4 weeks of setup. |
+
+## FAQ
+
+**Is Webflow actually code-free?**
+Yes for 90% of use cases, as of April 2026. You can ship a full marketing site without writing code, though custom embeds and API calls require HTML/JS knowledge.
+
+**Can I export my site from Webflow?**
+Yes, code export (HTML/CSS/JS) is available on Workspace plans Core and above as of April 2026. CMS content is not included in the export — you'd need to fetch it via the CMS API.
+
+**How does Webflow compare to Astro for a comparison/directory site?**
+Webflow is faster to launch (days vs. weeks) but at >200 pages or with dynamic data, Astro is significantly cheaper (near-zero hosting) and has no CMS API rate limits. For datatoolindex-style sites, Astro is the better fit as of April 2026.
+
+**Does Webflow support SSO?**
+Only on the Enterprise plan as of April 2026. Pricing is not public — contact vendor.
+
+**What are the real total costs for a typical marketing site?**
+Verified April 2026: CMS site plan ($23/mo annual) + Core workspace ($19/seat/mo) = ~$42/mo for a single-editor setup, before e-commerce or localization add-ons.
+
+## Verdict
+
+Webflow earns its price for design-led marketing teams and agencies. As of April 2026, nothing else combines real CSS-grade design control with a usable CMS and zero-ops hosting. The weaknesses are predictable: it is expensive per site, the CMS API has rate limits that hurt programmatic SEO, and you are locked into Webflow's infrastructure. If you have a front-end developer and a content-heavy site, Astro plus a cheap database will cost 10% of Webflow at scale. If you don't, and you need to ship a credible marketing site in two weeks, Webflow is the right answer.
+
+> **Try Webflow →** [webflow.com](https://webflow.com) — Free Starter workspace, no credit card required (verified April 2026).
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "Webflow",
+      "applicationCategory": "WebApplication",
+      "operatingSystem": "Cloud",
+      "description": "Visual website builder generating clean HTML/CSS with a built-in CMS, hosting, and native e-commerce.",
+      "url": "https://webflow.com",
+      "offers": {
+        "@type": "Offer",
+        "price": "14",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2026-12-31"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.3",
+        "bestRating": "5",
+        "worstRating": "1",
+        "ratingCount": "1"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Webflow actually code-free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes for 90% of use cases, as of April 2026. You can ship a full marketing site without writing code, though custom embeds and API calls require HTML/JS knowledge."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I export my site from Webflow?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, code export (HTML/CSS/JS) is available on Workspace plans Core and above as of April 2026. CMS content is not included in the export and must be fetched via the CMS API."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Webflow compare to Astro for a comparison site?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Webflow is faster to launch but at over 200 pages or with dynamic data, Astro is significantly cheaper and has no CMS API rate limits. As of April 2026, Astro is the better fit for directory-style sites."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Webflow support SSO?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only on the Enterprise plan as of April 2026. Pricing is not publicly disclosed; contact vendor."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What are the real total costs for a typical marketing site?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Verified April 2026: CMS site plan ($23/mo annual) plus Core workspace ($19/seat/mo) totals about $42/mo for a single-editor setup, before e-commerce or localization add-ons."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+---
+
+*Researched by Will. Last verified 2026-04-18. [Methodology](/methodology)*
+```
